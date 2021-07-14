@@ -1,7 +1,7 @@
 {
   "admin.app.example": {
     "component": "AdminExample",
-    "path": "/admin/app/example"
+    "path": "/admin/app/badges"
   },
   "admin.app.example-detail": {
     "component": "AdminExampleDetail",
