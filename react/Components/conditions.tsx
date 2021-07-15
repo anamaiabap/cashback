@@ -22,7 +22,6 @@ const ConditionsArea: FC = () => {
       <Card>
         <Conditions
           canDelete
-          isFullWidth
           onChangeOperator={handleToggleOperator}
           onChangeStatements={(statements: any) => {
             setConditions({
@@ -32,7 +31,7 @@ const ConditionsArea: FC = () => {
           }}
           operator={conditions.operator}
           options={options}
-          subjectPlaceholder="Select subject"
+          subjectPlaceholder="Selecione a regra"
           statements={conditions.simpleStatements}
         />
       </Card>
