@@ -21,6 +21,7 @@ export function ComplexDropdownObject({
   if (name === 'product') options = provider.nameProducts
   if (name === 'sku') options = provider.nameSku
   if (name === 'brand') options = provider.nameBrands
+  if (name === 'collection') options = provider.nameCollections
 
   return (
     <Dropdown

@@ -58,4 +58,20 @@ export class Products extends JanusClient {
 
     return names
   }
+
+  public async getCollectionsNames(workspace: string) {
+    const names: string[] = []
+
+    const value = await this.http.get(
+      `https://${workspace}.vtexcommercestable.com.br/api/catalog_system/pvt/collection/search`
+    )
+
+    const { items } = value
+
+    items.forEach((element: any) => {
+      names.push(element.name)
+    })
+
+    return names
+  }
 }
