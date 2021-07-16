@@ -1,7 +1,8 @@
-import React, { FC, useState } from 'react'
+import type { FC } from 'react'
+import React, { useState } from 'react'
 import { Conditions, Card } from 'vtex.styleguide'
 
-import { options } from '../utils/optionsConditions'
+import { optionsFunctions } from '../utils/optionsConditions'
 
 const ConditionsArea: FC = () => {
   const [conditions, setConditions] = useState({
@@ -15,6 +16,8 @@ const ConditionsArea: FC = () => {
       ...{ operator: conditions.operator === 'all' ? 'any' : 'all' },
     })
   }
+
+  const optionsValues = optionsFunctions()
 
   return (
     <div className="mt5">
@@ -30,7 +33,7 @@ const ConditionsArea: FC = () => {
             })
           }}
           operator={conditions.operator}
-          options={options}
+          options={optionsValues}
           subjectPlaceholder="Selecione a regra"
           statements={conditions.simpleStatements}
         />

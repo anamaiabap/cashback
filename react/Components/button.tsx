@@ -1,10 +1,12 @@
-import React, { useContext, FC } from 'react'
+import type { FC } from 'react'
+import React, { useContext } from 'react'
 import { ButtonGroup, Button } from 'vtex.styleguide'
 
 import Context from '../Context/context'
 
 const ButtonArea: FC = () => {
   const provider = useContext(Context)
+
   return (
     <>
       <div className="mb5"> Tipo do Badge</div>

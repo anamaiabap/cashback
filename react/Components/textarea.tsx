@@ -1,10 +1,12 @@
-import React, { FC, useContext } from 'react'
+import type { FC } from 'react'
+import React, { useContext } from 'react'
 import { Textarea } from 'vtex.styleguide'
 
 import Context from '../Context/context'
 
 const HtmlArea: FC = () => {
   const provider = useContext(Context)
+
   return (
     <>
       <div className="mt5 mb6">

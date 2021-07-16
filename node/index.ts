@@ -1,10 +1,10 @@
-import {  ServiceContext } from '@vtex/api'
 import { Service } from '@vtex/api'
-import { clients, Clients } from './clients'
+import type { ServiceContext } from '@vtex/api'
 
-import {getProductsIds} from './resolvers/getProductsIds'
-import {getProductsNames} from './resolvers/getProductsName'
-
+import type { Clients } from './clients'
+import { clients } from './clients'
+import { getProductsIds } from './resolvers/getProductsIds'
+import { getProductsNames } from './resolvers/getProductsName'
 
 declare global {
   // We declare a global Context type just to avoid re-writing ServiceContext<Clients, State> in every handler and resolver
@@ -18,7 +18,7 @@ export default new Service({
     resolvers: {
       Query: {
         getProductsIds,
-        getProductsNames
+        getProductsNames,
       },
     },
   },

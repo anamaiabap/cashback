@@ -1,4 +1,5 @@
-import React, { FC, useState } from 'react'
+import type { FC } from 'react'
+import React, { useState } from 'react'
 import { Layout, PageBlock, Tabs, Tab } from 'vtex.styleguide'
 
 import './styles.global.css'
@@ -10,6 +11,7 @@ const AdminExample: FC = () => {
   const [tab, setTab] = useState({
     currentTab: 1,
   })
+
   return (
     <Provider>
       <Layout>

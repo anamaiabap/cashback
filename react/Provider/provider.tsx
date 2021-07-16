@@ -1,8 +1,9 @@
-import React, { FC, useState } from 'react'
+import type { FC } from 'react'
+import React, { useState } from 'react'
 
 import Context from '../Context/context'
 
-const Provider: FC = (props) => {
+const Provider: FC = props => {
   const [button, setButton] = useState(1)
   const [name, setName] = useState('')
   const [html, setHtml] = useState('')
