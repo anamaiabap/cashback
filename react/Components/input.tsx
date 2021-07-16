@@ -20,7 +20,7 @@ const InputArea: FC<Props> = ({ name }: Props) => {
     provider.setText(event.target.value ?? '')
   }
 
-  const getInput = useCallback((inputType: inputType) => {
+  const getInput = useCallback((inputType: InputType) => {
     if (inputType === 'name') {
       return (
         <Input
