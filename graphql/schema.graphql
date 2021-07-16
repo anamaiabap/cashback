@@ -2,4 +2,5 @@ type Query {
   getProductsIds: [Int]
   getProductsNames: [String]
   getSkuNames: [String]
+  getBrandsNames: [String]
 }

@@ -53,14 +53,14 @@ export function optionsFunctions() {
           label: 'é',
           value: '=',
           object: (props: any) => (
-            <SimpleInputObject {...props} name={'brand'} />
+            <ComplexDropdownObject {...props} name={'brand'} />
           ),
         },
         {
           label: 'não é',
           value: '!=',
           object: (props: any) => (
-            <SimpleInputObject {...props} name={'brand'} />
+            <ComplexDropdownObject {...props} name={'brand'} />
           ),
         },
       ],
