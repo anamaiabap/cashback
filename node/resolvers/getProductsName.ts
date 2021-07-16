@@ -8,5 +8,4 @@ export async function getProductsNames(_: unknown, __: unknown, ctx: Context) {
   const names = await products.getProductsName(workspace, ids)
 
   return names
-
 }

@@ -1,7 +1,7 @@
 import type { InstanceOptions, IOContext } from '@vtex/api'
 import { JanusClient } from '@vtex/api'
 
-export class Products extends JanusClient {
+export class Skus extends JanusClient {
   constructor(ctx: IOContext, options?: InstanceOptions) {
     super(ctx, {
       ...options,
@@ -14,32 +14,38 @@ export class Products extends JanusClient {
     })
   }
 
-  public async getProductsId(workspace: string) {
+  public async getSkuId(workspace: string) {
     const value = await this.http.get(
       `https://${workspace}.vtexcommercestable.com.br/api/catalog_system/pvt/products/GetProductAndSkuIds`
     )
 
-    const products = Object.entries(value.data)
+    const sku = Object.entries(value.data)
 
     const ids: number[] = []
 
-    products.forEach(element => {
-      ids.push(parseInt(element[0], 10))
+    sku.forEach(element => {
+      const skus = element[1] as []
+
+      if (skus) {
+        skus.forEach((values: number) => {
+          ids.push(values)
+        })
+      }
     })
 
     return ids
   }
 
-  public async getProductsName(workspace: string, ids: number[]) {
+  public async getSkuName(workspace: string, ids: number[]) {
     const names: string[] = []
 
     for (const id of ids) {
       // eslint-disable-next-line no-await-in-loop
       const value = await this.http.get(
-        `https://${workspace}.vtexcommercestable.com.br/api/catalog/pvt/product/${id}`
+        `https://${workspace}.vtexcommercestable.com.br/api/catalog_system/pvt/sku/stockkeepingunitbyid/${id}`
       )
 
-      names.push(value.Name)
+      names.push(value.NameComplete)
     }
 
     return names

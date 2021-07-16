@@ -5,6 +5,7 @@ import type { Clients } from './clients'
 import { clients } from './clients'
 import { getProductsIds } from './resolvers/getProductsIds'
 import { getProductsNames } from './resolvers/getProductsName'
+import { getSkuNames } from './resolvers/getSkuNames'
 
 declare global {
   // We declare a global Context type just to avoid re-writing ServiceContext<Clients, State> in every handler and resolver
@@ -19,6 +20,7 @@ export default new Service({
       Query: {
         getProductsIds,
         getProductsNames,
+        getSkuNames,
       },
     },
   },
