@@ -8,6 +8,8 @@ import { getProductsNames } from './resolvers/getProductsName'
 import { getSkuNames } from './resolvers/getSkuNames'
 import { getBrandsNames } from './resolvers/getBrandsNames'
 import { getCollectionsNames } from './resolvers/getCollectionsName'
+import { getCategoryName } from './resolvers/getCategoryName'
+import { getSpecificationName } from './resolvers/getSpecificationName'
 
 declare global {
   // We declare a global Context type just to avoid re-writing ServiceContext<Clients, State> in every handler and resolver
@@ -25,6 +27,8 @@ export default new Service({
         getSkuNames,
         getBrandsNames,
         getCollectionsNames,
+        getCategoryName,
+        getSpecificationName,
       },
     },
   },

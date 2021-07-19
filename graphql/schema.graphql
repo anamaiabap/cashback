@@ -4,4 +4,6 @@ type Query {
   getSkuNames: [String]
   getBrandsNames: [String]
   getCollectionsNames: [String]
+  getCategoryName: [String]
+  getSpecificationName: [String]
 }

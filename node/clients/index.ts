@@ -15,7 +15,7 @@ export class Clients extends IOClients {
   }
 }
 
-const REQUESTS_TIMEOUT = 10000
+const REQUESTS_TIMEOUT = 30000
 
 // Create a LRU memory cache for the Status client.
 // The @vtex/api HttpClient respects Cache-Control headers and uses the provided cache.

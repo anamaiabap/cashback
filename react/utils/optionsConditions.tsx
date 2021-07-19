@@ -8,7 +8,7 @@ import {
 
 export function optionsFunctions() {
   return {
-    department: {
+    /* department: {
       label: 'Departamento',
       verbs: [
         {
@@ -26,7 +26,7 @@ export function optionsFunctions() {
           ),
         },
       ],
-    },
+    }, */
     category: {
       label: 'Categoria',
       verbs: [
@@ -34,14 +34,14 @@ export function optionsFunctions() {
           label: 'é',
           value: '=',
           object: (props: any) => (
-            <SimpleInputObject {...props} name={'category'} />
+            <ComplexDropdownObject {...props} name={'category'} />
           ),
         },
         {
           label: 'não é',
           value: '!=',
           object: (props: any) => (
-            <SimpleInputObject {...props} name={'category'} />
+            <ComplexDropdownObject {...props} name={'category'} />
           ),
         },
       ],

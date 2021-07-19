@@ -7,17 +7,20 @@ import getProductsName from '../queries/getProductsName.gql'
 import getSkusNames from '../queries/getSkusNames.gql'
 import getBrandsNames from '../queries/getBrandsNames.gql'
 import getCollectionsNames from '../queries/getCollectionsNames.gql'
+import getCategoryName from '../queries/getCategoryName.gql'
 
 const ProviderOptions: FC = props => {
   const { data: dataProductsNames } = useQuery(getProductsName)
   const { data: dataSkuNames } = useQuery(getSkusNames)
   const { data: dataBrandsNames } = useQuery(getBrandsNames)
   const { data: dataCollectionsNames } = useQuery(getCollectionsNames)
+  const { data: dataCategoryNames } = useQuery(getCategoryName)
 
   const nameProducts: any = []
   const nameSku: any = []
   const nameBrands: any = []
   const nameCollections: any = []
+  const nameCategory: any = []
 
   useMemo(() => {
     if (dataProductsNames === undefined) return
@@ -55,6 +58,15 @@ const ProviderOptions: FC = props => {
     })
   }, [dataCollectionsNames])
 
+  useMemo(() => {
+    if (dataCategoryNames === undefined) return
+    dataCategoryNames.getCategoryName.forEach((element: string) => {
+      const value = { label: element, value: element }
+
+      nameCategory.push(value)
+    })
+  }, [dataCategoryNames])
+
   return (
     <ContextOptions.Provider
       value={{
@@ -62,6 +74,7 @@ const ProviderOptions: FC = props => {
         nameSku,
         nameBrands,
         nameCollections,
+        nameCategory,
       }}
     >
       {props.children}
