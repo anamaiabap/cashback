@@ -14,6 +14,10 @@ const Provider: FC = props => {
     setFile({ ...file, ...{ result: files } })
   }
 
+  function save() {
+    // inserir regra
+  }
+
   return (
     <Context.Provider
       value={{
@@ -27,6 +31,7 @@ const Provider: FC = props => {
         file,
         text,
         setText,
+        save,
       }}
     >
       {props.children}

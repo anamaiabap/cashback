@@ -2,13 +2,13 @@ import type { FC } from 'react'
 import React, { useCallback, useContext } from 'react'
 
 import ButtonArea from '../Components/button'
+import ButtonSaveArea from '../Components/buttonSave'
 import ConditionsArea from '../Components/conditions'
 import DividerArea from '../Components/divider'
 import ImageArea from '../Components/file'
 import InputArea from '../Components/input'
 import HtmlArea from '../Components/textarea'
 import Context from '../Context/context'
-import ProviderOptions from '../Provider/providerOptions'
 
 const AddBages: FC = () => {
   const provider = useContext(Context)
@@ -27,10 +27,8 @@ const AddBages: FC = () => {
       <InputArea name={'name'} />
       <ButtonArea />
       {getContent(provider.button)}
-
-      <ProviderOptions>
-        <ConditionsArea />
-      </ProviderOptions>
+      <ConditionsArea />
+      <ButtonSaveArea />
     </>
   )
 }

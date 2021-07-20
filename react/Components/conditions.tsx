@@ -36,6 +36,15 @@ const ConditionsArea: FC = () => {
           options={optionsValues}
           subjectPlaceholder="Selecione a regra"
           statements={conditions.simpleStatements}
+          labels={{
+            headerPrefix: 'Corresponder a',
+            operatorAll: 'todas',
+            operatorAny: 'nenhuma',
+            headerSufix: 'condições',
+            addNewCondition: 'Adicionar nova condição',
+            operatorAnd: 'e',
+            operatorOr: 'ou',
+          }}
         />
       </Card>
     </div>

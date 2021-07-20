@@ -1,11 +1,9 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable radix */
-import { Input, Dropdown } from 'vtex.styleguide'
-import React, { useContext } from 'react'
+import { Input } from 'vtex.styleguide'
+import React from 'react'
 
-import ContextOptions from '../Context/contextOptions'
-
-export function ComplexDropdownObject({
+/* export function ComplexDropdownObject({
   value,
   onChange,
   name,
@@ -33,20 +31,18 @@ export function ComplexDropdownObject({
       }}
     />
   )
-}
+} */
 
 export function SimpleInputObject({
   value,
   onChange,
-  name,
 }: {
   value: string
   onChange: any
-  name: string
 }) {
   return (
     <Input
-      value={value || name}
+      value={value}
       onChange={(e: { target: { value: any } }) => onChange(e.target.value)}
     />
   )
@@ -79,7 +75,7 @@ export function ComplexNumericInputRangeObject({
         }
       />
 
-      <div className="mv4 mh3 c-muted-2 b">and</div>
+      <div className="mv4 mh3 c-muted-2 b">e</div>
 
       <Input
         type="number"

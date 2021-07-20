@@ -1,48 +1,24 @@
 import React from 'react'
 
 import {
-  ComplexDropdownObject,
-  ComplexNumericInputRangeObject,
   SimpleInputObject,
+  ComplexNumericInputRangeObject,
 } from './functionsConditions'
 
 export function optionsFunctions() {
   return {
-    /* department: {
-      label: 'Departamento',
-      verbs: [
-        {
-          label: 'é',
-          value: '=',
-          object: (props: any) => (
-            <SimpleInputObject {...props} name={'departament'} />
-          ),
-        },
-        {
-          label: 'não é',
-          value: '!=',
-          object: (props: any) => (
-            <SimpleInputObject {...props} name={'departament'} />
-          ),
-        },
-      ],
-    }, */
     category: {
       label: 'Categoria',
       verbs: [
         {
           label: 'é',
           value: '=',
-          object: (props: any) => (
-            <ComplexDropdownObject {...props} name={'category'} />
-          ),
+          object: (props: any) => <SimpleInputObject {...props} />,
         },
         {
           label: 'não é',
           value: '!=',
-          object: (props: any) => (
-            <ComplexDropdownObject {...props} name={'category'} />
-          ),
+          object: (props: any) => <SimpleInputObject {...props} />,
         },
       ],
     },
@@ -52,16 +28,12 @@ export function optionsFunctions() {
         {
           label: 'é',
           value: '=',
-          object: (props: any) => (
-            <ComplexDropdownObject {...props} name={'brand'} />
-          ),
+          object: (props: any) => <SimpleInputObject {...props} />,
         },
         {
           label: 'não é',
           value: '!=',
-          object: (props: any) => (
-            <ComplexDropdownObject {...props} name={'brand'} />
-          ),
+          object: (props: any) => <SimpleInputObject {...props} />,
         },
       ],
     },
@@ -71,16 +43,12 @@ export function optionsFunctions() {
         {
           label: 'é',
           value: '=',
-          object: (props: any) => (
-            <ComplexDropdownObject {...props} name={'product'} />
-          ),
+          object: (props: any) => <SimpleInputObject {...props} />,
         },
         {
           label: 'não é',
           value: '!=',
-          object: (props: any) => (
-            <ComplexDropdownObject {...props} name={'product'} />
-          ),
+          object: (props: any) => <SimpleInputObject {...props} />,
         },
       ],
     },
@@ -90,16 +58,12 @@ export function optionsFunctions() {
         {
           label: 'é',
           value: '=',
-          object: (props: any) => (
-            <ComplexDropdownObject {...props} name={'collection'} />
-          ),
+          object: (props: any) => <SimpleInputObject {...props} />,
         },
         {
           label: 'não é',
           value: '!=',
-          object: (props: any) => (
-            <ComplexDropdownObject {...props} name={'collection'} />
-          ),
+          object: (props: any) => <SimpleInputObject {...props} />,
         },
       ],
     },
@@ -109,16 +73,12 @@ export function optionsFunctions() {
         {
           label: 'é',
           value: '=',
-          object: (props: any) => (
-            <SimpleInputObject {...props} name={'specification'} />
-          ),
+          object: (props: any) => <SimpleInputObject {...props} />,
         },
         {
           label: 'não é',
           value: '!=',
-          object: (props: any) => (
-            <SimpleInputObject {...props} name={'specification'} />
-          ),
+          object: (props: any) => <SimpleInputObject {...props} />,
         },
       ],
     },
@@ -128,16 +88,12 @@ export function optionsFunctions() {
         {
           label: 'é',
           value: '=',
-          object: (props: any) => (
-            <SimpleInputObject {...props} name={'sale'} />
-          ),
+          object: (props: any) => <SimpleInputObject {...props} />,
         },
         {
           label: 'não é',
           value: '!=',
-          object: (props: any) => (
-            <SimpleInputObject {...props} name={'sale'} />
-          ),
+          object: (props: any) => <SimpleInputObject {...props} />,
         },
         {
           label: 'está entre',
@@ -152,16 +108,12 @@ export function optionsFunctions() {
         {
           label: 'é',
           value: '=',
-          object: (props: any) => (
-            <ComplexDropdownObject {...props} name={'sku'} />
-          ),
+          object: (props: any) => <SimpleInputObject {...props} />,
         },
         {
           label: 'não é',
           value: '!=',
-          object: (props: any) => (
-            <ComplexDropdownObject {...props} name={'sku'} />
-          ),
+          object: (props: any) => <SimpleInputObject {...props} />,
         },
       ],
     },
