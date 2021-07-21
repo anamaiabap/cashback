@@ -9,7 +9,7 @@ const ButtonArea: FC = () => {
 
   return (
     <>
-      <div className="mb5"> Tipo do Badge</div>
+      <div className="mt5 mb5"> Tipo do Badge</div>
       <ButtonGroup
         buttons={[
           <Button

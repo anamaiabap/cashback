@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable radix */
 import { Input } from 'vtex.styleguide'
-import React from 'react'
+import React, { useContext } from 'react'
+
+import Context from '../Context/context'
 
 /* export function ComplexDropdownObject({
   value,
@@ -43,7 +45,9 @@ export function SimpleInputObject({
   return (
     <Input
       value={value}
-      onChange={(e: { target: { value: any } }) => onChange(e.target.value)}
+      onChange={(e: { target: { value: any } }) => {
+        onChange(e.target.value)
+      }}
     />
   )
 }

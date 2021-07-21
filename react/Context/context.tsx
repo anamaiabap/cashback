@@ -12,6 +12,13 @@ interface ContextType {
   text: string
   setText: (text: string) => void
   save: () => void
+  conditions: {
+    simpleStatements: never[]
+    operator: string
+  }
+  setConditionsFunction: (object: any) => void
+  handleToggleOperator: (operator: string) => void
+  textValidate: string[]
 }
 const Context = React.createContext<ContextType>({
   button: 1,
@@ -25,6 +32,10 @@ const Context = React.createContext<ContextType>({
   text: '',
   setText: () => {},
   save: () => {},
+  conditions: { simpleStatements: [], operator: '' },
+  setConditionsFunction: () => {},
+  handleToggleOperator: () => {},
+  textValidate: [],
 })
 
 export default Context
