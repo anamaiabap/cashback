@@ -39,14 +39,19 @@ export class Skus extends JanusClient {
   public async getSkuName(workspace: string, ids: number[]) {
     const names: string[] = []
 
-    for (const id of ids) {
-      // eslint-disable-next-line no-await-in-loop
-      const value = await this.http.get(
-        `https://${workspace}.vtexcommercestable.com.br/api/catalog_system/pvt/sku/stockkeepingunitbyid/${id}`
-      )
+    const promises = []
 
-      names.push(value.NameComplete)
+    for (const id of ids) {
+      promises.push(
+        this.http.get(
+          `https://${workspace}.vtexcommercestable.com.br/api/catalog_system/pvt/sku/stockkeepingunitbyid/${id}`
+        )
+      )
     }
+
+    await Promise.all(promises).then(values => {
+      values.forEach(value => names.push(value.NameComplete))
+    })
 
     return names
   }

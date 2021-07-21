@@ -33,14 +33,19 @@ export class Products extends JanusClient {
   public async getProductsName(workspace: string, ids: number[]) {
     const names: string[] = []
 
-    for (const id of ids) {
-      // eslint-disable-next-line no-await-in-loop
-      const value = await this.http.get(
-        `https://${workspace}.vtexcommercestable.com.br/api/catalog/pvt/product/${id}`
-      )
+    const promises = []
 
-      names.push(value.Name)
+    for (const id of ids) {
+      promises.push(
+        this.http.get(
+          `https://${workspace}.vtexcommercestable.com.br/api/catalog/pvt/product/${id}`
+        )
+      )
     }
+
+    await Promise.all(promises).then(values => {
+      values.forEach(value => names.push(value.Name))
+    })
 
     return names
   }
@@ -79,7 +84,7 @@ export class Products extends JanusClient {
     const names: string[] = []
 
     const value = await this.http.get(
-      `https://${workspace}.vtexcommercestable.com.br//api/catalog_system/pub/category/tree/100`
+      `https://${workspace}.vtexcommercestable.com.br/api/catalog_system/pub/category/tree/100`
     )
 
     value.forEach(async (element: any) => {
@@ -96,7 +101,7 @@ export class Products extends JanusClient {
     const ids: number[] = []
 
     const value = await this.http.get(
-      `https://${workspace}.vtexcommercestable.com.br//api/catalog_system/pub/category/tree/100`
+      `https://${workspace}.vtexcommercestable.com.br/api/catalog_system/pub/category/tree/100`
     )
 
     value.forEach(async (element: any) => {
@@ -112,18 +117,23 @@ export class Products extends JanusClient {
   public async getSpecificationName(workspace: string, ids: number[]) {
     const names: string[] = []
 
+    const promises = []
+
     for (const id of ids) {
-      // eslint-disable-next-line no-await-in-loop
-      const value = await this.http.get(
-        `https://${workspace}.vtexcommercestable.com.br/api/catalog_system/pub/specification/field/listByCategoryId/${id}`
+      promises.push(
+        this.http.get(
+          `https://${workspace}.vtexcommercestable.com.br/api/catalog_system/pub/specification/field/listByCategoryId/${id}`
+        )
       )
-
-      value.forEach((element: { FieldId: number; Name: string }) => {
-        const type = element.Name
-
-        names.push(`${type}`)
-      })
     }
+
+    await Promise.all(promises).then(values => {
+      values.forEach((value: any) => {
+        value.forEach((element: any) => {
+          names.push(element.Name)
+        })
+      })
+    })
 
     return names
   }
