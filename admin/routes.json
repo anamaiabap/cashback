@@ -1,5 +1,5 @@
 {
-  "badges.app": {
+  "admin.app.badges": {
     "component": "Badges",
     "path": "/admin/app/badges"
   }
