@@ -44,7 +44,7 @@ const Provider: FC = props => {
       validation.push('Preencha o campo "Regras de ativação"')
     }
 
-    if (validation === []) return true
+    if (validation.length === 0) return true
 
     setTextValidate(validation)
 
