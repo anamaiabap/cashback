@@ -11,6 +11,7 @@ interface ContextType {
   file: any
   text: string
   setText: (text: string) => void
+  save: () => void
 }
 const Context = React.createContext<ContextType>({
   button: 1,
@@ -23,6 +24,7 @@ const Context = React.createContext<ContextType>({
   file: '',
   text: '',
   setText: () => {},
+  save: () => {},
 })
 
 export default Context

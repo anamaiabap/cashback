@@ -1,8 +1,8 @@
 {
-  "name": "admin-example",
+  "name": "badges",
   "vendor": "vtex",
   "version": "1.0.0",
-  "title": "Example Admin App",
+  "title": "App Badges",
   "description": "",
   "mustUpdateAt": "2022-08-28",
   "scripts": {
@@ -17,5 +17,28 @@
     "messages": "1.x",
     "docs": "0.x"
   },
-  "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
+  "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema",
+  "policies": [
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "api.vtex.com",
+        "path": "/api/catalog_system/*"
+      }
+    },
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "{{account}}.myvtex.com",
+        "path": "/api/*"
+      }
+    },
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "{{workspace}}.vtexcommercestable.com.br",
+        "path": "/api/*"
+      }
+    }
+  ]
 }

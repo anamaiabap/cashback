@@ -1,6 +1,8 @@
-import React, { FC, useCallback, useContext } from 'react'
+import type { FC } from 'react'
+import React, { useCallback, useContext } from 'react'
 
 import ButtonArea from '../Components/button'
+import ButtonSaveArea from '../Components/buttonSave'
 import ConditionsArea from '../Components/conditions'
 import DividerArea from '../Components/divider'
 import ImageArea from '../Components/file'
@@ -11,21 +13,22 @@ import Context from '../Context/context'
 const AddBages: FC = () => {
   const provider = useContext(Context)
 
-  const getContent = useCallback((button) => {
+  const getContent = useCallback(button => {
     if (button === 1) return <ImageArea />
 
     if (button === 2) return <InputArea name={'text'} />
 
     return <HtmlArea />
   }, [])
+
   return (
     <>
       <DividerArea />
       <InputArea name={'name'} />
       <ButtonArea />
       {getContent(provider.button)}
-
       <ConditionsArea />
+      <ButtonSaveArea />
     </>
   )
 }

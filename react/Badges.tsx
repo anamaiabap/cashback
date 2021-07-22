@@ -1,4 +1,5 @@
-import React, { FC, useState } from 'react'
+import type { FC } from 'react'
+import React, { useState } from 'react'
 import { Layout, PageBlock, Tabs, Tab } from 'vtex.styleguide'
 
 import './styles.global.css'
@@ -6,10 +7,11 @@ import AddBages from './AddBadges'
 import EditBadges from './EditBadges'
 import Provider from './Provider/provider'
 
-const AdminExample: FC = () => {
+const Badges: FC = () => {
   const [tab, setTab] = useState({
     currentTab: 1,
   })
+
   return (
     <Provider>
       <Layout>
@@ -36,4 +38,4 @@ const AdminExample: FC = () => {
   )
 }
 
-export default AdminExample
+export default Badges

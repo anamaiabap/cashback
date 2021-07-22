@@ -1,10 +1,6 @@
 {
-  "admin.app.example": {
-    "component": "AdminExample",
+  "admin.app.badges": {
+    "component": "Badges",
     "path": "/admin/app/badges"
-  },
-  "admin.app.example-detail": {
-    "component": "AdminExampleDetail",
-    "path": "/admin/app/example/:id"
   }
 }

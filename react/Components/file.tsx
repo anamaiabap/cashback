@@ -1,4 +1,5 @@
-import React, { FC, useContext, useState } from 'react'
+import type { FC } from 'react'
+import React, { useContext } from 'react'
 import { Dropzone } from 'vtex.styleguide'
 
 import Context from '../Context/context'

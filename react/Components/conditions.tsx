@@ -1,7 +1,8 @@
-import React, { FC, useState } from 'react'
+import type { FC } from 'react'
+import React, { useState } from 'react'
 import { Conditions, Card } from 'vtex.styleguide'
 
-import { options } from '../utils/optionsConditions'
+import { optionsFunctions } from '../utils/optionsConditions'
 
 const ConditionsArea: FC = () => {
   const [conditions, setConditions] = useState({
@@ -16,13 +17,14 @@ const ConditionsArea: FC = () => {
     })
   }
 
+  const optionsValues = optionsFunctions()
+
   return (
     <div className="mt5">
       <div className="mb5"> Regras de ativação </div>
       <Card>
         <Conditions
           canDelete
-          isFullWidth
           onChangeOperator={handleToggleOperator}
           onChangeStatements={(statements: any) => {
             setConditions({
@@ -31,9 +33,18 @@ const ConditionsArea: FC = () => {
             })
           }}
           operator={conditions.operator}
-          options={options}
-          subjectPlaceholder="Select subject"
+          options={optionsValues}
+          subjectPlaceholder="Selecione a regra"
           statements={conditions.simpleStatements}
+          labels={{
+            headerPrefix: 'Corresponder a',
+            operatorAll: 'todas',
+            operatorAny: 'nenhuma',
+            headerSufix: 'condições',
+            addNewCondition: 'Adicionar nova condição',
+            operatorAnd: 'e',
+            operatorOr: 'ou',
+          }}
         />
       </Card>
     </div>
