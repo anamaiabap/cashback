@@ -15,9 +15,7 @@
     "react": "3.x",
     "admin": "0.x",
     "messages": "1.x",
-    "docs": "0.x",
-    "graphql": "1.x",
-    "node": "6.x"
+    "docs": "0.x"
   },
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema",
   "policies": [
@@ -25,28 +23,7 @@
       "name": "outbound-access",
       "attrs": {
         "host": "api.vtex.com",
-        "path": "/api/checkout/*"
-      }
-    },
-    {
-      "name": "outbound-access",
-      "attrs": {
-        "host": "api.vtex.com",
-        "path": "/api/logistics/*"
-      }
-    },
-    {
-      "name": "outbound-access",
-      "attrs": {
-        "host": "api.vtex.com",
         "path": "/api/catalog_system/*"
-      }
-    },
-    {
-      "name": "outbound-access",
-      "attrs": {
-        "host": "api.vtex.com",
-        "path": "/api/catalog/*"
       }
     },
     {
