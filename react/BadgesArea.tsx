@@ -7,7 +7,7 @@ import AddBages from './AddBadges'
 import EditBadges from './EditBadges'
 import Provider from './Provider/provider'
 
-const Badges: FC = () => {
+const BadgesArea: FC = () => {
   const [tab, setTab] = useState({
     currentTab: 1,
   })
@@ -38,4 +38,4 @@ const Badges: FC = () => {
   )
 }
 
-export default Badges
+export default BadgesArea

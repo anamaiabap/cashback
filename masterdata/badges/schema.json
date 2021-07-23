@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Badges",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "operator": {
+      "type": "string"
+    },
+    "simpleStatements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "object": {
+            "type": "string"
+          },
+          "subject": {
+            "type": "string"
+          },
+          "verb": {
+            "type": "string"
+          }
+        },
+        "required": ["object", "subject", "verb"]
+      }
+    },
+    "type": {
+      "type": "string"
+    },
+    "typeValue": {
+      "type": "string"
+    }
+  },
+  "required": ["name", "operator", "simpleStatements", "type", "typeValue"]
+}

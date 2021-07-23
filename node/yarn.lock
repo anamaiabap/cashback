@@ -5522,7 +5522,7 @@ static-extend@^0.1.1:
     define-property "^0.2.5"
     object-copy "^0.1.0"
 
-"stats-lite@github:vtex/node-stats-lite#dist":
+stats-lite@vtex/node-stats-lite#dist:
   version "2.2.0"
   resolved "https://codeload.github.com/vtex/node-stats-lite/tar.gz/1b0d39cc41ef7aaecfd541191f877887a2044797"
   dependencies:
@@ -5975,6 +5975,10 @@ verror@1.10.0:
     assert-plus "^1.0.0"
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
+
+"vtex.badges@https://ana--sandboxbrdev.myvtex.com/_v/private/typings/linked/v1/vtex.badges@1.0.0+build1627037321/public/@types/vtex.badges":
+  version "1.0.0"
+  resolved "https://ana--sandboxbrdev.myvtex.com/_v/private/typings/linked/v1/vtex.badges@1.0.0+build1627037321/public/@types/vtex.badges#3cfb707e25e871167fdd74ec15629f0f1f62d0c2"
 
 "vtex.styleguide@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.145.0/public/@types/vtex.styleguide":
   version "9.145.0"
