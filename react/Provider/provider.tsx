@@ -1,7 +1,9 @@
 /* eslint-disable vtex/prefer-early-return */
 import type { FC } from 'react'
 import React, { useState } from 'react'
+import { useMutation } from 'react-apollo'
 
+import uploadFile from '../queries/uploadFile.gql'
 import Context from '../Context/context'
 
 const Provider: FC = props => {
@@ -16,6 +18,7 @@ const Provider: FC = props => {
   })
 
   const [textValidate, setTextValidate] = useState<string[]>([''])
+  const [saveMutation] = useMutation(uploadFile)
 
   function chooseFile(files: any) {
     setFile({ ...file, ...{ result: files } })
@@ -63,8 +66,12 @@ const Provider: FC = props => {
 
       if (button === 1) {
         valueSave.type = 'image'
-        if (file.result != null) {
-          valueSave.typeValue = file.result
+        if (file.result !== null) {
+          const url = await saveMutation({
+            variables: { file: file.result?.[0] },
+          })
+
+          if (url != null) valueSave.content = url.data.uploadFile.fileUrl
         }
       }
 
