@@ -55,6 +55,7 @@ const Provider: FC = props => {
     const validate = validateIfAllFieldsIsComplete()
 
     if (validate) {
+      setTextValidate([''])
       const valueSave: SaveValues = {}
 
       valueSave.name = name
