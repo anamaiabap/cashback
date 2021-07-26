@@ -77,12 +77,12 @@ const Provider: FC = props => {
 
       if (button === 2) {
         valueSave.type = 'text'
-        valueSave.typeValue = text
+        valueSave.content = text
       }
 
       if (button === 3) {
         valueSave.type = 'html'
-        valueSave.typeValue = html
+        valueSave.content = html
       }
     }
   }

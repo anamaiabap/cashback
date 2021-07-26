@@ -30,9 +30,9 @@
     "type": {
       "type": "string"
     },
-    "typeValue": {
+    "content": {
       "type": "string"
     }
   },
-  "required": ["name", "operator", "simpleStatements", "type", "typeValue"]
+  "required": ["name", "operator", "simpleStatements", "type", "content"]
 }
