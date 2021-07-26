@@ -19,6 +19,8 @@ interface ContextType {
   setConditionsFunction: (object: any) => void
   handleToggleOperator: (operator: string) => void
   textValidate: string[]
+  showAlert: number
+  handleCloseAlert: () => void
 }
 const Context = React.createContext<ContextType>({
   button: 1,
@@ -36,6 +38,8 @@ const Context = React.createContext<ContextType>({
   setConditionsFunction: () => {},
   handleToggleOperator: () => {},
   textValidate: [],
+  showAlert: 0,
+  handleCloseAlert: () => {},
 })
 
 export default Context

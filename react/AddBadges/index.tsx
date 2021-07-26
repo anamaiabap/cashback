@@ -1,6 +1,7 @@
 import type { FC } from 'react'
 import React, { useCallback, useContext } from 'react'
 
+import AlertArea from '../Components/alert'
 import ButtonArea from '../Components/button'
 import ButtonSaveArea from '../Components/buttonSave'
 import ConditionsArea from '../Components/conditions'
@@ -31,6 +32,7 @@ const AddBages: FC = () => {
       <ConditionsArea />
       <ValidationArea />
       <ButtonSaveArea />
+      <AlertArea />
     </>
   )
 }

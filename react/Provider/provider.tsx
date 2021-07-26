@@ -18,9 +18,15 @@ const Provider: FC = props => {
     operator: 'all',
   })
 
+  const [showAlert, setShowAlert] = useState(0)
+
   const [textValidate, setTextValidate] = useState<string[]>([''])
   const [saveMutation] = useMutation(uploadFile)
   const [saveMasterdataMutation] = useMutation(saveMasterdata)
+
+  const handleCloseAlert = () => {
+    setShowAlert(0)
+  }
 
   function chooseFile(files: any) {
     setFile({ ...file, ...{ result: files } })
@@ -56,7 +62,9 @@ const Provider: FC = props => {
     return false
   }
 
-  function save() {
+  async function save() {
+    setShowAlert(0)
+    setTextValidate([''])
     const validate = validateIfAllFieldsIsComplete()
 
     if (validate) {
@@ -129,6 +137,8 @@ const Provider: FC = props => {
         setConditionsFunction,
         handleToggleOperator,
         textValidate,
+        showAlert,
+        handleCloseAlert,
       }}
     >
       {props.children}
