@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { useMutation } from 'react-apollo'
 
 import uploadFile from '../queries/uploadFile.gql'
+import saveMasterdata from '../queries/saveMasterdata.gql'
 import Context from '../Context/context'
 
 const Provider: FC = props => {
@@ -19,6 +20,7 @@ const Provider: FC = props => {
 
   const [textValidate, setTextValidate] = useState<string[]>([''])
   const [saveMutation] = useMutation(uploadFile)
+  const [saveMasterdataMutation] = useMutation(saveMasterdata)
 
   function chooseFile(files: any) {
     setFile({ ...file, ...{ result: files } })
@@ -84,6 +86,20 @@ const Provider: FC = props => {
         valueSave.type = 'html'
         valueSave.content = html
       }
+
+      saving(valueSave)
+    }
+  }
+
+  async function saving(valueSave: SaveValues) {
+    const id = await saveMasterdataMutation({
+      variables: { saveData: valueSave },
+    })
+
+    if (id.data.saveMasterdata.Id != null) {
+      setShowAlert(1)
+    } else {
+      setShowAlert(2)
     }
   }
 
