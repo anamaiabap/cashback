@@ -19,7 +19,8 @@
     "docs": "0.x",
     "masterdata": "1.x",
     "node": "6.x",
-    "graphql": "1.x"
+    "graphql": "1.x",
+    "store": "0.x"
   },
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema",
   "policies": [
