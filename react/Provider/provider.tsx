@@ -7,6 +7,10 @@ import uploadFile from '../queries/uploadFile.gql'
 import saveMasterdata from '../queries/saveMasterdata.gql'
 import Context from '../Context/context'
 
+const BUTTON_CHOICE_IS_IMAGEM = 1
+const BUTTON_CHOICE_IS_TEXT = 2
+const BUTTON_CHOICE_IS_HTML = 3
+
 const Provider: FC = props => {
   const [button, setButton] = useState(1)
   const [name, setName] = useState('')
@@ -35,19 +39,22 @@ const Provider: FC = props => {
   function validateIfAllFieldsIsComplete() {
     const validation = []
 
-    if (name === null || name === undefined || name === '') {
+    if (!name) {
       validation.push('Preencha o campo "Nome da badge"')
     }
 
-    if (button === 1 && (file.result === null || file.result === undefined)) {
+    if (
+      button === BUTTON_CHOICE_IS_IMAGEM &&
+      (file.result === null || file.result === undefined)
+    ) {
       validation.push('Adicione uma imagem no campo "Tipo de badge"')
     }
 
-    if (button === 2 && (text === null || text === undefined || text === '')) {
+    if (button === BUTTON_CHOICE_IS_TEXT && !text) {
       validation.push('Preencha o campo "Insira o texto da badge"')
     }
 
-    if (button === 3 && (html === null || html === undefined || html === '')) {
+    if (button === BUTTON_CHOICE_IS_HTML && !html) {
       validation.push('Preencha o campo "Insira o HTML da badge"')
     }
 
@@ -74,7 +81,7 @@ const Provider: FC = props => {
       valueSave.operator = conditions.operator
       valueSave.simpleStatements = conditions.simpleStatements
 
-      if (button === 1) {
+      if (button === BUTTON_CHOICE_IS_IMAGEM) {
         valueSave.type = 'image'
         if (file.result !== null) {
           const url = await saveMutation({
@@ -85,12 +92,12 @@ const Provider: FC = props => {
         }
       }
 
-      if (button === 2) {
+      if (button === BUTTON_CHOICE_IS_TEXT) {
         valueSave.type = 'text'
         valueSave.content = text
       }
 
-      if (button === 3) {
+      if (button === BUTTON_CHOICE_IS_HTML) {
         valueSave.type = 'html'
         valueSave.content = html
       }

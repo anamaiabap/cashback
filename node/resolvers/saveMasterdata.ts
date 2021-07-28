@@ -23,13 +23,11 @@ export async function saveMasterdata(
     throw new Error('É necessário enviar um type')
   }
 
-  const save = await ctx.clients.badges.save({
+  return ctx.clients.badges.save({
     content: saveValues.saveData.content,
     name: saveValues.saveData.name,
     operator: saveValues.saveData.operator,
     simpleStatements: saveValues.saveData.simpleStatements,
     type: saveValues.saveData.type,
   })
-
-  return save
 }
