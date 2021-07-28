@@ -45,7 +45,7 @@ export function SimpleInputObject({
   return (
     <Input
       value={value}
-      onChange={(e: { target: { value: any } }) => {
+      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
         onChange(e.target.value)
       }}
     />

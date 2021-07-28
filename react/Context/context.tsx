@@ -13,7 +13,11 @@ interface ContextType {
   setText: (text: string) => void
   save: () => void
   conditions: {
-    simpleStatements: never[]
+    simpleStatements: Array<{
+      subject: string
+      verb: string
+      object: unknown
+    }>
     operator: string
   }
   setConditionsFunction: (object: any) => void
