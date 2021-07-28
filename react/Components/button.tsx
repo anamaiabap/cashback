@@ -1,11 +1,18 @@
 import type { FC } from 'react'
 import React, { useContext } from 'react'
+import { useIntl } from 'react-intl'
 import { ButtonGroup, Button } from 'vtex.styleguide'
 
 import Context from '../Context/context'
+import { button } from '../utils/definedMessages'
 
+const BUTTON_CHOICE_IS_IMAGEM = 1
+const BUTTON_CHOICE_IS_TEXT = 2
+const BUTTON_CHOICE_IS_HTML = 3
 const ButtonArea: FC = () => {
   const provider = useContext(Context)
+
+  const intl = useIntl()
 
   return (
     <>
@@ -13,22 +20,22 @@ const ButtonArea: FC = () => {
       <ButtonGroup
         buttons={[
           <Button
-            isActiveOfGroup={provider.button === 1}
-            onClick={() => provider.setButton(1)}
+            isActiveOfGroup={provider.button === BUTTON_CHOICE_IS_IMAGEM}
+            onClick={() => provider.setButton(BUTTON_CHOICE_IS_IMAGEM)}
           >
-            Imagem
+            {intl.formatMessage(button.image)}
           </Button>,
           <Button
-            isActiveOfGroup={provider.button === 2}
-            onClick={() => provider.setButton(2)}
+            isActiveOfGroup={provider.button === BUTTON_CHOICE_IS_TEXT}
+            onClick={() => provider.setButton(BUTTON_CHOICE_IS_TEXT)}
           >
-            Texto
+            {intl.formatMessage(button.text)}
           </Button>,
           <Button
-            isActiveOfGroup={provider.button === 3}
-            onClick={() => provider.setButton(3)}
+            isActiveOfGroup={provider.button === BUTTON_CHOICE_IS_HTML}
+            onClick={() => provider.setButton(BUTTON_CHOICE_IS_HTML)}
           >
-            HTML
+            {intl.formatMessage(button.html)}
           </Button>,
         ]}
       />

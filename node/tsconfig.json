@@ -7,5 +7,10 @@
     "moduleResolution": "node",
     "target": "es2019"
   },
-  "include": ["./typings/*.d.ts", "./**/*.tsx", "./**/*.ts"]
+  "include": [
+    "./typings/*.d.ts",
+    "./**/*.tsx",
+    "./**/*.ts",
+    "../react/utils/definedMessages.tsx"
+  ]
 }

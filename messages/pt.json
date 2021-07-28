@@ -1,3 +1,24 @@
 {
-  "badges.navigation.label": "Gerenciamento de Badges"
+  "badges.navigation.label": "Gerenciamento de Badges",
+  "badges.data.save": "Dados salvos!",
+  "badges.data.save.errors": "Erro ao salvar os dados",
+  "badges.button.image": "Imagem",
+  "badges.button.text": "Texto",
+  "badges.button.html": "HTML",
+  "badges.button.save": "Salvar",
+  "badges.conditions.rule": "Regras de ativação",
+  "badges.conditions.select.rule": "Selecione a regra",
+  "badges.conditions.header.prefix": "Corresponder a",
+  "badges.conditions.all": "todas",
+  "badges.conditions.none": "nenhuma",
+  "badges.conditions.header.sufix": "condições",
+  "badges.conditions.new": "Adicionar nova condição",
+  "badges.conditions.and": "e",
+  "badges.conditions.or": "ou",
+  "badges.file.label": "Insira o arquivo da badge",
+  "badges.file.drop.image": "Arraste a imagem aqui",
+  "badges.file.choice.image": "escolha um arquivo",
+  "badges.file.accept.files": "(serão aceitos arquivos .jpg, .jpeg e .png)",
+
+  "badges.navigation.end": "Gerenciamento de Badges"
 }
