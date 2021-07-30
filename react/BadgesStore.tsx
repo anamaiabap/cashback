@@ -1,22 +1,30 @@
-/* eslint-disable @typescript-eslint/no-empty-interface */
 import React from 'react'
+import { ConditionLayoutProduct } from 'vtex.condition-layout'
 
-interface BadgesStoreProps {}
+import { conditionsProps } from './utils/conditionsProps'
 
-// eslint-disable-next-line no-empty-pattern
-const BadgesStore: StorefrontFunctionComponent<BadgesStoreProps> = ({}) => {
+const BadgesStore: StorefrontFunctionComponent = () => {
+  const conditionsPropsValues = conditionsProps
+
   return (
-    <div>
-      <h1>Teste BadgesStore</h1>
+    <div className="t-body c-on-base pa6 h-100 w-100">
+      <ConditionLayoutProduct {...conditionsPropsValues} />
     </div>
   )
 }
 
 BadgesStore.schema = {
-  title: 'editor.BadgesStore.title',
-  description: 'editor.BadgesStore.description',
+  title: 'editor.countdown.title',
+  description: 'editor.countdown.description',
   type: 'object',
-  properties: {},
+  properties: {
+    targetDate: {
+      title: 'Data final',
+      description: 'Data final utilizada no contador',
+      type: 'string',
+      default: null,
+    },
+  },
 }
 
 export default BadgesStore
