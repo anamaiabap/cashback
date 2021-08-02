@@ -5532,7 +5532,7 @@ static-extend@^0.1.1:
     define-property "^0.2.5"
     object-copy "^0.1.0"
 
-"stats-lite@github:vtex/node-stats-lite#dist":
+stats-lite@vtex/node-stats-lite#dist:
   version "2.2.0"
   resolved "https://codeload.github.com/vtex/node-stats-lite/tar.gz/1b0d39cc41ef7aaecfd541191f877887a2044797"
   dependencies:
@@ -5986,9 +5986,25 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
-"vtex.badges@https://ana--sandboxbrdev.myvtex.com/_v/private/typings/linked/v1/vtex.badges@1.0.0+build1627037321/public/@types/vtex.badges":
+"vtex.badges@https://ana--sandboxbrdev.myvtex.com/_v/private/typings/linked/v1/vtex.badges@1.0.0+build1627906529/public/@types/vtex.badges":
   version "1.0.0"
-  resolved "https://ana--sandboxbrdev.myvtex.com/_v/private/typings/linked/v1/vtex.badges@1.0.0+build1627037321/public/@types/vtex.badges#3cfb707e25e871167fdd74ec15629f0f1f62d0c2"
+  resolved "https://ana--sandboxbrdev.myvtex.com/_v/private/typings/linked/v1/vtex.badges@1.0.0+build1627906529/public/@types/vtex.badges#4410e5ab77292883eebe552717db35378b974d9b"
+
+"vtex.condition-layout@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.condition-layout@2.2.0/public/@types/vtex.condition-layout":
+  version "2.2.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.condition-layout@2.2.0/public/@types/vtex.condition-layout#fc6beed8234f062f3426f7be574312ade2a68d80"
+
+"vtex.file-manager-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.file-manager-graphql@0.3.0/public/@types/vtex.file-manager-graphql":
+  version "0.3.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.file-manager-graphql@0.3.0/public/@types/vtex.file-manager-graphql#601e8962c656e184a9f30b258b9441df5970bbdd"
+
+"vtex.rich-text@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.rich-text@0.14.0/public/@types/vtex.rich-text":
+  version "0.14.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.rich-text@0.14.0/public/@types/vtex.rich-text#fd31249116da1e0f1caeaa00a44035afa9c91703"
+
+"vtex.store-image@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-image@0.12.0/public/@types/vtex.store-image":
+  version "0.12.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-image@0.12.0/public/@types/vtex.store-image#8fcdc0f6e5baa1f7625297fa735fa837477a554a"
 
 "vtex.styleguide@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.145.0/public/@types/vtex.styleguide":
   version "9.145.0"
