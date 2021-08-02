@@ -13,6 +13,21 @@ input SaveValues {
   operator: String
 }
 
+type SimpleStatementsType {
+  error: String
+  object: String
+  subject: String
+  verb: String
+}
+
+type SearchValues {
+  type: String
+  content: String
+  name: String
+  simpleStatements: [SimpleStatementsType]
+  operator: String
+}
+
 type ReturnValueSave {
   Id: String
   DocumentId: String
@@ -27,6 +42,7 @@ type Query {
   getCollectionsNames: [String]
   getCategoryName: [String]
   getSpecificationName: [String]
+  searchMasterdata: [SearchValues]
 }
 
 type Mutation {

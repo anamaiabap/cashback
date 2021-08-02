@@ -4,6 +4,7 @@ import type { ServiceContext } from '@vtex/api'
 import type { Clients } from './clients'
 import { clients } from './clients'
 import { saveMasterdata } from './resolvers/saveMasterdata'
+import { searchMasterdata } from './resolvers/searchMasterdata'
 
 /* import { getProductsIds } from './resolvers/getProductsIds'
 import { getProductsNames } from './resolvers/getProductsName'
@@ -23,7 +24,7 @@ export default new Service({
   clients,
   graphql: {
     resolvers: {
-      Query: {},
+      Query: { searchMasterdata },
       Mutation: {
         saveMasterdata,
       },
