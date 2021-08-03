@@ -1,35 +1,59 @@
-/* eslint-disable eqeqeq */
-import React from 'react'
+import React, { useMemo } from 'react'
+import { useQuery } from 'react-apollo'
 import { index as RichText } from 'vtex.rich-text'
 import { Image } from 'vtex.store-image'
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-type valueType = 'texto' | 'imagem'
+import searchMasterdata from '../queries/searchMasterdata.gql'
 
-export const type: valueType = 'texto'
+export const conditionsPropsFunction = () => {
+  const { data } = useQuery(searchMasterdata)
 
-export const conditionsProps = {
-  conditions: [
-    {
-      subject: 'categoryId',
-      arguments: {
-        id: 5,
-      },
+  const conditionsProps = useMemo(() => {
+    if (data !== undefined) return data?.searchMasterdata
+
+    return []
+  }, [data])
+
+  const conditionsMap = conditionsProps.map((element: any) => {
+    return conditionsPropsValues(element)
+  })
+
+  return conditionsMap
+}
+
+function conditionsPropsValues(data: any) {
+  const values = {
+    conditions: conditionsFunction(data?.simpleStatements),
+    Then: () => {
+      if (data?.type === 'text') {
+        return <RichText text={data?.content} />
+      }
+
+      return <Image src={data?.content} height={100} width={200} />
     },
-  ],
-  Then: () => {
-    if (type === 'texto') {
-      return <RichText text={type} />
+  }
+
+  return values
+}
+
+function conditionsFunction(data: any) {
+  const value: Array<{
+    subject: string
+    arguments: { id: string }
+    toBe: boolean
+  }> = []
+
+  data.forEach((element: { subject: string; object: string; verb: string }) => {
+    const rule = {
+      subject: `${element.subject}Id`,
+      arguments: {
+        id: element.object,
+      },
+      toBe: element.verb === '=',
     }
 
-    return (
-      <Image
-        src="https://storecomponents.vteximg.com.br/arquivos/banner-infocard2.png"
-        height={100}
-        width={200}
-        description="teste2"
-      />
-    )
-  },
-  Else: () => <RichText text={'Não é o produto'} />,
+    value.push(rule)
+  })
+
+  return value
 }

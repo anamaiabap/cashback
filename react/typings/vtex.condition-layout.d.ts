@@ -6,6 +6,7 @@ declare module 'vtex.condition-layout' {
   type Condition = {
     subject: string
     arguments: { id: number }
+    toBe: boolean
   }
 
   type Props = {

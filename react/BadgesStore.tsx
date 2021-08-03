@@ -1,14 +1,20 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { ConditionLayoutProduct } from 'vtex.condition-layout'
 
-import { conditionsProps } from './utils/conditionsProps'
+import { conditionsPropsFunction } from './utils/conditionsProps'
 
 const BadgesStore: StorefrontFunctionComponent = () => {
-  const conditionsPropsValues = conditionsProps
+  const conditionsPropsValues = conditionsPropsFunction()
 
   return (
-    <div className="t-body c-on-base pa6 h-100 w-100">
-      <ConditionLayoutProduct {...conditionsPropsValues} />
+    <div className="container">
+      {conditionsPropsValues.map((element: any) => {
+        return (
+          <span>
+            <ConditionLayoutProduct {...element} />
+          </span>
+        )
+      })}
     </div>
   )
 }
