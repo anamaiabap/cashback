@@ -24,6 +24,7 @@ export const conditionsPropsFunction = () => {
 function conditionsPropsValues(data: any) {
   const values = {
     conditions: conditionsFunction(data?.simpleStatements),
+    matchType: data?.operator,
     Then: () => {
       if (data?.type === 'text') {
         return <RichText text={data?.content} />
