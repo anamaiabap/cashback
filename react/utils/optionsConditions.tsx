@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { AutoComplete } from './functionsConditions'
+import AutoComplete from './autoComplete'
 
 export function optionsFunctions() {
   return {

@@ -1,6 +1,6 @@
 /* eslint-disable vtex/prefer-early-return */
 import type { FC } from 'react'
-import React, { useMemo, useRef, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { useQuery } from 'react-apollo'
 
 import getProductsName from '../queries/getProductsName.gql'
@@ -21,10 +21,6 @@ const Provider: FC = props => {
     simpleStatements: [],
     operator: 'all',
   })
-
-  const [term, setTerm] = useState('')
-  const [loading, setLoading] = useState(false)
-  const timeoutRef = useRef(null)
 
   const [textValidate, setTextValidate] = useState<string[]>([''])
 
@@ -204,11 +200,6 @@ const Provider: FC = props => {
         setConditionsFunction,
         handleToggleOperator,
         textValidate,
-        term,
-        setTerm,
-        loading,
-        setLoading,
-        timeoutRef,
         nameProducts,
         nameSku,
         nameBrands,
