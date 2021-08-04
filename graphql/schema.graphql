@@ -1,9 +1,18 @@
+type ObjectNameId {
+  id: String
+  name: String
+}
+
+type ObjectName {
+  name: String
+}
+
 type Query {
   getProductsIds: [Int]
-  getProductsNames: [String]
-  getSkuNames: [String]
-  getBrandsNames: [String]
-  getCollectionsNames: [String]
-  getCategoryName: [String]
-  getSpecificationName: [String]
+  getProductsNames: [ObjectNameId]
+  getSkuNames: [ObjectNameId]
+  getBrandsNames: [ObjectNameId]
+  getCollectionsNames: [ObjectNameId]
+  getCategoryName: [ObjectNameId]
+  getSpecificationName: [ObjectName]
 }

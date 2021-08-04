@@ -1,7 +1,14 @@
 /* eslint-disable vtex/prefer-early-return */
 import type { FC } from 'react'
-import React, { useState } from 'react'
+import React, { useMemo, useRef, useState } from 'react'
+import { useQuery } from 'react-apollo'
 
+import getProductsName from '../queries/getProductsName.gql'
+import getSkusNames from '../queries/getSkusNames.gql'
+import getBrandsNames from '../queries/getBrandsNames.gql'
+import getCollectionsNames from '../queries/getCollectionsNames.gql'
+import getCategoryName from '../queries/getCategoryName.gql'
+import getSpecificationName from '../queries/getSpecificationName.gql'
 import Context from '../Context/context'
 
 const Provider: FC = props => {
@@ -14,6 +21,10 @@ const Provider: FC = props => {
     simpleStatements: [],
     operator: 'all',
   })
+
+  const [term, setTerm] = useState('')
+  const [loading, setLoading] = useState(false)
+  const timeoutRef = useRef(null)
 
   const [textValidate, setTextValidate] = useState<string[]>([''])
 
@@ -89,6 +100,92 @@ const Provider: FC = props => {
     setConditions({ ...conditions, ...{ operator: operador } })
   }
 
+  const { data: dataProductsNames } = useQuery(getProductsName)
+  const { data: dataSkuNames } = useQuery(getSkusNames)
+  const { data: dataBrandsNames } = useQuery(getBrandsNames)
+  const { data: dataCollectionsNames } = useQuery(getCollectionsNames)
+  const { data: dataCategoryNames } = useQuery(getCategoryName)
+  const { data: dataSpecificationNames } = useQuery(getSpecificationName)
+
+  const nameProducts = useMemo(() => {
+    if (dataProductsNames === undefined) return
+
+    const namesAndIds: Array<{ label: string; value: string }> = []
+
+    dataProductsNames.getProductsNames.forEach(
+      (element: { name: string; id: string }) => {
+        namesAndIds.push({ label: element.name, value: element.id })
+      }
+    )
+
+    return namesAndIds
+  }, [dataProductsNames])
+
+  const nameSku = useMemo(() => {
+    if (dataSkuNames === undefined) return
+    const namesAndIds: Array<{ label: string; value: string }> = []
+
+    dataSkuNames.getSkuNames.forEach(
+      (element: { name: string; id: string }) => {
+        namesAndIds.push({ label: element.name, value: element.id })
+      }
+    )
+
+    return namesAndIds
+  }, [dataSkuNames])
+
+  const nameBrands = useMemo(() => {
+    if (dataBrandsNames === undefined) return
+    const namesAndIds: Array<{ label: string; value: string }> = []
+
+    dataBrandsNames.getBrandsNames.forEach(
+      (element: { name: string; id: string }) => {
+        namesAndIds.push({ label: element.name, value: element.id })
+      }
+    )
+
+    return namesAndIds
+  }, [dataBrandsNames])
+
+  const nameCollections = useMemo(() => {
+    if (dataCollectionsNames === undefined) return
+    const namesAndIds: Array<{ label: string; value: string }> = []
+
+    dataCollectionsNames.getCollectionsNames.forEach(
+      (element: { name: string; id: string }) => {
+        namesAndIds.push({ label: element.name, value: element.id })
+      }
+    )
+
+    return namesAndIds
+  }, [dataCollectionsNames])
+
+  const nameCategory = useMemo(() => {
+    if (dataCategoryNames === undefined) return
+    const namesAndIds: Array<{ label: string; value: string }> = []
+
+    dataCategoryNames.getCategoryName.forEach(
+      (element: { name: string; id: string }) => {
+        namesAndIds.push({ label: element.name, value: element.id })
+      }
+    )
+
+    return namesAndIds
+  }, [dataCategoryNames])
+
+  const nameSpecification = useMemo(() => {
+    if (dataSpecificationNames === undefined) return
+    const namesAndIds: Array<{ label: string; value: string }> = []
+
+    dataSpecificationNames.getSpecificationName.forEach(
+      (element: { name: string }) => {
+        namesAndIds.push({ label: element.name, value: element.name })
+      }
+    )
+
+    return namesAndIds
+  }, [dataSpecificationNames])
+
   return (
     <Context.Provider
       value={{
@@ -107,6 +204,17 @@ const Provider: FC = props => {
         setConditionsFunction,
         handleToggleOperator,
         textValidate,
+        term,
+        setTerm,
+        loading,
+        setLoading,
+        timeoutRef,
+        nameProducts,
+        nameSku,
+        nameBrands,
+        nameCollections,
+        nameCategory,
+        nameSpecification,
       }}
     >
       {props.children}

@@ -1,3 +1,6 @@
 query getCategoryName {
-  getCategoryName
+  getCategoryName {
+    id
+    name
+  }
 }

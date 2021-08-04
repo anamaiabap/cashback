@@ -1,98 +1,57 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable radix */
-import { Input } from 'vtex.styleguide'
+import { Input, AutocompleteInput } from 'vtex.styleguide'
 import React, { useContext } from 'react'
 
 import Context from '../Context/context'
 
-/* export function ComplexDropdownObject({
-  value,
-  onChange,
-  name,
-}: {
-  value: any
-  onChange: any
-  name: string
-}) {
-  const provider = useContext(ContextOptions)
+export function AutoComplete({ name }: { name: string }) {
+  const provider = useContext(Context)
 
-  let options = []
+  let values
 
-  if (name === 'product') options = provider.nameProducts
-  if (name === 'sku') options = provider.nameSku
-  if (name === 'brand') options = provider.nameBrands
-  if (name === 'collection') options = provider.nameCollections
-  if (name === 'category') options = provider.nameCategory
+  if (name === 'productId') values = provider.nameProducts
+  if (name === 'selectedItemId') values = provider.nameSku
+  if (name === 'brandId') values = provider.nameBrands
+  if (name === 'productClusters') values = provider.nameCollections
+  if (name === 'categoryId') values = provider.nameCategory
+  if (name === 'specificationProperties') values = provider.nameSpecification
+  let options
 
-  return (
-    <Dropdown
-      value={value}
-      options={options}
-      onChange={(e: { target: { value: any } }) => {
-        onChange(e.target.value)
-      }}
-    />
-  )
-} */
+  if (values !== undefined) {
+    options = {
+      onSelect: () => provider.loading,
+      value: !provider.term.length
+        ? []
+        : values.filter((user: any) =>
+            typeof user === 'string'
+              ? user.toLowerCase().includes(provider.term.toLowerCase())
+              : user.label.toLowerCase().includes(provider.term.toLowerCase())
+          ),
+    }
+  }
 
-export function SimpleInputObject({
-  value,
-  onChange,
-}: {
-  value: string
-  onChange: any
-}) {
-  return (
-    <Input
-      value={value}
-      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-        onChange(e.target.value)
-      }}
-    />
-  )
-}
-
-export function ComplexNumericInputRangeObject({
-  value,
-  onChange,
-}: {
-  value: any
-  onChange: any
-}) {
-  return (
-    <div className="flex">
-      <Input
-        type="number"
-        min="0"
-        placeholder="Valor menor"
-        errorMessage={
-          value && parseInt(value.first) >= parseInt(value.last)
-            ? 'O valor deve ser menor que o outro campo'
-            : ''
+  const input = {
+    onChange: (term: any) => {
+      if (provider.term) {
+        provider.setLoading(true)
+        if (provider.timeoutRef.current) {
+          clearTimeout(provider.timeoutRef.current)
         }
-        value={value?.first ? value.first : ''}
-        onChange={(e: any) =>
-          onChange({
-            ...value,
-            first: e.target.value.replace(/\D/g, ''),
-          })
-        }
-      />
 
-      <div className="mv4 mh3 c-muted-2 b">e</div>
+        provider.timeoutRef.current = setTimeout(() => {
+          provider.setLoading(false)
+          provider.setTerm(term)
+          provider.timeoutRef.current = null
+        }, 1000)
+      } else {
+        provider.setTerm(term)
+      }
+    },
+    onClear: () => provider.setTerm(''),
+    placeholder: 'Comece a digitar para as opções aparecerem',
+    value: provider.term,
+  }
 
-      <Input
-        type="number"
-        min={(value && `${parseInt(value.first) + 1}`) || '0'}
-        placeholder="Valor maior"
-        value={value?.last ? value.last : ''}
-        onChange={(e: any) =>
-          onChange({
-            ...value,
-            last: e.target.value.replace(/\D/g, ''),
-          })
-        }
-      />
-    </div>
-  )
+  return <AutocompleteInput input={input} options={options} />
 }

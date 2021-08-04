@@ -21,7 +21,15 @@ export default new Service({
   clients,
   graphql: {
     resolvers: {
-      Query: {},
+      Query: {
+        getProductsIds,
+        getProductsNames,
+        getSkuNames,
+        getBrandsNames,
+        getCollectionsNames,
+        getCategoryName,
+        getSpecificationName,
+      },
     },
   },
 })

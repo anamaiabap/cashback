@@ -1,3 +1,6 @@
 query getCollectionsNames {
-  getCollectionsNames
+  getCollectionsNames {
+    id
+    name
+  }
 }
