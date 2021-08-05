@@ -46,7 +46,7 @@ function conditionsFunction(data: any) {
 
   data.forEach((element: { subject: string; object: string; verb: string }) => {
     const rule = {
-      subject: `${element.subject}Id`,
+      subject: `${element.subject}`,
       arguments: {
         id: element.object,
       },
