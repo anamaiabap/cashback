@@ -30,11 +30,19 @@ function conditionsPropsValues(data: any) {
         return <RichText text={data?.content} />
       }
 
+      if (data?.type === 'html') {
+        return <div dangerouslySetInnerHTML={createMarkup(data?.content)} />
+      }
+
       return <Image src={data?.content} height={100} width={200} />
     },
   }
 
   return values
+}
+
+function createMarkup(content: any) {
+  return { __html: content }
 }
 
 function conditionsFunction(data: any) {

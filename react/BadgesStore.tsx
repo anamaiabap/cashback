@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import { ConditionLayoutProduct } from 'vtex.condition-layout'
 
 import { conditionsPropsFunction } from './utils/conditionsProps'
