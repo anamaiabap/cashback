@@ -13,7 +13,11 @@ interface ContextType {
   setText: (text: string) => void
   save: () => void
   conditions: {
-    simpleStatements: never[]
+    simpleStatements: Array<{
+      subject: string
+      verb: string
+      object: unknown
+    }>
     operator: string
   }
   setConditionsFunction: (object: any) => void
@@ -21,6 +25,12 @@ interface ContextType {
   textValidate: string[]
   showAlert: number
   handleCloseAlert: () => void
+  nameProducts: Array<{ label: string; value: string }> | undefined
+  nameSku: Array<{ label: string; value: string }> | undefined
+  nameBrands: Array<{ label: string; value: string }> | undefined
+  nameCollections: Array<{ label: string; value: string }> | undefined
+  nameCategory: Array<{ label: string; value: string }> | undefined
+  nameSpecification: Array<{ label: string; value: string }> | undefined
 }
 const Context = React.createContext<ContextType>({
   button: 1,
@@ -40,6 +50,12 @@ const Context = React.createContext<ContextType>({
   textValidate: [],
   showAlert: 0,
   handleCloseAlert: () => {},
+  nameProducts: [{ label: '', value: '' }],
+  nameSku: [{ label: '', value: '' }],
+  nameBrands: [{ label: '', value: '' }],
+  nameCollections: [{ label: '', value: '' }],
+  nameCategory: [{ label: '', value: '' }],
+  nameSpecification: [{ label: '', value: '' }],
 })
 
 export default Context

@@ -12,11 +12,11 @@ interface Props {
 const InputArea: FC<Props> = ({ name }: Props) => {
   const provider = useContext(Context)
 
-  const updateValueName = (event: { target: { value?: string } }) => {
+  const updateValueName = (event: React.ChangeEvent<HTMLInputElement>) => {
     provider.setName(event.target.value ?? '')
   }
 
-  const updateValueText = (event: { target: { value?: string } }) => {
+  const updateValueText = (event: React.ChangeEvent<HTMLInputElement>) => {
     provider.setText(event.target.value ?? '')
   }
 

@@ -2,6 +2,10 @@ interface SaveValues {
   type?: string
   content?: string
   name?: string
-  simpleStatements?: never[]
+  simpleStatements?: Array<{
+    subject: string
+    verb: string
+    object: unknown
+  }>
   operator?: string
 }
