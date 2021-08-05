@@ -31,7 +31,7 @@ export class Products extends JanusClient {
   }
 
   public async getProductsName(workspace: string, ids: number[]) {
-    const names: string[] = []
+    const names: Array<{ id: string; name: string }> = []
 
     const promises = []
 
@@ -44,28 +44,28 @@ export class Products extends JanusClient {
     }
 
     await Promise.all(promises).then(values => {
-      values.forEach(value => names.push(value.Name))
+      values.forEach(value => names.push({ id: value.Id, name: value.Name }))
     })
 
     return names
   }
 
   public async getBrandsNames(workspace: string) {
-    const names: string[] = []
+    const names: Array<{ id: string; name: string }> = []
 
     const value = await this.http.get(
       `https://${workspace}.vtexcommercestable.com.br/api/catalog_system/pvt/brand/list`
     )
 
-    value.forEach((element: any) => {
-      names.push(element.name)
+    value.forEach((element: { id: string; name: string }) => {
+      names.push({ id: element.id, name: element.name })
     })
 
     return names
   }
 
   public async getCollectionsNames(workspace: string) {
-    const names: string[] = []
+    const names: Array<{ id: string; name: string }> = []
 
     const value = await this.http.get(
       `https://${workspace}.vtexcommercestable.com.br/api/catalog_system/pvt/collection/search`
@@ -73,26 +73,28 @@ export class Products extends JanusClient {
 
     const { items } = value
 
-    items.forEach((element: any) => {
-      names.push(element.name)
+    items.forEach((element: { id: string; name: string }) => {
+      names.push({ id: element.id, name: element.name })
     })
 
     return names
   }
 
   public async getCategoryName(workspace: string) {
-    const names: string[] = []
+    const names: Array<{ id: string; name: string }> = []
 
     const value = await this.http.get(
       `https://${workspace}.vtexcommercestable.com.br/api/catalog_system/pub/category/tree/100`
     )
 
-    value.forEach(async (element: any) => {
-      names.push(element.name)
-      if (element.children) {
-        recursiveGetCategoryNameChildren(element.children, names)
+    value.forEach(
+      async (element: { id: string; name: string; children: any }) => {
+        names.push({ id: element.id, name: element.name })
+        if (element.children) {
+          recursiveGetCategoryNameChildren(element.children, names)
+        }
       }
-    })
+    )
 
     return names
   }
@@ -115,7 +117,7 @@ export class Products extends JanusClient {
   }
 
   public async getSpecificationName(workspace: string, ids: number[]) {
-    const names: string[] = []
+    const names: Array<{ name: string }> = []
 
     const promises = []
 
@@ -128,10 +130,10 @@ export class Products extends JanusClient {
     }
 
     await Promise.all(promises).then(values => {
-      values.forEach((value: any) => {
-        value.forEach((element: any) => {
-          names.push(element.Name)
-        })
+      values.forEach(value => {
+        value.forEach((element: { Name: string }) =>
+          names.push({ name: element.Name })
+        )
       })
     })
 
@@ -139,9 +141,12 @@ export class Products extends JanusClient {
   }
 }
 
-function recursiveGetCategoryNameChildren(children: any, names: string[]) {
-  children.forEach((element: { name: string; children: any }) => {
-    names.push(element.name)
+function recursiveGetCategoryNameChildren(
+  children: any,
+  names: Array<{ id: string; name: string }> = []
+) {
+  children.forEach((element: { name: string; children: any; id: string }) => {
+    names.push({ id: element.id, name: element.name })
     if (element.children) {
       recursiveGetCategoryNameChildren(element.children, names)
     }

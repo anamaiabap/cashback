@@ -1,3 +1,6 @@
 query getBrandsNames {
-  getBrandsNames
+  getBrandsNames {
+    id
+    name
+  }
 }
