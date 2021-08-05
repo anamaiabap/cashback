@@ -1,82 +1,86 @@
 import React from 'react'
+import { useIntl } from 'react-intl'
 
+import { options } from './definedMessages'
 import {
   SimpleInputObject,
   ComplexNumericInputRangeObject,
 } from './functionsConditions'
 
 export function optionsFunctions() {
+  const intl = useIntl()
+
   return {
     category: {
-      label: 'Categoria',
+      label: intl.formatMessage(options.category),
       verbs: [
         {
-          label: 'é',
+          label: intl.formatMessage(options.is),
           value: '=',
           object: (props: any) => <SimpleInputObject {...props} />,
         },
         {
-          label: 'não é',
+          label: intl.formatMessage(options.isNot),
           value: '!=',
           object: (props: any) => <SimpleInputObject {...props} />,
         },
       ],
     },
     brand: {
-      label: 'Marca',
+      label: intl.formatMessage(options.brand),
       verbs: [
         {
-          label: 'é',
+          label: intl.formatMessage(options.is),
           value: '=',
           object: (props: any) => <SimpleInputObject {...props} />,
         },
         {
-          label: 'não é',
+          label: intl.formatMessage(options.isNot),
           value: '!=',
           object: (props: any) => <SimpleInputObject {...props} />,
         },
       ],
     },
     product: {
-      label: 'Produto',
+      label: intl.formatMessage(options.product),
       verbs: [
         {
-          label: 'é',
+          label: intl.formatMessage(options.is),
           value: '=',
           object: (props: any) => <SimpleInputObject {...props} />,
         },
         {
-          label: 'não é',
+          label: intl.formatMessage(options.isNot),
           value: '!=',
           object: (props: any) => <SimpleInputObject {...props} />,
         },
       ],
     },
     collection: {
-      label: 'Coleção',
+      label: intl.formatMessage(options.collection),
       verbs: [
         {
-          label: 'é',
+          label: intl.formatMessage(options.is),
           value: '=',
           object: (props: any) => <SimpleInputObject {...props} />,
         },
         {
-          label: 'não é',
+          label: intl.formatMessage(options.isNot),
           value: '!=',
           object: (props: any) => <SimpleInputObject {...props} />,
         },
       ],
     },
     specification: {
-      label: 'Especificação',
+      label: intl.formatMessage(options.specification),
       verbs: [
         {
-          label: 'é',
+          label: intl.formatMessage(options.is),
           value: '=',
           object: (props: any) => <SimpleInputObject {...props} />,
         },
         {
-          label: 'não é',
+          label: intl.formatMessage(options.isNot),
           value: '!=',
           object: (props: any) => <SimpleInputObject {...props} />,
         },
@@ -86,12 +90,12 @@ export function optionsFunctions() {
       label: 'Promoção',
       verbs: [
         {
-          label: 'é',
+          label: intl.formatMessage(options.is),
           value: '=',
           object: (props: any) => <SimpleInputObject {...props} />,
         },
         {
-          label: 'não é',
+          label: intl.formatMessage(options.isNot),
           value: '!=',
           object: (props: any) => <SimpleInputObject {...props} />,
         },
@@ -103,15 +107,15 @@ export function optionsFunctions() {
       ],
     },
     sku: {
-      label: 'SKU',
+      label: intl.formatMessage(options.sku),
       verbs: [
         {
-          label: 'é',
+          label: intl.formatMessage(options.is),
           value: '=',
           object: (props: any) => <SimpleInputObject {...props} />,
         },
         {
-          label: 'não é',
+          label: intl.formatMessage(options.isNot),
           value: '!=',
           object: (props: any) => <SimpleInputObject {...props} />,
         },

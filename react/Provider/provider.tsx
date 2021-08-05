@@ -2,16 +2,19 @@
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import { useMutation } from 'react-apollo'
+import { useIntl } from 'react-intl'
 
 import uploadFile from '../queries/uploadFile.gql'
 import saveMasterdata from '../queries/saveMasterdata.gql'
 import Context from '../Context/context'
+import { provider } from '../utils/definedMessages'
 
 const BUTTON_CHOICE_IS_IMAGEM = 1
 const BUTTON_CHOICE_IS_TEXT = 2
 const BUTTON_CHOICE_IS_HTML = 3
 
 const Provider: FC = props => {
+  const intl = useIntl()
   const [button, setButton] = useState(1)
   const [name, setName] = useState('')
   const [html, setHtml] = useState('')
@@ -40,26 +43,26 @@ const Provider: FC = props => {
     const validation = []
 
     if (!name) {
-      validation.push('Preencha o campo "Nome da badge"')
+      validation.push(intl.formatMessage(provider.errorName))
     }
 
     if (
       button === BUTTON_CHOICE_IS_IMAGEM &&
       (file.result === null || file.result === undefined)
     ) {
-      validation.push('Adicione uma imagem no campo "Tipo de badge"')
+      validation.push(intl.formatMessage(provider.errorImage))
     }
 
     if (button === BUTTON_CHOICE_IS_TEXT && !text) {
-      validation.push('Preencha o campo "Insira o texto da badge"')
+      validation.push(intl.formatMessage(provider.errorText))
     }
 
     if (button === BUTTON_CHOICE_IS_HTML && !html) {
-      validation.push('Preencha o campo "Insira o HTML da badge"')
+      validation.push(intl.formatMessage(provider.errorHtml))
     }
 
     if (conditions.simpleStatements.length === 0) {
-      validation.push('Preencha o campo "Regras de ativação"')
+      validation.push(intl.formatMessage(provider.errorSimpleStatement))
     }
 
     if (validation.length === 0) return true
