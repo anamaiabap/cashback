@@ -17,8 +17,12 @@ const BUTTON_CHOICE_IS_IMAGEM = 1
 const BUTTON_CHOICE_IS_TEXT = 2
 const BUTTON_CHOICE_IS_HTML = 3
 
+const NOT_SHOW_ALERT = 0
+const SHOW_ALERT_SAVE = 1
+const SHOW_ALERT_ERROR = 2
+
 const Provider: FC = props => {
-  const [button, setButton] = useState(1)
+  const [button, setButton] = useState(BUTTON_CHOICE_IS_IMAGEM)
   const [name, setName] = useState('')
   const [html, setHtml] = useState('')
   const [file, setFile] = useState({ files: null, result: null })
@@ -28,7 +32,7 @@ const Provider: FC = props => {
     operator: 'all',
   })
 
-  const [showAlert, setShowAlert] = useState(0)
+  const [showAlert, setShowAlert] = useState(NOT_SHOW_ALERT)
 
   const [textValidate, setTextValidate] = useState<string[]>([''])
   const [saveMutation] = useMutation(uploadFile)
@@ -76,7 +80,7 @@ const Provider: FC = props => {
   }
 
   async function save() {
-    setShowAlert(0)
+    setShowAlert(NOT_SHOW_ALERT)
     setTextValidate([''])
     const validate = validateIfAllFieldsIsComplete()
 
@@ -119,9 +123,9 @@ const Provider: FC = props => {
     })
 
     if (id.data.saveMasterdata.Id != null) {
-      setShowAlert(1)
+      setShowAlert(SHOW_ALERT_SAVE)
     } else {
-      setShowAlert(2)
+      setShowAlert(SHOW_ALERT_ERROR)
     }
   }
 
