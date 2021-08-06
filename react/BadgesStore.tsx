@@ -3,8 +3,22 @@ import { ConditionLayoutProduct } from 'vtex.condition-layout'
 
 import { conditionsPropsFunction } from './utils/conditionsProps'
 
-const BadgesStore: StorefrontFunctionComponent = () => {
-  const conditionsPropsValues = conditionsPropsFunction()
+const BadgesStore: StorefrontFunctionComponent<RichTextProps> = (
+  propsRichText: RichTextProps
+) => {
+  const { font, textAlignment, textColor, textPosition, classes, htmlId } =
+    propsRichText
+
+  const richTextProps = {
+    font,
+    textAlignment,
+    textColor,
+    textPosition,
+    classes,
+    htmlId,
+  }
+
+  const conditionsPropsValues = conditionsPropsFunction(richTextProps)
 
   return (
     <div className="container">

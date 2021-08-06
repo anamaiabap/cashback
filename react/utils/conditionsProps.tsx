@@ -5,7 +5,7 @@ import { Image } from 'vtex.store-image'
 
 import searchMasterdata from '../queries/searchMasterdata.gql'
 
-export const conditionsPropsFunction = () => {
+export const conditionsPropsFunction = (richTextProps: RichTextProps) => {
   const { data } = useQuery(searchMasterdata)
 
   const conditionsProps = useMemo(() => {
@@ -15,19 +15,29 @@ export const conditionsPropsFunction = () => {
   }, [data])
 
   const conditionsMap = conditionsProps.map((element: any) => {
-    return conditionsPropsValues(element)
+    return conditionsPropsValues(element, richTextProps)
   })
 
   return conditionsMap
 }
 
-function conditionsPropsValues(data: any) {
+function conditionsPropsValues(data: any, richTextProps: RichTextProps) {
   const values = {
     conditions: conditionsFunction(data?.simpleStatements),
     matchType: data?.operator,
     Then: () => {
       if (data?.type === 'text') {
-        return <RichText text={data?.content} />
+        return (
+          <RichText
+            text={data?.content}
+            font={richTextProps.font}
+            textColor={richTextProps.textColor}
+            htmlId={richTextProps.htmlId}
+            textAlignment={richTextProps.textAlignment}
+            textPosition={richTextProps.textPosition}
+            classes={richTextProps.classes}
+          />
+        )
       }
 
       if (data?.type === 'html') {
