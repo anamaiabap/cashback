@@ -1,3 +1,4 @@
+// eslint-disable-next-line prettier/prettier
 import { defineMessages } from 'react-intl'
 
 export const alert = defineMessages({
