@@ -6,6 +6,7 @@ export const alert = defineMessages({
 })
 
 export const button = defineMessages({
+  title: { id: 'badges.button.title' },
   image: { id: 'badges.button.image' },
   text: { id: 'badges.button.text' },
   html: { id: 'badges.button.html' },
@@ -67,4 +68,10 @@ export const options = defineMessages({
   sku: { id: 'badges.options.sku' },
   is: { id: 'badges.options.is' },
   isNot: { id: 'badges.options.not.is' },
+})
+
+export const badgessArea = defineMessages({
+  title: { id: 'badges.badges.area.title' },
+  labelTab1: { id: 'badges.badges.area.tab.1.label' },
+  labelTab2: { id: 'badges.badges.area.tab.2.label' },
 })

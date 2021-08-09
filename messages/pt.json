@@ -2,6 +2,7 @@
   "badges.navigation.label": "Gerenciamento de Badges",
   "badges.data.save": "Dados salvos!",
   "badges.data.save.errors": "Erro ao salvar os dados",
+  "badges.button.title": "Tipo do Badge",
   "badges.button.image": "Imagem",
   "badges.button.text": "Texto",
   "badges.button.html": "HTML",
@@ -10,7 +11,7 @@
   "badges.conditions.select.rule": "Selecione a regra",
   "badges.conditions.header.prefix": "Corresponder a",
   "badges.conditions.all": "todas",
-  "badges.conditions.none": "nenhuma",
+  "badges.conditions.none": "qualquer",
   "badges.conditions.header.sufix": "condições",
   "badges.conditions.new": "Adicionar nova condição",
   "badges.conditions.and": "e",
@@ -39,6 +40,7 @@
   "badges.options.sku": "SKU",
   "badges.options.is": "é",
   "badges.options.not.is": "não é",
-
-  "badges.navigation.end": "Gerenciamento de Badges"
+  "badges.badges.area.title": "Gerenciamento de Badges",
+  "badges.badges.area.tab.1.label": "Adicionar badges",
+  "badges.badges.area.tab.2.label": "Editar Badges"
 }

@@ -2,10 +2,7 @@ import React from 'react'
 import { useIntl } from 'react-intl'
 
 import { options } from './definedMessages'
-import {
-  SimpleInputObject,
-  ComplexNumericInputRangeObject,
-} from './functionsConditions'
+import { SimpleInputObject } from './functionsConditions'
 
 export function optionsFunctions() {
   const intl = useIntl()
@@ -83,26 +80,6 @@ export function optionsFunctions() {
           label: intl.formatMessage(options.isNot),
           value: '!=',
           object: (props: any) => <SimpleInputObject {...props} />,
-        },
-      ],
-    },
-    sale: {
-      label: 'Promoção',
-      verbs: [
-        {
-          label: intl.formatMessage(options.is),
-          value: '=',
-          object: (props: any) => <SimpleInputObject {...props} />,
-        },
-        {
-          label: intl.formatMessage(options.isNot),
-          value: '!=',
-          object: (props: any) => <SimpleInputObject {...props} />,
-        },
-        {
-          label: 'está entre',
-          value: 'between',
-          object: (props: any) => <ComplexNumericInputRangeObject {...props} />,
         },
       ],
     },
