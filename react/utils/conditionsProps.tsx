@@ -4,8 +4,12 @@ import { index as RichText } from 'vtex.rich-text'
 import { Image } from 'vtex.store-image'
 
 import searchMasterdata from '../queries/searchMasterdata.gql'
+import type { ImagePropsType } from '../typings/imageProps'
 
-export const conditionsPropsFunction = (richTextProps: RichTextProps) => {
+export const conditionsPropsFunction = (
+  richTextProps: RichTextProps,
+  imageProps: ImagePropsType
+) => {
   const { data } = useQuery(searchMasterdata)
 
   const conditionsProps = useMemo(() => {
@@ -15,13 +19,17 @@ export const conditionsPropsFunction = (richTextProps: RichTextProps) => {
   }, [data])
 
   const conditionsMap = conditionsProps.map((element: any) => {
-    return conditionsPropsValues(element, richTextProps)
+    return conditionsPropsValues(element, richTextProps, imageProps)
   })
 
   return conditionsMap
 }
 
-function conditionsPropsValues(data: any, richTextProps: RichTextProps) {
+function conditionsPropsValues(
+  data: any,
+  richTextProps: RichTextProps,
+  imageProps: ImagePropsType
+) {
   const values = {
     conditions: conditionsFunction(data?.simpleStatements),
     matchType: data?.operator,
@@ -44,7 +52,21 @@ function conditionsPropsValues(data: any, richTextProps: RichTextProps) {
         return <div dangerouslySetInnerHTML={createMarkup(data?.content)} />
       }
 
-      return <Image src={data?.content} height={100} width={200} />
+      return (
+        <Image
+          src={data?.content}
+          height={imageProps.height}
+          width={imageProps.width}
+          maxWidth={imageProps.maxWidth}
+          maxHeight={imageProps.maxHeight}
+          minWidth={imageProps.minWidth}
+          minHeight={imageProps.minHeight}
+          alt={imageProps.alt}
+          title={imageProps.title}
+          classes={imageProps.classesImage}
+          preload={imageProps.preload}
+        />
+      )
     },
   }
 

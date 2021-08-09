@@ -10,16 +10,12 @@ export function optionsFunctions() {
         {
           label: 'é',
           value: '=',
-          object: (props: any) => (
-            <AutoComplete {...props} name={'categoryId'} />
-          ),
+          object: (props: any) => <AutoComplete {...props} name="categoryId" />,
         },
         {
           label: 'não é',
           value: '!=',
-          object: (props: any) => (
-            <AutoComplete {...props} name={'categoryId'} />
-          ),
+          object: (props: any) => <AutoComplete {...props} name="categoryId" />,
         },
       ],
     },
@@ -29,12 +25,12 @@ export function optionsFunctions() {
         {
           label: 'é',
           value: '=',
-          object: (props: any) => <AutoComplete {...props} name={'brandId'} />,
+          object: (props: any) => <AutoComplete {...props} name="brandId" />,
         },
         {
           label: 'não é',
           value: '!=',
-          object: (props: any) => <AutoComplete {...props} name={'brandId'} />,
+          object: (props: any) => <AutoComplete {...props} name="brandId" />,
         },
       ],
     },
@@ -44,16 +40,12 @@ export function optionsFunctions() {
         {
           label: 'é',
           value: '=',
-          object: (props: any) => (
-            <AutoComplete {...props} name={'productId'} />
-          ),
+          object: (props: any) => <AutoComplete {...props} name="productId" />,
         },
         {
           label: 'não é',
           value: '!=',
-          object: (props: any) => (
-            <AutoComplete {...props} name={'productId'} />
-          ),
+          object: (props: any) => <AutoComplete {...props} name="productId" />,
         },
       ],
     },
@@ -64,14 +56,14 @@ export function optionsFunctions() {
           label: 'é',
           value: '=',
           object: (props: any) => (
-            <AutoComplete {...props} name={'productClusters'} />
+            <AutoComplete {...props} name="productClusters" />
           ),
         },
         {
           label: 'não é',
           value: '!=',
           object: (props: any) => (
-            <AutoComplete {...props} name={'productClusters'} />
+            <AutoComplete {...props} name="productClusters" />
           ),
         },
       ],
@@ -83,14 +75,14 @@ export function optionsFunctions() {
           label: 'é',
           value: '=',
           object: (props: any) => (
-            <AutoComplete {...props} name={'specificationProperties'} />
+            <AutoComplete {...props} name="specificationProperties" />
           ),
         },
         {
           label: 'não é',
           value: '!=',
           object: (props: any) => (
-            <AutoComplete {...props} name={'specificationProperties'} />
+            <AutoComplete {...props} name="specificationProperties" />
           ),
         },
       ],
@@ -102,14 +94,14 @@ export function optionsFunctions() {
           label: 'é',
           value: '=',
           object: (props: any) => (
-            <AutoComplete {...props} name={'selectedItemId'} />
+            <AutoComplete {...props} name="selectedItemId" />
           ),
         },
         {
           label: 'não é',
           value: '!=',
           object: (props: any) => (
-            <AutoComplete {...props} name={'selectedItemId'} />
+            <AutoComplete {...props} name="selectedItemId" />
           ),
         },
       ],
