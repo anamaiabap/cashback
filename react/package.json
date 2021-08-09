@@ -21,6 +21,6 @@
   "dependencies": {
     "@types/faker": "^4.1.5",
     "faker": "^4.1.0",
-    "react-intl": "^5.20.4"
+    "react-intl": "^5.20.7"
   }
 }
