@@ -6,12 +6,15 @@ import { useIntl } from 'react-intl'
 import { alert } from '../utils/definedMessages'
 import Context from '../Context/context'
 
+const SHOW_ALERT_SAVE = 1
+const SHOW_ALERT_ERROR = 2
+
 const AlertArea: FC = () => {
   const intl = useIntl()
 
   const provider = useContext(Context)
 
-  if (provider.showAlert === 1) {
+  if (provider.showAlert === SHOW_ALERT_SAVE) {
     return (
       <Alert type="success" onClose={provider.handleCloseAlert}>
         {intl.formatMessage(alert.save)}
@@ -19,7 +22,7 @@ const AlertArea: FC = () => {
     )
   }
 
-  if (provider.showAlert === 2) {
+  if (provider.showAlert === SHOW_ALERT_ERROR) {
     return (
       <Alert type="success" onClose={provider.handleCloseAlert}>
         {intl.formatMessage(alert.error)}

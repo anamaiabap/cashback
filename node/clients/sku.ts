@@ -37,7 +37,7 @@ export class Skus extends JanusClient {
   }
 
   public async getSkuName(workspace: string, ids: number[]) {
-    const names: string[] = []
+    const names: Array<{ id: any; name: any }> = []
 
     const promises = []
 
@@ -50,7 +50,9 @@ export class Skus extends JanusClient {
     }
 
     await Promise.all(promises).then(values => {
-      values.forEach(value => names.push(value.NameComplete))
+      values.forEach(value =>
+        names.push({ id: value.Id, name: value.NameComplete })
+      )
     })
 
     return names

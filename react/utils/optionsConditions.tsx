@@ -2,99 +2,119 @@ import React from 'react'
 import { useIntl } from 'react-intl'
 
 import { options } from './definedMessages'
-import { SimpleInputObject } from './functionsConditions'
+import AutoComplete from './autoComplete'
 
 export function optionsFunctions() {
   const intl = useIntl()
 
   return {
-    category: {
+    categoryId: {
       label: intl.formatMessage(options.category),
       verbs: [
         {
           label: intl.formatMessage(options.is),
           value: '=',
-          object: (props: any) => <SimpleInputObject {...props} />,
+          object: (props: any) => (
+            <AutoComplete {...props} name={'categoryId'} />
+          ),
         },
         {
           label: intl.formatMessage(options.isNot),
           value: '!=',
-          object: (props: any) => <SimpleInputObject {...props} />,
+          object: (props: any) => (
+            <AutoComplete {...props} name={'categoryId'} />
+          ),
         },
       ],
     },
-    brand: {
+    brandId: {
       label: intl.formatMessage(options.brand),
       verbs: [
         {
           label: intl.formatMessage(options.is),
           value: '=',
-          object: (props: any) => <SimpleInputObject {...props} />,
+          object: (props: any) => <AutoComplete {...props} name={'brandId'} />,
         },
         {
           label: intl.formatMessage(options.isNot),
           value: '!=',
-          object: (props: any) => <SimpleInputObject {...props} />,
+          object: (props: any) => <AutoComplete {...props} name={'brandId'} />,
         },
       ],
     },
-    product: {
+    productId: {
       label: intl.formatMessage(options.product),
       verbs: [
         {
           label: intl.formatMessage(options.is),
           value: '=',
-          object: (props: any) => <SimpleInputObject {...props} />,
+          object: (props: any) => (
+            <AutoComplete {...props} name={'productId'} />
+          ),
         },
         {
           label: intl.formatMessage(options.isNot),
           value: '!=',
-          object: (props: any) => <SimpleInputObject {...props} />,
+          object: (props: any) => (
+            <AutoComplete {...props} name={'productId'} />
+          ),
         },
       ],
     },
-    collection: {
+    productClusters: {
       label: intl.formatMessage(options.collection),
       verbs: [
         {
           label: intl.formatMessage(options.is),
           value: '=',
-          object: (props: any) => <SimpleInputObject {...props} />,
+          object: (props: any) => (
+            <AutoComplete {...props} name={'productClusters'} />
+          ),
         },
         {
           label: intl.formatMessage(options.isNot),
           value: '!=',
-          object: (props: any) => <SimpleInputObject {...props} />,
+          object: (props: any) => (
+            <AutoComplete {...props} name={'productClusters'} />
+          ),
         },
       ],
     },
-    specification: {
+    specificationProperties: {
       label: intl.formatMessage(options.specification),
       verbs: [
         {
           label: intl.formatMessage(options.is),
           value: '=',
-          object: (props: any) => <SimpleInputObject {...props} />,
+          object: (props: any) => (
+            <AutoComplete {...props} name={'specificationProperties'} />
+          ),
         },
         {
           label: intl.formatMessage(options.isNot),
           value: '!=',
-          object: (props: any) => <SimpleInputObject {...props} />,
+          object: (props: any) => (
+            <AutoComplete {...props} name={'specificationProperties'} />
+          ),
         },
       ],
     },
-    sku: {
+    selectedItemId: {
       label: intl.formatMessage(options.sku),
       verbs: [
         {
           label: intl.formatMessage(options.is),
           value: '=',
-          object: (props: any) => <SimpleInputObject {...props} />,
+          object: (props: any) => (
+            <AutoComplete {...props} name={'selectedItemId'} />
+          ),
         },
         {
           label: intl.formatMessage(options.isNot),
           value: '!=',
-          object: (props: any) => <SimpleInputObject {...props} />,
+          object: (props: any) => (
+            <AutoComplete {...props} name={'selectedItemId'} />
+          ),
         },
       ],
     },
