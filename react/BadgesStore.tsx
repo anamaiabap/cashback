@@ -2,7 +2,6 @@ import React from 'react'
 import { ConditionLayoutProduct } from 'vtex.condition-layout'
 import { useCssHandles } from 'vtex.css-handles'
 
-import type { BadgesProps } from './typings/badgesProps'
 import { conditionsPropsFunction } from './utils/conditionsProps'
 
 const CSS_HANDLES = [
@@ -13,7 +12,7 @@ const CSS_HANDLES = [
   'badgesImage',
 ] as const
 
-const BadgesStore: StorefrontFunctionComponent<BadgesProps> = (props: any) => {
+const BadgesStore: StorefrontFunctionComponent = (props: any) => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const { handles } = useCssHandles(CSS_HANDLES)
