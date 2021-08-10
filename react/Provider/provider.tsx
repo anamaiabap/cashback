@@ -15,17 +15,22 @@ import getSpecificationName from '../queries/getSpecificationName.gql'
 import Context from '../Context/context'
 import { provider } from '../utils/definedMessages'
 
-const BUTTON_CHOICE_IS_IMAGEM = 1
-const BUTTON_CHOICE_IS_TEXT = 2
-const BUTTON_CHOICE_IS_HTML = 3
+const enum ButtonOptions {
+  image = 1,
+  text = 2,
+  html = 3,
+}
 
-const NOT_SHOW_ALERT = 0
-const SHOW_ALERT_SAVE = 1
-const SHOW_ALERT_ERROR = 2
+const enum ShowAlertOptions {
+  notShow = 0,
+  alertSave = 1,
+  alertError = 2,
+}
 
 const Provider: FC = props => {
   const intl = useIntl()
-  const [button, setButton] = useState(BUTTON_CHOICE_IS_IMAGEM)
+
+  const [button, setButton] = useState(ButtonOptions.image)
   const [name, setName] = useState('')
   const [html, setHtml] = useState('')
   const [file, setFile] = useState({ files: null, result: null })
@@ -35,7 +40,7 @@ const Provider: FC = props => {
     operator: 'all',
   })
 
-  const [showAlert, setShowAlert] = useState(NOT_SHOW_ALERT)
+  const [showAlert, setShowAlert] = useState(ShowAlertOptions.notShow)
 
   const [textValidate, setTextValidate] = useState<string[]>([''])
   const [saveMutation] = useMutation(uploadFile)
@@ -57,18 +62,19 @@ const Provider: FC = props => {
     }
 
     if (
-      button === BUTTON_CHOICE_IS_IMAGEM &&
+      button === ButtonOptions.image &&
       (file.result === null || file.result === undefined)
     ) {
       validation.push(intl.formatMessage(provider.errorImage))
     }
 
-    if (button === BUTTON_CHOICE_IS_TEXT && !text) {
-      validation.push(intl.formatMessage(provider.errorText))
+    if (button === ButtonOptions.text && !text) {
+     validation.push(intl.formatMessage(provider.errorText))
     }
 
-    if (button === BUTTON_CHOICE_IS_HTML && !html) {
+    if (button === ButtonOptions.html && !html) {
       validation.push(intl.formatMessage(provider.errorHtml))
+
     }
 
     if (conditions.simpleStatements.length === 0) {
@@ -83,7 +89,7 @@ const Provider: FC = props => {
   }
 
   async function save() {
-    setShowAlert(NOT_SHOW_ALERT)
+    setShowAlert(ShowAlertOptions.notShow)
     setTextValidate([''])
     const validate = validateIfAllFieldsIsComplete()
 
@@ -95,7 +101,7 @@ const Provider: FC = props => {
       valueSave.operator = conditions.operator
       valueSave.simpleStatements = conditions.simpleStatements
 
-      if (button === BUTTON_CHOICE_IS_IMAGEM) {
+      if (button === ButtonOptions.image) {
         valueSave.type = 'image'
         if (file.result !== null) {
           const url = await saveMutation({
@@ -106,12 +112,12 @@ const Provider: FC = props => {
         }
       }
 
-      if (button === BUTTON_CHOICE_IS_TEXT) {
+      if (button === ButtonOptions.text) {
         valueSave.type = 'text'
         valueSave.content = text
       }
 
-      if (button === BUTTON_CHOICE_IS_HTML) {
+      if (button === ButtonOptions.html) {
         valueSave.type = 'html'
         valueSave.content = html
       }
@@ -126,9 +132,9 @@ const Provider: FC = props => {
     })
 
     if (id.data.saveMasterdata.Id != null) {
-      setShowAlert(SHOW_ALERT_SAVE)
+      setShowAlert(ShowAlertOptions.alertSave)
     } else {
-      setShowAlert(SHOW_ALERT_ERROR)
+      setShowAlert(ShowAlertOptions.alertError)
     }
   }
 
