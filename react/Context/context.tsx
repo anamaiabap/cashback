@@ -1,8 +1,8 @@
 import React from 'react'
 
 interface ContextType {
-  button: number
-  setButton: (button: number) => void
+  button: ButtonOptions
+  setButton: (button: ButtonOptions) => void
   name: string
   setName: (name: string) => void
   html: string
@@ -31,7 +31,7 @@ interface ContextType {
   nameSpecification: Name[] | undefined
 }
 const Context = React.createContext<ContextType>({
-  button: 1,
+  button: 'image',
   setButton: () => {},
   name: '',
   setName: () => {},

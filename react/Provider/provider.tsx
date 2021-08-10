@@ -10,9 +10,14 @@ import getCollectionsNames from '../queries/getCollectionsNames.gql'
 import getCategoryName from '../queries/getCategoryName.gql'
 import getSpecificationName from '../queries/getSpecificationName.gql'
 import Context from '../Context/context'
+import {
+  htmlButtonOption,
+  imageButtonOption,
+  textButtonOption,
+} from '../utils/buttonOptions'
 
 const Provider: FC = props => {
-  const [button, setButton] = useState(1)
+  const [button, setButton] = useState<ButtonOptions>('image')
   const [name, setName] = useState('')
   const [html, setHtml] = useState('')
   const [file, setFile] = useState({ files: null, result: null })
@@ -21,6 +26,16 @@ const Provider: FC = props => {
     simpleStatements: [],
     operator: 'all',
   })
+
+  const buttonOptions: {
+    [key in ButtonOptions]: any
+  } = useMemo(() => {
+    return {
+      image: { ...imageButtonOption, value: file?.result },
+      text: { ...textButtonOption, value: text },
+      html: { ...htmlButtonOption, value: html },
+    }
+  }, [file, text, html])
 
   const [textValidate, setTextValidate] = useState<string[]>([''])
 
@@ -35,17 +50,10 @@ const Provider: FC = props => {
       validation.push('Preencha o campo "Nome da badge"')
     }
 
-    if (button === 1 && (file.result === null || file.result === undefined)) {
-      validation.push('Adicione uma imagem no campo "Tipo de badge"')
-    }
+    const selectedOption = buttonOptions[button]
+    const validationResult = selectedOption.validate(selectedOption.value)
 
-    if (button === 2 && (text === null || text === undefined || text === '')) {
-      validation.push('Preencha o campo "Insira o texto da badge"')
-    }
-
-    if (button === 3 && (html === null || html === undefined || html === '')) {
-      validation.push('Preencha o campo "Insira o HTML da badge"')
-    }
+    if (validationResult) validation.push(validationResult)
 
     if (conditions.simpleStatements.length === 0) {
       validation.push('Preencha o campo "Regras de ativação"')
@@ -69,22 +77,10 @@ const Provider: FC = props => {
       valueSave.operator = conditions.operator
       valueSave.simpleStatements = conditions.simpleStatements
 
-      if (button === 1) {
-        valueSave.type = 'image'
-        if (file.result != null) {
-          valueSave.typeValue = file.result
-        }
-      }
+      const selectedOption = buttonOptions[button]
 
-      if (button === 2) {
-        valueSave.type = 'text'
-        valueSave.typeValue = text
-      }
-
-      if (button === 3) {
-        valueSave.type = 'html'
-        valueSave.typeValue = html
-      }
+      valueSave.type = selectedOption.type
+      valueSave.typeValue = selectedOption.value
     }
   }
 

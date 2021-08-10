@@ -15,9 +15,9 @@ const AddBages: FC = () => {
   const provider = useContext(Context)
 
   const getContent = useCallback(button => {
-    if (button === 1) return <ImageArea />
+    if (button === 'image') return <ImageArea />
 
-    if (button === 2) return <InputArea name={'text'} />
+    if (button === 'text') return <InputArea name={'text'} />
 
     return <HtmlArea />
   }, [])
