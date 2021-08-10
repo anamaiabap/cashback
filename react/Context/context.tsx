@@ -1,8 +1,8 @@
 import React from 'react'
 
 interface ContextType {
-  button: number
-  setButton: (button: number) => void
+  button: ButtonOptions
+  setButton: (button: ButtonOptions) => void
   name: string
   setName: (name: string) => void
   html: string
@@ -25,15 +25,15 @@ interface ContextType {
   textValidate: string[]
   showAlert: number
   handleCloseAlert: () => void
-  nameProducts: Array<{ label: string; value: string }> | undefined
-  nameSku: Array<{ label: string; value: string }> | undefined
-  nameBrands: Array<{ label: string; value: string }> | undefined
-  nameCollections: Array<{ label: string; value: string }> | undefined
-  nameCategory: Array<{ label: string; value: string }> | undefined
-  nameSpecification: Array<{ label: string; value: string }> | undefined
+  nameProducts: Name[] | undefined
+  nameSku: Name[] | undefined
+  nameBrands: Name[] | undefined
+  nameCollections: Name[] | undefined
+  nameCategory: Name[] | undefined
+  nameSpecification: Name[] | undefined
 }
 const Context = React.createContext<ContextType>({
-  button: 1,
+  button: 'image',
   setButton: () => {},
   name: '',
   setName: () => {},
