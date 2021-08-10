@@ -5,7 +5,7 @@ import { Image } from 'vtex.store-image'
 
 import searchMasterdata from '../queries/searchMasterdata.gql'
 
-export const conditionsPropsFunction = (props: any) => {
+export const conditionsPropsFunction = (props: any, handles: any) => {
   const { data } = useQuery(searchMasterdata)
 
   const conditionsProps = useMemo(() => {
@@ -15,30 +15,44 @@ export const conditionsPropsFunction = (props: any) => {
   }, [data])
 
   const conditionsMap = conditionsProps.map((element: any) => {
-    return conditionsPropsValues(element, props)
+    return conditionsPropsValues(element, props, handles)
   })
 
   return conditionsMap
 }
 
-function conditionsPropsValues(data: any, props: any) {
+function conditionsPropsValues(data: any, props: any, handles: any) {
   const values = {
     conditions: conditionsFunction(data?.simpleStatements),
     matchType: data?.operator,
     Then: () => {
-      if (data?.type === 'text') {
-        return <RichText text={data?.content} {...props.text} />
-      }
+      let classes = handles.badgesImage
 
-      if (data?.type === 'html') {
-        return <div dangerouslySetInnerHTML={createMarkup(data?.content)} />
-      }
+      if (data?.type === 'text') classes = handles.badgesText
+      if (data?.type === 'html') classes = handles.badgesHtml
 
-      return <Image src={data?.content} {...props.image} />
+      return (
+        // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+        <span className={handles.badgeContainer + classes}>
+          {decisionBetweenTextImageHtml(data, props)}
+        </span>
+      )
     },
   }
 
   return values
+}
+
+function decisionBetweenTextImageHtml(data: any, props: any) {
+  if (data?.type === 'text') {
+    return <RichText {...props.text} text={data?.content} />
+  }
+
+  if (data?.type === 'html') {
+    return <div dangerouslySetInnerHTML={createMarkup(data?.content)} />
+  }
+
+  return <Image {...props.image} src={data?.content} />
 }
 
 function createMarkup(content: any) {
