@@ -6,7 +6,7 @@ import { ButtonGroup, Button } from 'vtex.styleguide'
 import Context from '../Context/context'
 import { button } from '../utils/definedMessages'
 
-const BUTTON_CHOICE_IS_IMAGEM = 1
+const BUTTON_CHOICE_IS_IMAGE = 1
 const BUTTON_CHOICE_IS_TEXT = 2
 const BUTTON_CHOICE_IS_HTML = 3
 const ButtonArea: FC = () => {
@@ -20,8 +20,8 @@ const ButtonArea: FC = () => {
       <ButtonGroup
         buttons={[
           <Button
-            isActiveOfGroup={provider.button === BUTTON_CHOICE_IS_IMAGEM}
-            onClick={() => provider.setButton(BUTTON_CHOICE_IS_IMAGEM)}
+            isActiveOfGroup={provider.button === BUTTON_CHOICE_IS_IMAGE}
+            onClick={() => provider.setButton(BUTTON_CHOICE_IS_IMAGE)}
           >
             {intl.formatMessage(button.image)}
           </Button>,
