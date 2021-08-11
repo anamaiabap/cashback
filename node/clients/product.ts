@@ -57,7 +57,7 @@ export class Products extends JanusClient {
       `https://${workspace}.vtexcommercestable.com.br/api/catalog_system/pvt/brand/list`
     )
 
-    value.forEach((element: { id: string; name: string }) => {
+    value.forEach((element: Name) => {
       names.push({ id: element.id, name: element.name })
     })
 
@@ -73,7 +73,7 @@ export class Products extends JanusClient {
 
     const { items } = value
 
-    items.forEach((element: { id: string; name: string }) => {
+    items.forEach((element: Name) => {
       names.push({ id: element.id, name: element.name })
     })
 
