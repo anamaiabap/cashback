@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import React, { useRef, useState, useContext } from 'react'
+import React, { useMemo, useRef, useState, useContext } from 'react'
 import { AutocompleteInput } from 'vtex.styleguide'
 
 import Context from '../Context/context'
@@ -7,6 +7,16 @@ import Context from '../Context/context'
 interface Props {
   onChange: any
   name: string
+}
+
+// eslint-disable-next-line no-restricted-syntax
+enum FieldNames {
+  productId = 'productId',
+  selectedItemId = 'selectedItemId',
+  brandId = 'brandId',
+  productClusters = 'productClusters',
+  categoryId = 'categoryId',
+  specificationProperties = 'specificationProperties',
 }
 
 const AutoComplete: FC<Props> = ({
@@ -21,31 +31,44 @@ const AutoComplete: FC<Props> = ({
   const timeoutRef = useRef<any>()
 
   const provider = useContext(Context)
-  let values
 
-  if (name === 'productId') values = provider.nameProducts
-  if (name === 'selectedItemId') values = provider.nameSku
-  if (name === 'brandId') values = provider.nameBrands
-  if (name === 'productClusters') values = provider.nameCollections
-  if (name === 'categoryId') values = provider.nameCategory
-  if (name === 'specificationProperties') values = provider.nameSpecification
-  let options
-
-  if (values !== undefined) {
-    options = {
-      onSelect: (e: { label: string; value: string }) => {
-        loading
-        onChange(e.value)
-      },
-      value: !term.length
-        ? []
-        : values.filter((user: any) =>
-            typeof user === 'string'
-              ? user.toLowerCase().includes(term.toLowerCase())
-              : user.label.toLowerCase().includes(term.toLowerCase())
-          ),
+  const fields: any = useMemo(() => {
+    return {
+      [FieldNames.productId]: provider.nameProducts,
+      [FieldNames.selectedItemId]: provider.nameSku,
+      [FieldNames.brandId]: provider.nameBrands,
+      [FieldNames.productClusters]: provider.nameCollections,
+      [FieldNames.categoryId]: provider.nameCategory,
+      [FieldNames.specificationProperties]: provider.nameSpecification,
     }
-  }
+  }, [
+    provider.nameBrands,
+    provider.nameCategory,
+    provider.nameCollections,
+    provider.nameProducts,
+    provider.nameSku,
+    provider.nameSpecification,
+  ])
+
+  const values = useMemo(() => fields[name], [fields, name])
+
+  const options = useMemo(() => {
+    if (values !== undefined) {
+      return {
+        onSelect: (e: { label: string; value: string }) => {
+          loading
+          onChange(e.value)
+        },
+        value: !term.length
+          ? []
+          : values.filter((user: any) =>
+              typeof user === 'string'
+                ? user.toLowerCase().includes(term.toLowerCase())
+                : user.label.toLowerCase().includes(term.toLowerCase())
+            ),
+      }
+    }
+  }, [loading, onChange, term, values])
 
   const input = {
     onChange: (termOnChange: any) => {

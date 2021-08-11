@@ -31,7 +31,7 @@ export class Products extends JanusClient {
   }
 
   public async getProductsName(workspace: string, ids: number[]) {
-    const names: Array<{ id: string; name: string }> = []
+    const names: Name[] = []
 
     const promises = []
 
@@ -51,13 +51,13 @@ export class Products extends JanusClient {
   }
 
   public async getBrandsNames(workspace: string) {
-    const names: Array<{ id: string; name: string }> = []
+    const names: Name[] = []
 
     const value = await this.http.get(
       `https://${workspace}.vtexcommercestable.com.br/api/catalog_system/pvt/brand/list`
     )
 
-    value.forEach((element: { id: string; name: string }) => {
+    value.forEach((element: Name) => {
       names.push({ id: element.id, name: element.name })
     })
 
@@ -65,7 +65,7 @@ export class Products extends JanusClient {
   }
 
   public async getCollectionsNames(workspace: string) {
-    const names: Array<{ id: string; name: string }> = []
+    const names: Name[] = []
 
     const value = await this.http.get(
       `https://${workspace}.vtexcommercestable.com.br/api/catalog_system/pvt/collection/search`
@@ -73,7 +73,7 @@ export class Products extends JanusClient {
 
     const { items } = value
 
-    items.forEach((element: { id: string; name: string }) => {
+    items.forEach((element: Name) => {
       names.push({ id: element.id, name: element.name })
     })
 
@@ -81,13 +81,13 @@ export class Products extends JanusClient {
   }
 
   public async getCategoryName(workspace: string) {
-    const names: Array<{ id: string; name: string }> = []
+    const names: Name[] = []
 
-    const value = await this.http.get(
+    const categories = await this.http.get(
       `https://${workspace}.vtexcommercestable.com.br/api/catalog_system/pub/category/tree/100`
     )
 
-    value.forEach(
+    categories.forEach(
       async (element: { id: string; name: string; children: any }) => {
         names.push({ id: element.id, name: element.name })
         if (element.children) {
@@ -141,10 +141,7 @@ export class Products extends JanusClient {
   }
 }
 
-function recursiveGetCategoryNameChildren(
-  children: any,
-  names: Array<{ id: string; name: string }> = []
-) {
+function recursiveGetCategoryNameChildren(children: any, names: Name[] = []) {
   children.forEach((element: { name: string; children: any; id: string }) => {
     names.push({ id: element.id, name: element.name })
     if (element.children) {

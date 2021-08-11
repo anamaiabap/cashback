@@ -1,5 +1,6 @@
 /* eslint-disable vtex/prefer-early-return */
 import type { FC } from 'react'
+import { useIntl } from 'react-intl'
 import React, { useMemo, useState } from 'react'
 import { useMutation, useQuery } from 'react-apollo'
 
@@ -12,17 +13,24 @@ import getCollectionsNames from '../queries/getCollectionsNames.gql'
 import getCategoryName from '../queries/getCategoryName.gql'
 import getSpecificationName from '../queries/getSpecificationName.gql'
 import Context from '../Context/context'
+import { provider } from '../utils/definedMessages'
+import {
+  htmlButtonOption,
+  imageButtonOption,
+  textButtonOption,
+} from '../utils/buttonOptions'
+import { ShowAlertOptions } from '../utils/showAlertOptions'
 
-const BUTTON_CHOICE_IS_IMAGEM = 1
-const BUTTON_CHOICE_IS_TEXT = 2
-const BUTTON_CHOICE_IS_HTML = 3
-
-const NOT_SHOW_ALERT = 0
-const SHOW_ALERT_SAVE = 1
-const SHOW_ALERT_ERROR = 2
+const enum ButtonOptions {
+  image = 'image',
+  text = 'text',
+  html = 'html',
+}
 
 const Provider: FC = props => {
-  const [button, setButton] = useState(BUTTON_CHOICE_IS_IMAGEM)
+  const intl = useIntl()
+
+  const [button, setButton] = useState(ButtonOptions.image)
   const [name, setName] = useState('')
   const [html, setHtml] = useState('')
   const [file, setFile] = useState({ files: null, result: null })
@@ -32,14 +40,35 @@ const Provider: FC = props => {
     operator: 'all',
   })
 
-  const [showAlert, setShowAlert] = useState(NOT_SHOW_ALERT)
-
+  const [showAlert, setShowAlert] = useState(ShowAlertOptions.notShow)
   const [textValidate, setTextValidate] = useState<string[]>([''])
-  const [saveMutation] = useMutation(uploadFile)
   const [saveMasterdataMutation] = useMutation(saveMasterdata)
+  const [saveMutation] = useMutation(uploadFile)
+
+  const buttonOptions: {
+    [key in ButtonOptions]: any
+  } = useMemo(() => {
+    return {
+      image: { ...imageButtonOption, value: file.result },
+      text: { ...textButtonOption, value: text },
+      html: { ...htmlButtonOption, value: html },
+    }
+  }, [file, text, html])
+
+  async function getUrl() {
+    if (file.result !== null) {
+      const url = await saveMutation({
+        variables: { file: file.result?.[0] },
+      })
+
+      if (url != null) return url.data.uploadFile.fileUrl
+    } else {
+      return null
+    }
+  }
 
   const handleCloseAlert = () => {
-    setShowAlert(0)
+    setShowAlert(ShowAlertOptions.notShow)
   }
 
   function chooseFile(files: any) {
@@ -50,26 +79,17 @@ const Provider: FC = props => {
     const validation = []
 
     if (!name) {
-      validation.push('Preencha o campo "Nome da badge"')
+      validation.push(intl.formatMessage(provider.errorName))
     }
 
-    if (
-      button === BUTTON_CHOICE_IS_IMAGEM &&
-      (file.result === null || file.result === undefined)
-    ) {
-      validation.push('Adicione uma imagem no campo "Tipo de badge"')
-    }
+    const selectedOption = buttonOptions[button]
 
-    if (button === BUTTON_CHOICE_IS_TEXT && !text) {
-      validation.push('Preencha o campo "Insira o texto da badge"')
-    }
+    const validationResult = selectedOption.validate(selectedOption.value)
 
-    if (button === BUTTON_CHOICE_IS_HTML && !html) {
-      validation.push('Preencha o campo "Insira o HTML da badge"')
-    }
+    if (validationResult) validation.push(validationResult)
 
     if (conditions.simpleStatements.length === 0) {
-      validation.push('Preencha o campo "Regras de ativação"')
+      validation.push(intl.formatMessage(provider.errorSimpleStatement))
     }
 
     if (validation.length === 0) return true
@@ -80,7 +100,7 @@ const Provider: FC = props => {
   }
 
   async function save() {
-    setShowAlert(NOT_SHOW_ALERT)
+    setShowAlert(ShowAlertOptions.notShow)
     setTextValidate([''])
     const validate = validateIfAllFieldsIsComplete()
 
@@ -92,26 +112,12 @@ const Provider: FC = props => {
       valueSave.operator = conditions.operator
       valueSave.simpleStatements = conditions.simpleStatements
 
-      if (button === BUTTON_CHOICE_IS_IMAGEM) {
-        valueSave.type = 'image'
-        if (file.result !== null) {
-          const url = await saveMutation({
-            variables: { file: file.result?.[0] },
-          })
+      const selectedOption = buttonOptions[button]
 
-          if (url != null) valueSave.content = url.data.uploadFile.fileUrl
-        }
-      }
+      if (selectedOption.type === 'image') valueSave.content = await getUrl()
+      else valueSave.content = selectedOption.value
 
-      if (button === BUTTON_CHOICE_IS_TEXT) {
-        valueSave.type = 'text'
-        valueSave.content = text
-      }
-
-      if (button === BUTTON_CHOICE_IS_HTML) {
-        valueSave.type = 'html'
-        valueSave.content = html
-      }
+      valueSave.type = selectedOption.type
 
       saving(valueSave)
     }
@@ -123,9 +129,9 @@ const Provider: FC = props => {
     })
 
     if (id.data.saveMasterdata.Id != null) {
-      setShowAlert(SHOW_ALERT_SAVE)
+      setShowAlert(ShowAlertOptions.alertSave)
     } else {
-      setShowAlert(SHOW_ALERT_ERROR)
+      setShowAlert(ShowAlertOptions.alertError)
     }
   }
 

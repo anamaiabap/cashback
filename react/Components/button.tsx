@@ -1,34 +1,38 @@
 import type { FC } from 'react'
 import React, { useContext } from 'react'
+import { useIntl } from 'react-intl'
 import { ButtonGroup, Button } from 'vtex.styleguide'
 
 import Context from '../Context/context'
+import { button } from '../utils/definedMessages'
 
 const ButtonArea: FC = () => {
   const provider = useContext(Context)
 
+  const intl = useIntl()
+
   return (
     <>
-      <div className="mt5 mb5"> Tipo do Badge</div>
+      <div className="mt5 mb5"> {intl.formatMessage(button.title)}</div>
       <ButtonGroup
         buttons={[
           <Button
-            isActiveOfGroup={provider.button === 1}
-            onClick={() => provider.setButton(1)}
+            isActiveOfGroup={provider.button === 'image'}
+            onClick={() => provider.setButton('image')}
           >
-            Imagem
+            {intl.formatMessage(button.image)}
           </Button>,
           <Button
-            isActiveOfGroup={provider.button === 2}
-            onClick={() => provider.setButton(2)}
+            isActiveOfGroup={provider.button === 'text'}
+            onClick={() => provider.setButton('text')}
           >
-            Texto
+            {intl.formatMessage(button.text)}
           </Button>,
           <Button
-            isActiveOfGroup={provider.button === 3}
-            onClick={() => provider.setButton(3)}
+            isActiveOfGroup={provider.button === 'html'}
+            onClick={() => provider.setButton('html')}
           >
-            HTML
+            {intl.formatMessage(button.html)}
           </Button>,
         ]}
       />

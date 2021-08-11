@@ -1,66 +1,70 @@
 import React from 'react'
+import { useIntl } from 'react-intl'
 
+import { options } from './definedMessages'
 import AutoComplete from './autoComplete'
 
 export function optionsFunctions() {
+  const intl = useIntl()
+
   return {
     categoryId: {
-      label: 'Categoria',
+      label: intl.formatMessage(options.category),
       verbs: [
         {
-          label: 'é',
+          label: intl.formatMessage(options.is),
           value: '=',
           object: (props: any) => <AutoComplete {...props} name="categoryId" />,
         },
         {
-          label: 'não é',
+          label: intl.formatMessage(options.isNot),
           value: '!=',
           object: (props: any) => <AutoComplete {...props} name="categoryId" />,
         },
       ],
     },
     brandId: {
-      label: 'Marca',
+      label: intl.formatMessage(options.brand),
       verbs: [
         {
-          label: 'é',
+          label: intl.formatMessage(options.is),
           value: '=',
           object: (props: any) => <AutoComplete {...props} name="brandId" />,
         },
         {
-          label: 'não é',
+          label: intl.formatMessage(options.isNot),
           value: '!=',
           object: (props: any) => <AutoComplete {...props} name="brandId" />,
         },
       ],
     },
     productId: {
-      label: 'Produto',
+      label: intl.formatMessage(options.product),
       verbs: [
         {
-          label: 'é',
+          label: intl.formatMessage(options.is),
           value: '=',
           object: (props: any) => <AutoComplete {...props} name="productId" />,
         },
         {
-          label: 'não é',
+          label: intl.formatMessage(options.isNot),
           value: '!=',
           object: (props: any) => <AutoComplete {...props} name="productId" />,
         },
       ],
     },
     productClusters: {
-      label: 'Coleção',
+      label: intl.formatMessage(options.collection),
       verbs: [
         {
-          label: 'é',
+          label: intl.formatMessage(options.is),
           value: '=',
           object: (props: any) => (
             <AutoComplete {...props} name="productClusters" />
           ),
         },
         {
-          label: 'não é',
+          label: intl.formatMessage(options.isNot),
           value: '!=',
           object: (props: any) => (
             <AutoComplete {...props} name="productClusters" />
@@ -69,17 +73,17 @@ export function optionsFunctions() {
       ],
     },
     specificationProperties: {
-      label: 'Especificação',
+      label: intl.formatMessage(options.specification),
       verbs: [
         {
-          label: 'é',
+          label: intl.formatMessage(options.is),
           value: '=',
           object: (props: any) => (
             <AutoComplete {...props} name="specificationProperties" />
           ),
         },
         {
-          label: 'não é',
+          label: intl.formatMessage(options.isNot),
           value: '!=',
           object: (props: any) => (
             <AutoComplete {...props} name="specificationProperties" />
@@ -88,17 +92,17 @@ export function optionsFunctions() {
       ],
     },
     selectedItemId: {
-      label: 'SKU',
+      label: intl.formatMessage(options.sku),
       verbs: [
         {
-          label: 'é',
+          label: intl.formatMessage(options.is),
           value: '=',
           object: (props: any) => (
             <AutoComplete {...props} name="selectedItemId" />
           ),
         },
         {
-          label: 'não é',
+          label: intl.formatMessage(options.isNot),
           value: '!=',
           object: (props: any) => (
             <AutoComplete {...props} name="selectedItemId" />
