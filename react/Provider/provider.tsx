@@ -14,17 +14,17 @@ import getCategoryName from '../queries/getCategoryName.gql'
 import getSpecificationName from '../queries/getSpecificationName.gql'
 import Context from '../Context/context'
 import { provider } from '../utils/definedMessages'
+import {
+  htmlButtonOption,
+  imageButtonOption,
+  textButtonOption,
+} from '../utils/buttonOptions'
+import { ShowAlertOptions } from '../utils/showAlertOptions'
 
 const enum ButtonOptions {
-  image = 1,
-  text = 2,
-  html = 3,
-}
-
-const enum ShowAlertOptions {
-  notShow = 0,
-  alertSave = 1,
-  alertError = 2,
+  image = 'image',
+  text = 'text',
+  html = 'html',
 }
 
 const Provider: FC = props => {
@@ -41,13 +41,34 @@ const Provider: FC = props => {
   })
 
   const [showAlert, setShowAlert] = useState(ShowAlertOptions.notShow)
-
   const [textValidate, setTextValidate] = useState<string[]>([''])
-  const [saveMutation] = useMutation(uploadFile)
   const [saveMasterdataMutation] = useMutation(saveMasterdata)
+  const [saveMutation] = useMutation(uploadFile)
+
+  const buttonOptions: {
+    [key in ButtonOptions]: any
+  } = useMemo(() => {
+    return {
+      image: { ...imageButtonOption, value: file.result },
+      text: { ...textButtonOption, value: text },
+      html: { ...htmlButtonOption, value: html },
+    }
+  }, [file, text, html])
+
+  async function getUrl() {
+    if (file.result !== null) {
+      const url = await saveMutation({
+        variables: { file: file.result?.[0] },
+      })
+
+      if (url != null) return url.data.uploadFile.fileUrl
+    } else {
+      return null
+    }
+  }
 
   const handleCloseAlert = () => {
-    setShowAlert(0)
+    setShowAlert(ShowAlertOptions.notShow)
   }
 
   function chooseFile(files: any) {
@@ -61,21 +82,11 @@ const Provider: FC = props => {
       validation.push(intl.formatMessage(provider.errorName))
     }
 
-    if (
-      button === ButtonOptions.image &&
-      (file.result === null || file.result === undefined)
-    ) {
-      validation.push(intl.formatMessage(provider.errorImage))
-    }
+    const selectedOption = buttonOptions[button]
 
-    if (button === ButtonOptions.text && !text) {
-     validation.push(intl.formatMessage(provider.errorText))
-    }
+    const validationResult = selectedOption.validate(selectedOption.value)
 
-    if (button === ButtonOptions.html && !html) {
-      validation.push(intl.formatMessage(provider.errorHtml))
-
-    }
+    if (validationResult) validation.push(validationResult)
 
     if (conditions.simpleStatements.length === 0) {
       validation.push(intl.formatMessage(provider.errorSimpleStatement))
@@ -101,26 +112,12 @@ const Provider: FC = props => {
       valueSave.operator = conditions.operator
       valueSave.simpleStatements = conditions.simpleStatements
 
-      if (button === ButtonOptions.image) {
-        valueSave.type = 'image'
-        if (file.result !== null) {
-          const url = await saveMutation({
-            variables: { file: file.result?.[0] },
-          })
+      const selectedOption = buttonOptions[button]
 
-          if (url != null) valueSave.content = url.data.uploadFile.fileUrl
-        }
-      }
+      if (selectedOption.type === 'image') valueSave.content = await getUrl()
+      else valueSave.content = selectedOption.value
 
-      if (button === ButtonOptions.text) {
-        valueSave.type = 'text'
-        valueSave.content = text
-      }
-
-      if (button === ButtonOptions.html) {
-        valueSave.type = 'html'
-        valueSave.content = html
-      }
+      valueSave.type = selectedOption.type
 
       saving(valueSave)
     }

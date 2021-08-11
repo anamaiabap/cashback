@@ -1,8 +1,11 @@
+import type { SetStateAction } from 'react'
 import React from 'react'
 
+import { ShowAlertOptions } from '../utils/showAlertOptions'
+
 interface ContextType {
-  button: number
-  setButton: (button: number) => void
+  button: ButtonOptions
+  setButton: (button: any) => void
   name: string
   setName: (name: string) => void
   html: string
@@ -25,15 +28,15 @@ interface ContextType {
   textValidate: string[]
   showAlert: number
   handleCloseAlert: () => void
-  nameProducts: Array<{ label: string; value: string }> | undefined
-  nameSku: Array<{ label: string; value: string }> | undefined
-  nameBrands: Array<{ label: string; value: string }> | undefined
-  nameCollections: Array<{ label: string; value: string }> | undefined
-  nameCategory: Array<{ label: string; value: string }> | undefined
-  nameSpecification: Array<{ label: string; value: string }> | undefined
+  nameProducts: Name[] | undefined
+  nameSku: Name[] | undefined
+  nameBrands: Name[] | undefined
+  nameCollections: Name[] | undefined
+  nameCategory: Name[] | undefined
+  nameSpecification: Name[] | undefined
 }
 const Context = React.createContext<ContextType>({
-  button: 1,
+  button: 'image',
   setButton: () => {},
   name: '',
   setName: () => {},
@@ -48,7 +51,7 @@ const Context = React.createContext<ContextType>({
   setConditionsFunction: () => {},
   handleToggleOperator: () => {},
   textValidate: [],
-  showAlert: 0,
+  showAlert: ShowAlertOptions.notShow,
   handleCloseAlert: () => {},
   nameProducts: [{ label: '', value: '' }],
   nameSku: [{ label: '', value: '' }],
