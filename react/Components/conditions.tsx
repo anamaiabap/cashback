@@ -1,21 +1,12 @@
 import type { FC } from 'react'
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
 import { Conditions, Card } from 'vtex.styleguide'
 
 import { optionsFunctions } from '../utils/optionsConditions'
+import Context from '../Context/context'
 
 const ConditionsArea: FC = () => {
-  const [conditions, setConditions] = useState({
-    simpleStatements: [],
-    operator: 'all',
-  })
-
-  function handleToggleOperator(operator: string) {
-    setConditions({
-      ...conditions,
-      ...{ operator: conditions.operator === 'all' ? 'any' : 'all' },
-    })
-  }
+  const provider = useContext(Context)
 
   const optionsValues = optionsFunctions()
 
@@ -25,17 +16,14 @@ const ConditionsArea: FC = () => {
       <Card>
         <Conditions
           canDelete
-          onChangeOperator={handleToggleOperator}
-          onChangeStatements={(statements: any) => {
-            setConditions({
-              ...conditions,
-              ...{ simpleStatements: statements },
-            })
+          onChangeOperator={provider.handleToggleOperator}
+          onChangeStatements={(statements: []) => {
+            provider.setConditionsFunction(statements)
           }}
-          operator={conditions.operator}
+          operator={provider.conditions.operator}
           options={optionsValues}
           subjectPlaceholder="Selecione a regra"
-          statements={conditions.simpleStatements}
+          statements={provider.conditions.simpleStatements}
           labels={{
             headerPrefix: 'Corresponder a',
             operatorAll: 'todas',

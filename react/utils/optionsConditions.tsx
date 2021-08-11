@@ -1,119 +1,116 @@
 import React from 'react'
 
-import {
-  SimpleInputObject,
-  ComplexNumericInputRangeObject,
-} from './functionsConditions'
+import AutoComplete from './autoComplete'
 
 export function optionsFunctions() {
   return {
-    category: {
+    categoryId: {
       label: 'Categoria',
       verbs: [
         {
           label: 'é',
           value: '=',
-          object: (props: any) => <SimpleInputObject {...props} />,
+          object: (props: any) => (
+            <AutoComplete {...props} name={'categoryId'} />
+          ),
         },
         {
           label: 'não é',
           value: '!=',
-          object: (props: any) => <SimpleInputObject {...props} />,
+          object: (props: any) => (
+            <AutoComplete {...props} name={'categoryId'} />
+          ),
         },
       ],
     },
-    brand: {
+    brandId: {
       label: 'Marca',
       verbs: [
         {
           label: 'é',
           value: '=',
-          object: (props: any) => <SimpleInputObject {...props} />,
+          object: (props: any) => <AutoComplete {...props} name={'brandId'} />,
         },
         {
           label: 'não é',
           value: '!=',
-          object: (props: any) => <SimpleInputObject {...props} />,
+          object: (props: any) => <AutoComplete {...props} name={'brandId'} />,
         },
       ],
     },
-    product: {
+    productId: {
       label: 'Produto',
       verbs: [
         {
           label: 'é',
           value: '=',
-          object: (props: any) => <SimpleInputObject {...props} />,
+          object: (props: any) => (
+            <AutoComplete {...props} name={'productId'} />
+          ),
         },
         {
           label: 'não é',
           value: '!=',
-          object: (props: any) => <SimpleInputObject {...props} />,
+          object: (props: any) => (
+            <AutoComplete {...props} name={'productId'} />
+          ),
         },
       ],
     },
-    collection: {
+    productClusters: {
       label: 'Coleção',
       verbs: [
         {
           label: 'é',
           value: '=',
-          object: (props: any) => <SimpleInputObject {...props} />,
+          object: (props: any) => (
+            <AutoComplete {...props} name={'productClusters'} />
+          ),
         },
         {
           label: 'não é',
           value: '!=',
-          object: (props: any) => <SimpleInputObject {...props} />,
+          object: (props: any) => (
+            <AutoComplete {...props} name={'productClusters'} />
+          ),
         },
       ],
     },
-    specification: {
+    specificationProperties: {
       label: 'Especificação',
       verbs: [
         {
           label: 'é',
           value: '=',
-          object: (props: any) => <SimpleInputObject {...props} />,
+          object: (props: any) => (
+            <AutoComplete {...props} name={'specificationProperties'} />
+          ),
         },
         {
           label: 'não é',
           value: '!=',
-          object: (props: any) => <SimpleInputObject {...props} />,
+          object: (props: any) => (
+            <AutoComplete {...props} name={'specificationProperties'} />
+          ),
         },
       ],
     },
-    sale: {
-      label: 'Promoção',
-      verbs: [
-        {
-          label: 'é',
-          value: '=',
-          object: (props: any) => <SimpleInputObject {...props} />,
-        },
-        {
-          label: 'não é',
-          value: '!=',
-          object: (props: any) => <SimpleInputObject {...props} />,
-        },
-        {
-          label: 'está entre',
-          value: 'between',
-          object: (props: any) => <ComplexNumericInputRangeObject {...props} />,
-        },
-      ],
-    },
-    sku: {
+    selectedItemId: {
       label: 'SKU',
       verbs: [
         {
           label: 'é',
           value: '=',
-          object: (props: any) => <SimpleInputObject {...props} />,
+          object: (props: any) => (
+            <AutoComplete {...props} name={'selectedItemId'} />
+          ),
         },
         {
           label: 'não é',
           value: '!=',
-          object: (props: any) => <SimpleInputObject {...props} />,
+          object: (props: any) => (
+            <AutoComplete {...props} name={'selectedItemId'} />
+          ),
         },
       ],
     },

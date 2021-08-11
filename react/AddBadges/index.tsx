@@ -8,15 +8,16 @@ import DividerArea from '../Components/divider'
 import ImageArea from '../Components/file'
 import InputArea from '../Components/input'
 import HtmlArea from '../Components/textarea'
+import ValidationArea from '../Components/validations'
 import Context from '../Context/context'
 
 const AddBages: FC = () => {
   const provider = useContext(Context)
 
   const getContent = useCallback(button => {
-    if (button === 1) return <ImageArea />
+    if (button === 'image') return <ImageArea />
 
-    if (button === 2) return <InputArea name={'text'} />
+    if (button === 'text') return <InputArea name={'text'} />
 
     return <HtmlArea />
   }, [])
@@ -28,6 +29,7 @@ const AddBages: FC = () => {
       <ButtonArea />
       {getContent(provider.button)}
       <ConditionsArea />
+      <ValidationArea />
       <ButtonSaveArea />
     </>
   )

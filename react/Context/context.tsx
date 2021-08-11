@@ -1,8 +1,8 @@
 import React from 'react'
 
 interface ContextType {
-  button: number
-  setButton: (button: number) => void
+  button: ButtonOptions
+  setButton: (button: ButtonOptions) => void
   name: string
   setName: (name: string) => void
   html: string
@@ -12,9 +12,26 @@ interface ContextType {
   text: string
   setText: (text: string) => void
   save: () => void
+  conditions: {
+    simpleStatements: Array<{
+      subject: string
+      verb: string
+      object: unknown
+    }>
+    operator: string
+  }
+  setConditionsFunction: (object: any) => void
+  handleToggleOperator: (operator: string) => void
+  textValidate: string[]
+  nameProducts: Name[] | undefined
+  nameSku: Name[] | undefined
+  nameBrands: Name[] | undefined
+  nameCollections: Name[] | undefined
+  nameCategory: Name[] | undefined
+  nameSpecification: Name[] | undefined
 }
 const Context = React.createContext<ContextType>({
-  button: 1,
+  button: 'image',
   setButton: () => {},
   name: '',
   setName: () => {},
@@ -25,6 +42,16 @@ const Context = React.createContext<ContextType>({
   text: '',
   setText: () => {},
   save: () => {},
+  conditions: { simpleStatements: [], operator: '' },
+  setConditionsFunction: () => {},
+  handleToggleOperator: () => {},
+  textValidate: [],
+  nameProducts: [{ label: '', value: '' }],
+  nameSku: [{ label: '', value: '' }],
+  nameBrands: [{ label: '', value: '' }],
+  nameCollections: [{ label: '', value: '' }],
+  nameCategory: [{ label: '', value: '' }],
+  nameSpecification: [{ label: '', value: '' }],
 })
 
 export default Context
