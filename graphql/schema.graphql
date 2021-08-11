@@ -1,3 +1,24 @@
+input SimpleStatements {
+  error: String
+  object: String
+  subject: String
+  verb: String
+}
+
+input SaveValues {
+  type: String
+  content: String
+  name: String
+  simpleStatements: [SimpleStatements]
+  operator: String
+}
+
+type ReturnValueSave {
+  Id: String
+  DocumentId: String
+  Href: String
+}
+
 type ObjectNameId {
   id: String
   name: String
@@ -15,4 +36,8 @@ type Query {
   getCollectionsNames: [ObjectNameId]
   getCategoryName: [ObjectNameId]
   getSpecificationName: [ObjectName]
+}
+
+type Mutation {
+  saveMasterdata(saveData: SaveValues): ReturnValueSave
 }

@@ -1,6 +1,6 @@
 interface SaveValues {
   type?: string
-  typeValue?: any
+  content?: string
   name?: string
   simpleStatements?: Array<{
     subject: string

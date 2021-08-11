@@ -13,6 +13,7 @@
     "@vtex/test-tools": "^1.0.0",
     "@vtex/tsconfig": "^0.5.6",
     "typescript": "3.9.7",
+    "vtex.badges": "https://ana--sandboxbrdev.myvtex.com/_v/private/typings/linked/v1/vtex.badges@1.0.0+build1627037321/public/@types/vtex.badges",
     "vtex.styleguide": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.145.0/public/@types/vtex.styleguide"
   },
   "scripts": {

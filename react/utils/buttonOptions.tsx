@@ -1,4 +1,3 @@
-// this could be declared inside another file
 export const imageButtonOption: ButtonOption = {
   type: 'image',
   validate: (content?: any) =>

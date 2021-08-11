@@ -1,8 +1,10 @@
 import type { FC } from 'react'
 import React, { useContext } from 'react'
+import { useIntl } from 'react-intl'
 import { Input } from 'vtex.styleguide'
 
 import Context from '../Context/context'
+import { input } from '../utils/definedMessages'
 
 type InputType = 'name' | 'text'
 
@@ -11,6 +13,8 @@ interface Props {
 }
 const InputArea: FC<Props> = ({ name }: Props) => {
   const provider = useContext(Context)
+
+  const intl = useIntl()
 
   const updateValueName = (event: React.ChangeEvent<HTMLInputElement>) => {
     provider.setName(event.target.value ?? '')
@@ -24,9 +28,9 @@ const InputArea: FC<Props> = ({ name }: Props) => {
     return (
       <Input
         name={'name'}
-        placeholder={'Escolha o nome da badges'}
+        placeholder={intl.formatMessage(input.namePlaceholder)}
         size="large"
-        label={'Nome da badge'}
+        label={intl.formatMessage(input.nameLabel)}
         value={provider.name}
         onChange={updateValueName}
       />
@@ -37,9 +41,9 @@ const InputArea: FC<Props> = ({ name }: Props) => {
     <div className="mt5">
       <Input
         name={'text'}
-        placeholder={'Insira seu texto'}
+        placeholder={intl.formatMessage(input.textPlaceholder)}
         size="large"
-        label={'Insira o texto da badge'}
+        label={intl.formatMessage(input.textLabel)}
         value={provider.text}
         onChange={updateValueText}
       />

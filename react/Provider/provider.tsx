@@ -1,8 +1,11 @@
 /* eslint-disable vtex/prefer-early-return */
 import type { FC } from 'react'
+import { useIntl } from 'react-intl'
 import React, { useMemo, useState } from 'react'
-import { useQuery } from 'react-apollo'
+import { useMutation, useQuery } from 'react-apollo'
 
+import uploadFile from '../queries/uploadFile.gql'
+import saveMasterdata from '../queries/saveMasterdata.gql'
 import getProductsName from '../queries/getProductsName.gql'
 import getSkusNames from '../queries/getSkusNames.gql'
 import getBrandsNames from '../queries/getBrandsNames.gql'
@@ -10,14 +13,24 @@ import getCollectionsNames from '../queries/getCollectionsNames.gql'
 import getCategoryName from '../queries/getCategoryName.gql'
 import getSpecificationName from '../queries/getSpecificationName.gql'
 import Context from '../Context/context'
+import { provider } from '../utils/definedMessages'
 import {
   htmlButtonOption,
   imageButtonOption,
   textButtonOption,
 } from '../utils/buttonOptions'
+import { ShowAlertOptions } from '../utils/showAlertOptions'
+
+const enum ButtonOptions {
+  image = 'image',
+  text = 'text',
+  html = 'html',
+}
 
 const Provider: FC = props => {
-  const [button, setButton] = useState<ButtonOptions>('image')
+  const intl = useIntl()
+
+  const [button, setButton] = useState(ButtonOptions.image)
   const [name, setName] = useState('')
   const [html, setHtml] = useState('')
   const [file, setFile] = useState({ files: null, result: null })
@@ -27,17 +40,36 @@ const Provider: FC = props => {
     operator: 'all',
   })
 
+  const [showAlert, setShowAlert] = useState(ShowAlertOptions.notShow)
+  const [textValidate, setTextValidate] = useState<string[]>([''])
+  const [saveMasterdataMutation] = useMutation(saveMasterdata)
+  const [saveMutation] = useMutation(uploadFile)
+
   const buttonOptions: {
     [key in ButtonOptions]: any
   } = useMemo(() => {
     return {
-      image: { ...imageButtonOption, value: file?.result },
+      image: { ...imageButtonOption, value: file.result },
       text: { ...textButtonOption, value: text },
       html: { ...htmlButtonOption, value: html },
     }
   }, [file, text, html])
 
-  const [textValidate, setTextValidate] = useState<string[]>([''])
+  async function getUrl() {
+    if (file.result !== null) {
+      const url = await saveMutation({
+        variables: { file: file.result?.[0] },
+      })
+
+      if (url != null) return url.data.uploadFile.fileUrl
+    } else {
+      return null
+    }
+  }
+
+  const handleCloseAlert = () => {
+    setShowAlert(ShowAlertOptions.notShow)
+  }
 
   function chooseFile(files: any) {
     setFile({ ...file, ...{ result: files } })
@@ -47,16 +79,17 @@ const Provider: FC = props => {
     const validation = []
 
     if (!name) {
-      validation.push('Preencha o campo "Nome da badge"')
+      validation.push(intl.formatMessage(provider.errorName))
     }
 
     const selectedOption = buttonOptions[button]
+
     const validationResult = selectedOption.validate(selectedOption.value)
 
     if (validationResult) validation.push(validationResult)
 
     if (conditions.simpleStatements.length === 0) {
-      validation.push('Preencha o campo "Regras de ativação"')
+      validation.push(intl.formatMessage(provider.errorSimpleStatement))
     }
 
     if (validation.length === 0) return true
@@ -66,7 +99,9 @@ const Provider: FC = props => {
     return false
   }
 
-  function save() {
+  async function save() {
+    setShowAlert(ShowAlertOptions.notShow)
+    setTextValidate([''])
     const validate = validateIfAllFieldsIsComplete()
 
     if (validate) {
@@ -79,8 +114,24 @@ const Provider: FC = props => {
 
       const selectedOption = buttonOptions[button]
 
+      if (selectedOption.type === 'image') valueSave.content = await getUrl()
+      else valueSave.content = selectedOption.value
+
       valueSave.type = selectedOption.type
-      valueSave.typeValue = selectedOption.value
+
+      saving(valueSave)
+    }
+  }
+
+  async function saving(valueSave: SaveValues) {
+    const id = await saveMasterdataMutation({
+      variables: { saveData: valueSave },
+    })
+
+    if (id.data.saveMasterdata.Id != null) {
+      setShowAlert(ShowAlertOptions.alertSave)
+    } else {
+      setShowAlert(ShowAlertOptions.alertError)
     }
   }
 
@@ -196,6 +247,8 @@ const Provider: FC = props => {
         setConditionsFunction,
         handleToggleOperator,
         textValidate,
+        showAlert,
+        handleCloseAlert,
         nameProducts,
         nameSku,
         nameBrands,
