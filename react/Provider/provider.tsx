@@ -1,8 +1,10 @@
 /* eslint-disable vtex/prefer-early-return */
 import type { FC } from 'react'
 import React, { useMemo, useState } from 'react'
-import { useQuery } from 'react-apollo'
+import { useMutation, useQuery } from 'react-apollo'
 
+import uploadFile from '../queries/uploadFile.gql'
+import saveMasterdata from '../queries/saveMasterdata.gql'
 import getProductsName from '../queries/getProductsName.gql'
 import getSkusNames from '../queries/getSkusNames.gql'
 import getBrandsNames from '../queries/getBrandsNames.gql'
@@ -15,6 +17,7 @@ import {
   imageButtonOption,
   textButtonOption,
 } from '../utils/buttonOptions'
+import { ShowAlertOptions } from '../utils/showAlertOptions'
 
 const Provider: FC = props => {
   const [button, setButton] = useState<ButtonOptions>('image')
@@ -27,17 +30,38 @@ const Provider: FC = props => {
     operator: 'all',
   })
 
+  const [showAlert, setShowAlert] = useState(ShowAlertOptions.notShow)
+  const [textValidate, setTextValidate] = useState<string[]>([''])
+  const [saveMasterdataMutation] = useMutation(saveMasterdata)
+  const [saveMutation] = useMutation(uploadFile)
+
   const buttonOptions: {
     [key in ButtonOptions]: any
   } = useMemo(() => {
+    const valueImage = getUrl()
+
     return {
-      image: { ...imageButtonOption, value: file?.result },
+      image: { ...imageButtonOption, value: valueImage },
       text: { ...textButtonOption, value: text },
       html: { ...htmlButtonOption, value: html },
     }
   }, [file, text, html])
 
-  const [textValidate, setTextValidate] = useState<string[]>([''])
+  async function getUrl() {
+    if (file.result !== null) {
+      const url = await saveMutation({
+        variables: { file: file.result?.[0] },
+      })
+
+      if (url != null) return url.data.uploadFile.fileUrl
+    } else {
+      return null
+    }
+  }
+
+  const handleCloseAlert = () => {
+    setShowAlert(ShowAlertOptions.notShow)
+  }
 
   function chooseFile(files: any) {
     setFile({ ...file, ...{ result: files } })
@@ -66,7 +90,9 @@ const Provider: FC = props => {
     return false
   }
 
-  function save() {
+  async function save() {
+    setShowAlert(ShowAlertOptions.notShow)
+    setTextValidate([''])
     const validate = validateIfAllFieldsIsComplete()
 
     if (validate) {
@@ -80,7 +106,22 @@ const Provider: FC = props => {
       const selectedOption = buttonOptions[button]
 
       valueSave.type = selectedOption.type
-      valueSave.typeValue = selectedOption.value
+
+      valueSave.content = selectedOption.value
+
+      saving(valueSave)
+    }
+  }
+
+  async function saving(valueSave: SaveValues) {
+    const id = await saveMasterdataMutation({
+      variables: { saveData: valueSave },
+    })
+
+    if (id.data.saveMasterdata.Id != null) {
+      setShowAlert(ShowAlertOptions.alertSave)
+    } else {
+      setShowAlert(ShowAlertOptions.alertError)
     }
   }
 
@@ -196,6 +237,8 @@ const Provider: FC = props => {
         setConditionsFunction,
         handleToggleOperator,
         textValidate,
+        showAlert,
+        handleCloseAlert,
         nameProducts,
         nameSku,
         nameBrands,

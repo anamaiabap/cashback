@@ -1,5 +1,7 @@
 import type { ClientsConfig } from '@vtex/api'
 import { IOClients, LRUCache } from '@vtex/api'
+import { masterDataFor } from '@vtex/clients'
+import type { Badges } from 'vtex.badges'
 
 import { Products } from './product'
 import { Skus } from './sku'
@@ -12,6 +14,10 @@ export class Clients extends IOClients {
 
   public get products() {
     return this.getOrSet('products', Products)
+  }
+
+  public get badges() {
+    return this.getOrSet('badges', masterDataFor<Badges>('badges'))
   }
 }
 

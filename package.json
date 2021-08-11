@@ -32,6 +32,7 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
+    "@vtex/clients": "^2.15.2",
     "react-apollo": "^3.1.5",
     "react-intl": "^5.20.4"
   }

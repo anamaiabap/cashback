@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { ShowAlertOptions } from '../utils/showAlertOptions'
+
 interface ContextType {
   button: ButtonOptions
   setButton: (button: ButtonOptions) => void
@@ -23,6 +25,8 @@ interface ContextType {
   setConditionsFunction: (object: any) => void
   handleToggleOperator: (operator: string) => void
   textValidate: string[]
+  showAlert: number
+  handleCloseAlert: () => void
   nameProducts: Name[] | undefined
   nameSku: Name[] | undefined
   nameBrands: Name[] | undefined
@@ -46,6 +50,8 @@ const Context = React.createContext<ContextType>({
   setConditionsFunction: () => {},
   handleToggleOperator: () => {},
   textValidate: [],
+  showAlert: ShowAlertOptions.notShow,
+  handleCloseAlert: () => {},
   nameProducts: [{ label: '', value: '' }],
   nameSku: [{ label: '', value: '' }],
   nameBrands: [{ label: '', value: '' }],

@@ -1,0 +1,5 @@
+mutation saveMasterdata($saveData: SaveValues) {
+  saveMasterdata(saveData: $saveData) {
+    Id
+  }
+}
