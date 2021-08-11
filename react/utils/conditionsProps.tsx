@@ -6,7 +6,7 @@ import { Image } from 'vtex.store-image'
 import searchMasterdata from '../queries/searchMasterdata.gql'
 
 export const conditionsPropsFunction = (props: any, handles: any) => {
-  const { data } = useQuery(searchMasterdata)
+  const { data } = useQuery<BadgesData>(searchMasterdata)
 
   const conditionsProps = useMemo(() => {
     if (data !== undefined) return data?.searchMasterdata
@@ -14,14 +14,18 @@ export const conditionsPropsFunction = (props: any, handles: any) => {
     return []
   }, [data])
 
-  const conditionsMap = conditionsProps.map((element: any) => {
+  const conditionsMap = conditionsProps.map((element: BadgesDataValues) => {
     return conditionsPropsValues(element, props, handles)
   })
 
   return conditionsMap
 }
 
-function conditionsPropsValues(data: any, props: any, handles: any) {
+function conditionsPropsValues(
+  data: BadgesDataValues,
+  props: any,
+  handles: any
+) {
   const values = {
     conditions: conditionsFunction(data?.simpleStatements),
     matchType: data?.operator,
@@ -43,7 +47,7 @@ function conditionsPropsValues(data: any, props: any, handles: any) {
   return values
 }
 
-function decisionBetweenTextImageHtml(data: any, props: any) {
+function decisionBetweenTextImageHtml(data: BadgesDataValues, props: any) {
   if (data?.type === 'text') {
     return <RichText {...props.text} text={data?.content} />
   }
@@ -59,7 +63,9 @@ function createMarkup(content: any) {
   return { __html: content }
 }
 
-function conditionsFunction(data: any) {
+function conditionsFunction(
+  data: Array<{ subject: string; object: string; verb: string }>
+) {
   const value: Array<{
     subject: string
     arguments: { id: string }
