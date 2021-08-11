@@ -17,12 +17,7 @@ import {
   imageButtonOption,
   textButtonOption,
 } from '../utils/buttonOptions'
-
-const enum ShowAlertOptions {
-  notShow = 0,
-  alertSave = 1,
-  alertError = 2,
-}
+import { ShowAlertOptions } from '../utils/showAlertOptios'
 
 const Provider: FC = props => {
   const [button, setButton] = useState<ButtonOptions>('image')
