@@ -3,7 +3,7 @@ import React, { useContext } from 'react'
 import { Alert } from 'vtex.styleguide'
 
 import Context from '../Context/context'
-import { ShowAlertOptions } from '../utils/showAlertOptios'
+import { ShowAlertOptions } from '../utils/showAlertOptions'
 
 const AlertArea: FC = () => {
   const provider = useContext(Context)

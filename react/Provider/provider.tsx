@@ -17,7 +17,7 @@ import {
   imageButtonOption,
   textButtonOption,
 } from '../utils/buttonOptions'
-import { ShowAlertOptions } from '../utils/showAlertOptios'
+import { ShowAlertOptions } from '../utils/showAlertOptions'
 
 const Provider: FC = props => {
   const [button, setButton] = useState<ButtonOptions>('image')
