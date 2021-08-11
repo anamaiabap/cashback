@@ -46,7 +46,7 @@ const Provider: FC = props => {
   function validateIfAllFieldsIsComplete() {
     const validation = []
 
-    if (name === null || name === undefined || name === '') {
+    if (!name) {
       validation.push('Preencha o campo "Nome da badge"')
     }
 
