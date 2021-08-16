@@ -75,3 +75,30 @@ export const badgessArea = defineMessages({
   labelTab1: { id: 'badges.badges.area.tab.1.label' },
   labelTab2: { id: 'badges.badges.area.tab.2.label' },
 })
+
+export const commonModal = defineMessages({
+  save: {
+    id: 'badges.modal.save',
+  },
+  cancel: {
+    id: 'badges.modal.cancel',
+  },
+  delete: {
+    id: 'badges.modal.delete',
+  },
+})
+
+export const modalDelete = defineMessages({
+  deleteText: {
+    id: 'badges.modal.delete.text',
+  },
+  deleteQuestion: {
+    id: 'badges.modal.delete.question',
+  },
+})
+
+export const modalEdit = defineMessages({
+  editText: {
+    id: 'badges.modal.edit.text',
+  },
+})

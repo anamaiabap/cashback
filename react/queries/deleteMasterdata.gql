@@ -1,0 +1,3 @@
+mutation deleteMasterdata($id: String) {
+  deleteMasterdata(id: $id)
+}
