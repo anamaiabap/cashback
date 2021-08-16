@@ -12,7 +12,7 @@ import getBrandsNames from '../queries/getBrandsNames.gql'
 import getCollectionsNames from '../queries/getCollectionsNames.gql'
 import getCategoryName from '../queries/getCategoryName.gql'
 import getSpecificationName from '../queries/getSpecificationName.gql'
-import Context from '../Context/context'
+import ContextAdd from '../Context/contextAdd'
 import { provider } from '../utils/definedMessages'
 import {
   htmlButtonOption,
@@ -27,7 +27,7 @@ const enum ButtonOptions {
   html = 'html',
 }
 
-const Provider: FC = props => {
+const ProviderAdd: FC = props => {
   const intl = useIntl()
 
   const [button, setButton] = useState(ButtonOptions.image)
@@ -149,7 +149,6 @@ const Provider: FC = props => {
   const { data: dataCollectionsNames } = useQuery(getCollectionsNames)
   const { data: dataCategoryNames } = useQuery(getCategoryName)
   const { data: dataSpecificationNames } = useQuery(getSpecificationName)
-
   const nameProducts = useMemo(() => {
     if (dataProductsNames === undefined) return
 
@@ -230,7 +229,7 @@ const Provider: FC = props => {
   }, [dataSpecificationNames])
 
   return (
-    <Context.Provider
+    <ContextAdd.Provider
       value={{
         button,
         setButton,
@@ -255,11 +254,12 @@ const Provider: FC = props => {
         nameCollections,
         nameCategory,
         nameSpecification,
+        setConditions,
       }}
     >
       {props.children}
-    </Context.Provider>
+    </ContextAdd.Provider>
   )
 }
 
-export default Provider
+export default ProviderAdd

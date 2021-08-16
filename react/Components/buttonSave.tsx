@@ -3,11 +3,11 @@ import React, { useContext } from 'react'
 import { useIntl } from 'react-intl'
 import { Button } from 'vtex.styleguide'
 
-import Context from '../Context/context'
+import ContextAdd from '../Context/contextAdd'
 import { buttonSave } from '../utils/definedMessages'
 
 const ButtonSaveArea: FC = () => {
-  const provider = useContext(Context)
+  const provider = useContext(ContextAdd)
 
   const intl = useIntl()
 

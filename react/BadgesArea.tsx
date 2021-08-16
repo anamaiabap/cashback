@@ -1,15 +1,14 @@
 import type { FC } from 'react'
 import React, { useState } from 'react'
-// eslint-disable-next-line import/order
 import { Layout, PageBlock, Tabs, Tab } from 'vtex.styleguide'
-
 import './styles.global.css'
 import { useIntl } from 'react-intl'
 
 import AddBages from './AddBadges'
 import EditBadges from './EditBadges'
-import Provider from './Provider/provider'
+import ProviderAdd from './Provider/providerAdd'
 import { badgessArea } from './utils/definedMessages'
+import ProviderEdit from './Provider/providerEdit'
 
 const BadgesArea: FC = () => {
   const [tab, setTab] = useState({
@@ -19,7 +18,7 @@ const BadgesArea: FC = () => {
   const intl = useIntl()
 
   return (
-    <Provider>
+    <ProviderAdd>
       <Layout>
         <PageBlock
           title={intl.formatMessage(badgessArea.title)}
@@ -38,12 +37,14 @@ const BadgesArea: FC = () => {
               active={tab.currentTab === 2}
               onClick={() => setTab({ currentTab: 2 })}
             >
-              <EditBadges></EditBadges>
+              <ProviderEdit>
+                <EditBadges />
+              </ProviderEdit>
             </Tab>
           </Tabs>
         </PageBlock>
       </Layout>
-    </Provider>
+    </ProviderAdd>
   )
 }
 

@@ -3,7 +3,7 @@ import React from 'react'
 
 import { ShowAlertOptions } from '../utils/showAlertOptions'
 
-interface ContextType {
+interface ContextTypeAdd {
   button: ButtonOptions
   setButton: (button: any) => void
   name: string
@@ -34,8 +34,12 @@ interface ContextType {
   nameCollections: Name[] | undefined
   nameCategory: Name[] | undefined
   nameSpecification: Name[] | undefined
+  setConditions: (conditions: {
+    simpleStatements: any
+    operator: string
+  }) => void
 }
-const Context = React.createContext<ContextType>({
+const ContextAdd = React.createContext<ContextTypeAdd>({
   button: 'image',
   setButton: () => {},
   name: '',
@@ -59,6 +63,7 @@ const Context = React.createContext<ContextType>({
   nameCollections: [{ label: '', value: '' }],
   nameCategory: [{ label: '', value: '' }],
   nameSpecification: [{ label: '', value: '' }],
+  setConditions: () => {},
 })
 
-export default Context
+export default ContextAdd

@@ -2,7 +2,7 @@ import type { FC } from 'react'
 import React, { useMemo, useRef, useState, useContext } from 'react'
 import { AutocompleteInput } from 'vtex.styleguide'
 
-import Context from '../Context/context'
+import ContextAdd from '../Context/contextAdd'
 
 interface Props {
   onChange: any
@@ -30,7 +30,7 @@ const AutoComplete: FC<Props> = ({
   const [loading, setLoading] = useState(false)
   const timeoutRef = useRef<any>()
 
-  const provider = useContext(Context)
+  const provider = useContext(ContextAdd)
 
   const fields: any = useMemo(() => {
     return {

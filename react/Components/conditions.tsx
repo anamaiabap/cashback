@@ -4,11 +4,11 @@ import { Conditions, Card } from 'vtex.styleguide'
 import { useIntl } from 'react-intl'
 
 import { optionsFunctions } from '../utils/optionsConditions'
-import Context from '../Context/context'
+import ContextAdd from '../Context/contextAdd'
 import { conditions } from '../utils/definedMessages'
 
 const ConditionsArea: FC = () => {
-  const provider = useContext(Context)
+  const provider = useContext(ContextAdd)
 
   const optionsValues = optionsFunctions()
 

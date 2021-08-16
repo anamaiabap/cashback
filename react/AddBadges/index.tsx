@@ -10,10 +10,10 @@ import ImageArea from '../Components/file'
 import InputArea from '../Components/input'
 import HtmlArea from '../Components/textarea'
 import ValidationArea from '../Components/validations'
-import Context from '../Context/context'
+import ContextAdd from '../Context/contextAdd'
 
 const AddBages: FC = () => {
-  const provider = useContext(Context)
+  const provider = useContext(ContextAdd)
 
   const getContent = useCallback(button => {
     if (button === 'image') return <ImageArea />

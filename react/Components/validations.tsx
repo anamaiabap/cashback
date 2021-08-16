@@ -1,10 +1,10 @@
 import type { FC } from 'react'
 import React, { useContext } from 'react'
 
-import Context from '../Context/context'
+import ContextAdd from '../Context/contextAdd'
 
 const ValidationArea: FC = () => {
-  const provider = useContext(Context)
+  const provider = useContext(ContextAdd)
 
   return (
     <div>
