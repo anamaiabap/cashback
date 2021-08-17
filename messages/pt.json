@@ -32,6 +32,7 @@
   "badges.provider.error.text": "Preencha o campo 'Insira o texto da badge'",
   "badges.provider.error.html": "Preencha o campo 'Insira o HTML da badge'",
   "badges.provider.error.simple.statement": "Preencha o campo 'Regras de ativação'",
+  "badges.error.more.than.one.type.of.badge": "Só é possível escolher um tipo de badge",
   "badges.options.category": "Categoria",
   "badges.options.brand": "Marca",
   "badges.options.product": "Produto",
@@ -48,5 +49,7 @@
   "badges.modal.delete": "Deletar",
   "badges.modal.delete.text": "Deletar Badge",
   "badges.modal.delete.question": "Tem certeza que deseja excluir essa badge?",
-  "badges.modal.edit.text": "Editar Badge"
+  "badges.modal.edit.text": "Editar Badge",
+  "badges.modal.edit": "Editar",
+  "badges.modal.edit.change.image": "Trocar imagem"
 }

@@ -42,5 +42,13 @@
   "badges.options.not.is": "não é",
   "badges.badges.area.title": "Gerenciamento de Badges",
   "badges.badges.area.tab.1.label": "Adicionar badges",
-  "badges.badges.area.tab.2.label": "Editar Badges"
+  "badges.badges.area.tab.2.label": "Editar Badges",
+  "badges.modal.save": "Salvar",
+  "badges.modal.cancel": "Cancelar",
+  "badges.modal.delete": "Deletar",
+  "badges.modal.delete.text": "Deletar Badge",
+  "badges.modal.delete.question": "Tem certeza que deseja excluir essa badge?",
+  "badges.modal.edit.text": "Editar Badge",
+  "badges.modal.edit": "Editar",
+  "badges.modal.edit.change.image": "Trocar imagem"
 }

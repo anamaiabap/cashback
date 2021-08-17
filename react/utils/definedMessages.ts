@@ -57,6 +57,9 @@ export const provider = defineMessages({
   errorText: { id: 'badges.provider.error.text' },
   errorHtml: { id: 'badges.provider.error.html' },
   errorSimpleStatement: { id: 'badges.provider.error.simple.statement' },
+  errorMoreThanOneTypeOfBadge: {
+    id: 'badges.error.more.than.one.type.of.badge',
+  },
 })
 
 export const options = defineMessages({
@@ -86,6 +89,9 @@ export const commonModal = defineMessages({
   delete: {
     id: 'badges.modal.delete',
   },
+  edit: {
+    id: 'badges.modal.edit',
+  },
 })
 
 export const modalDelete = defineMessages({
@@ -100,5 +106,8 @@ export const modalDelete = defineMessages({
 export const modalEdit = defineMessages({
   editText: {
     id: 'badges.modal.edit.text',
+  },
+  changeImage: {
+    id: 'badges.modal.edit.change.image',
   },
 })
