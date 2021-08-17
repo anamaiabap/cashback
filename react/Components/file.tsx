@@ -3,11 +3,11 @@ import React, { useContext } from 'react'
 import { useIntl } from 'react-intl'
 import { Dropzone } from 'vtex.styleguide'
 
-import ContextAdd from '../Context/contextAdd'
+import Context from '../Context/context'
 import { file } from '../utils/definedMessages'
 
 const ImageArea: FC = () => {
-  const provider = useContext(ContextAdd)
+  const provider = useContext(Context)
   const intl = useIntl()
 
   return (

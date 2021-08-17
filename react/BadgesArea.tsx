@@ -6,9 +6,8 @@ import { useIntl } from 'react-intl'
 
 import AddBages from './AddBadges'
 import EditBadges from './EditBadges'
-import ProviderAdd from './Provider/providerAdd'
+import Provider from './Provider/provider'
 import { badgessArea } from './utils/definedMessages'
-import ProviderEdit from './Provider/providerEdit'
 
 const BadgesArea: FC = () => {
   const [tab, setTab] = useState({
@@ -18,7 +17,7 @@ const BadgesArea: FC = () => {
   const intl = useIntl()
 
   return (
-    <ProviderAdd>
+    <Provider>
       <Layout>
         <PageBlock
           title={intl.formatMessage(badgessArea.title)}
@@ -37,14 +36,12 @@ const BadgesArea: FC = () => {
               active={tab.currentTab === 2}
               onClick={() => setTab({ currentTab: 2 })}
             >
-              <ProviderEdit>
-                <EditBadges />
-              </ProviderEdit>
+              <EditBadges />
             </Tab>
           </Tabs>
         </PageBlock>
       </Layout>
-    </ProviderAdd>
+    </Provider>
   )
 }
 

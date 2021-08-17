@@ -1,9 +1,8 @@
-import type { SetStateAction } from 'react'
 import React from 'react'
 
 import { ShowAlertOptions } from '../utils/showAlertOptions'
 
-interface ContextTypeAdd {
+interface ContextType {
   button: ButtonOptions
   setButton: (button: any) => void
   name: string
@@ -14,7 +13,6 @@ interface ContextTypeAdd {
   file: any
   text: string
   setText: (text: string) => void
-  save: () => void
   conditions: {
     simpleStatements: Array<{
       subject: string
@@ -38,8 +36,28 @@ interface ContextTypeAdd {
     simpleStatements: any
     operator: string
   }) => void
+  validateIfAllFieldsIsComplete: () => boolean
+  valuesSearchBadges: BadgesDataValues[]
+  listBadgesEdit: Array<{
+    id: string
+    name: string
+    type: string
+    index: number
+  }>
+  deleteBadges: () => void
+  modalDelete: boolean
+  setModalDelete: (modalDelete: boolean) => void
+  clickDelete: (id: string) => void
+  editBadges: () => void
+  clickEdit: (index: number, id: string) => void
+  setModalEdit: (modalEdit: boolean) => void
+  modalEdit: boolean
+  showImage: boolean
+  setShowImage: (showImage: boolean) => void
+  clearValue: () => void
+  save: () => void
 }
-const ContextAdd = React.createContext<ContextTypeAdd>({
+const Context = React.createContext<ContextType>({
   button: 'image',
   setButton: () => {},
   name: '',
@@ -50,7 +68,6 @@ const ContextAdd = React.createContext<ContextTypeAdd>({
   file: '',
   text: '',
   setText: () => {},
-  save: () => {},
   conditions: { simpleStatements: [], operator: '' },
   setConditionsFunction: () => {},
   handleToggleOperator: () => {},
@@ -64,6 +81,21 @@ const ContextAdd = React.createContext<ContextTypeAdd>({
   nameCategory: [{ label: '', value: '' }],
   nameSpecification: [{ label: '', value: '' }],
   setConditions: () => {},
+  validateIfAllFieldsIsComplete: () => false,
+  valuesSearchBadges: [],
+  listBadgesEdit: [],
+  deleteBadges: () => {},
+  modalDelete: false,
+  setModalDelete: () => {},
+  clickDelete: () => {},
+  editBadges: () => {},
+  clickEdit: () => {},
+  setModalEdit: () => {},
+  modalEdit: false,
+  showImage: false,
+  setShowImage: () => {},
+  clearValue: () => {},
+  save: () => {},
 })
 
-export default ContextAdd
+export default Context

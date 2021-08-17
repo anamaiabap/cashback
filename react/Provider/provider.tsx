@@ -12,7 +12,10 @@ import getBrandsNames from '../queries/getBrandsNames.gql'
 import getCollectionsNames from '../queries/getCollectionsNames.gql'
 import getCategoryName from '../queries/getCategoryName.gql'
 import getSpecificationName from '../queries/getSpecificationName.gql'
-import ContextAdd from '../Context/contextAdd'
+import searchMasterdata from '../queries/searchMasterdata.gql'
+import deleteMasterdata from '../queries/deleteMasterdata.gql'
+import updateMasterdata from '../queries/updateMasterdata.gql'
+import Context from '../Context/context'
 import { provider } from '../utils/definedMessages'
 import {
   htmlButtonOption,
@@ -27,7 +30,7 @@ const enum ButtonOptions {
   html = 'html',
 }
 
-const ProviderAdd: FC = props => {
+const Provider: FC = props => {
   const intl = useIntl()
 
   const [button, setButton] = useState(ButtonOptions.image)
@@ -36,13 +39,22 @@ const ProviderAdd: FC = props => {
   const [file, setFile] = useState({ files: null, result: null })
   const [text, setText] = useState('')
   const [conditions, setConditions] = useState({
-    simpleStatements: [],
+    simpleStatements: [{ subject: '', verb: '', object: '' }],
     operator: 'all',
   })
 
   const [showAlert, setShowAlert] = useState(ShowAlertOptions.notShow)
   const [textValidate, setTextValidate] = useState<string[]>([''])
+  const [modalDelete, setModalDelete] = useState(false)
+  const [modalEdit, setModalEdit] = useState(false)
+  const [showImage, setShowImage] = useState(false)
+
+  const [deleteId, setDeleteId] = useState<any>()
+  const [editId, setEditId] = useState<any>()
+  const { data, refetch } = useQuery<BadgesData>(searchMasterdata)
+  const [deleteMasterdataMutation] = useMutation(deleteMasterdata)
   const [saveMasterdataMutation] = useMutation(saveMasterdata)
+  const [editMasterdataMutation] = useMutation(updateMasterdata)
   const [saveMutation] = useMutation(uploadFile)
 
   const buttonOptions: {
@@ -82,6 +94,15 @@ const ProviderAdd: FC = props => {
       validation.push(intl.formatMessage(provider.errorName))
     }
 
+    if (
+      (text && html) ||
+      (text && file.result) ||
+      (html && file.result) ||
+      (file.result && text && html)
+    ) {
+      validation.push(intl.formatMessage(provider.errorMoreThanOneTypeOfBadge))
+    }
+
     const selectedOption = buttonOptions[button]
 
     const validationResult = selectedOption.validate(selectedOption.value)
@@ -119,7 +140,11 @@ const ProviderAdd: FC = props => {
 
       valueSave.type = selectedOption.type
 
-      saving(valueSave)
+      const returnSaving = await saving(valueSave)
+
+      refetch()
+
+      return returnSaving
     }
   }
 
@@ -130,9 +155,13 @@ const ProviderAdd: FC = props => {
 
     if (id.data.saveMasterdata.Id != null) {
       setShowAlert(ShowAlertOptions.alertSave)
-    } else {
-      setShowAlert(ShowAlertOptions.alertError)
+
+      return true
     }
+
+    setShowAlert(ShowAlertOptions.alertError)
+
+    return false
   }
 
   function setConditionsFunction(statements: []) {
@@ -228,8 +257,56 @@ const ProviderAdd: FC = props => {
     return namesAndIds
   }, [dataSpecificationNames])
 
+  const valuesSearchBadges = useMemo(() => {
+    if (data !== undefined) return data?.searchMasterdata
+
+    return []
+  }, [data])
+
+  const listBadgesEdit = useMemo(() => {
+    const list: Array<{
+      id: string
+      name: string
+      type: string
+      index: number
+    }> = []
+
+    valuesSearchBadges.forEach((element: BadgesDataValues, indexOf: number) => {
+      list.push({
+        id: element.id,
+        name: element.name,
+        type: element.type,
+        index: indexOf,
+      })
+    })
+
+    return list
+  }, [valuesSearchBadges])
+
+  async function clickDelete(id: string) {
+    setModalDelete(true)
+    setDeleteId(id)
+  }
+
+  async function deleteBadges() {
+    setModalDelete(false)
+
+    const returnDelete = await deleteMasterdataMutation({
+      variables: { id: deleteId },
+    })
+
+    if (returnDelete) {
+      alert('Badge removida com sucesso')
+      refetch()
+    } else {
+      alert('Erro ao remover badge')
+    }
+
+    setDeleteId('')
+  }
+
   return (
-    <ContextAdd.Provider
+    <Context.Provider
       value={{
         button,
         setButton,
@@ -241,7 +318,6 @@ const ProviderAdd: FC = props => {
         file,
         text,
         setText,
-        save,
         conditions,
         setConditionsFunction,
         handleToggleOperator,
@@ -255,11 +331,26 @@ const ProviderAdd: FC = props => {
         nameCategory,
         nameSpecification,
         setConditions,
+        validateIfAllFieldsIsComplete,
+        valuesSearchBadges,
+        listBadgesEdit,
+        deleteBadges,
+        modalDelete,
+        setModalDelete,
+        clickDelete,
+        editBadges,
+        clickEdit,
+        setModalEdit,
+        modalEdit,
+        showImage,
+        setShowImage,
+        clearValue,
+        save,
       }}
     >
       {props.children}
-    </ContextAdd.Provider>
+    </Context.Provider>
   )
 }
 
-export default ProviderAdd
+export default Provider

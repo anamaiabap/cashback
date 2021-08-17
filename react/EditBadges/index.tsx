@@ -5,12 +5,12 @@ import { Table } from 'vtex.styleguide'
 
 import ModalDelete from '../Components/modalDelete'
 import ModalEdit from '../Components/modalEdit'
-import ContextEdit from '../Context/contextEdit'
+import Context from '../Context/context'
 import { edit } from '../utils/definedMessages'
 
 const EditBadges: FC = () => {
   const intl = useIntl()
-  const providerEdit = useContext(ContextEdit)
+  const provider = useContext(Context)
   const defaultSchema = {
     properties: {
       name: {
@@ -26,20 +26,20 @@ const EditBadges: FC = () => {
     {
       label: () => `Editar`,
       onClick: ({ rowData }: { rowData: any }) => {
-        providerEdit.clickEdit(rowData.index)
+        provider.clickEdit(rowData.index, rowData.id)
       },
     },
     {
       label: () => `Excluir`,
       isDangerous: true,
       onClick: ({ rowData }: { rowData: any }) => {
-        providerEdit.clickDelete(rowData.id)
+        provider.clickDelete(rowData.id)
       },
     },
   ]
 
-  if (providerEdit.modalDelete) return <ModalDelete></ModalDelete>
-  if (providerEdit.modalEdit) return <ModalEdit></ModalEdit>
+  if (provider.modalDelete) return <ModalDelete></ModalDelete>
+  if (provider.modalEdit) return <ModalEdit></ModalEdit>
 
   return (
     <>
@@ -47,7 +47,7 @@ const EditBadges: FC = () => {
         <Table
           fullWidth
           schema={defaultSchema}
-          items={providerEdit.listBadgesEdit}
+          items={provider.listBadgesEdit}
           lineActions={lineActions}
         />
       </div>

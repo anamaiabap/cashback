@@ -4,11 +4,11 @@ import { Conditions, Card } from 'vtex.styleguide'
 import { useIntl } from 'react-intl'
 
 import { optionsFunctions } from '../utils/optionsConditions'
-import ContextAdd from '../Context/contextAdd'
+import Context from '../Context/context'
 import { conditions } from '../utils/definedMessages'
 
 const ConditionsArea: FC = () => {
-  const provider = useContext(ContextAdd)
+  const provider = useContext(Context)
 
   const optionsValues = optionsFunctions()
 
@@ -37,6 +37,7 @@ const ConditionsArea: FC = () => {
             operatorAnd: intl.formatMessage(conditions.and),
             operatorOr: intl.formatMessage(conditions.or),
           }}
+          loadingOptions={provider.conditions}
         />
       </Card>
     </div>
