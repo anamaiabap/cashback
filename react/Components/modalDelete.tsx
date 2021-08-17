@@ -3,21 +3,21 @@ import React, { useContext } from 'react'
 import { useIntl } from 'react-intl'
 import { Button, Modal } from 'vtex.styleguide'
 
-import ContextEdit from '../Context/contextEdit'
+import Context from '../Context/context'
 import { commonModal, modalDelete } from '../utils/definedMessages'
 
 const ModalDelete: FC = () => {
-  const providerEdit = useContext(ContextEdit)
+  const provider = useContext(Context)
 
   const intl = useIntl()
 
   function closeModal() {
-    providerEdit.setModalDelete(false)
+    provider.setModalDelete(false)
   }
 
   return (
     <Modal
-      isOpen={providerEdit.modalDelete}
+      isOpen={provider.modalDelete}
       title={intl.formatMessage(modalDelete.deleteText)}
       responsiveFullScreen
       bottomBar={
@@ -38,7 +38,7 @@ const ModalDelete: FC = () => {
               variation="primary"
               onClick={(e: SyntheticEvent) => {
                 e.preventDefault
-                providerEdit.deleteBadges()
+                provider.deleteBadges()
               }}
             >
               {intl.formatMessage(commonModal.delete)}

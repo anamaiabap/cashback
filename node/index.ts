@@ -13,6 +13,7 @@ import { getCategoryName } from './resolvers/getCategoryName'
 import { getSpecificationName } from './resolvers/getSpecificationName'
 import { searchMasterdata } from './resolvers/searchMasterdata'
 import { deleteMasterdata } from './resolvers/deleteMasterdata'
+import { updateMasterdata } from './resolvers/updateMasterdata'
 
 declare global {
   // We declare a global Context type just to avoid re-writing ServiceContext<Clients, State> in every handler and resolver
@@ -27,6 +28,7 @@ export default new Service({
       Mutation: {
         saveMasterdata,
         deleteMasterdata,
+        updateMasterdata,
       },
       Query: {
         getProductsIds,

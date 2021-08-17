@@ -2,11 +2,12 @@ import type { FC } from 'react'
 import React, { useMemo, useRef, useState, useContext } from 'react'
 import { AutocompleteInput } from 'vtex.styleguide'
 
-import ContextAdd from '../Context/contextAdd'
+import Context from '../Context/context'
 
 interface Props {
   onChange: any
   name: string
+  value: string
 }
 
 // eslint-disable-next-line no-restricted-syntax
@@ -22,15 +23,17 @@ enum FieldNames {
 const AutoComplete: FC<Props> = ({
   onChange,
   name,
+  value,
 }: {
   onChange: any
   name: string
+  value: string
 }) => {
   const [term, setTerm] = useState('')
   const [loading, setLoading] = useState(false)
   const timeoutRef = useRef<any>()
 
-  const provider = useContext(ContextAdd)
+  const provider = useContext(Context)
 
   const fields: any = useMemo(() => {
     return {
@@ -51,6 +54,10 @@ const AutoComplete: FC<Props> = ({
   ])
 
   const values = useMemo(() => fields[name], [fields, name])
+
+  const nameValue = values.filter((element: any) =>
+    element.value === value ? element : ''
+  )
 
   const options = useMemo(() => {
     if (values !== undefined) {
@@ -89,7 +96,7 @@ const AutoComplete: FC<Props> = ({
     },
     onClear: () => setTerm(''),
     placeholder: 'Comece a digitar para as opções aparecerem',
-    value: term,
+    value: nameValue.length > 0 ? nameValue[0].label : term,
   }
 
   return (

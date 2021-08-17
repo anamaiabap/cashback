@@ -305,6 +305,92 @@ const Provider: FC = props => {
     setDeleteId('')
   }
 
+  async function clickEdit(index: number, id: string) {
+    setModalEdit(true)
+
+    const statementList: Array<{ subject: any; verb: any; object: any }> = []
+
+    valuesSearchBadges[index].simpleStatements.forEach(
+      (elementStatement: any) => {
+        statementList.push({
+          subject: elementStatement.subject,
+          verb: elementStatement.verb,
+          object: elementStatement.object || '',
+        })
+      }
+    )
+
+    const conditionsValues = {
+      simpleStatements: statementList,
+      operator: valuesSearchBadges[index].operator,
+    }
+
+    setName(valuesSearchBadges[index].name)
+    if (valuesSearchBadges[index].type === 'html') {
+      setHtml(valuesSearchBadges[index].content)
+      setButton(ButtonOptions.html)
+    } else if (valuesSearchBadges[index].type === 'text') {
+      setText(valuesSearchBadges[index].content)
+      setButton(ButtonOptions.text)
+    } else {
+      chooseFile(valuesSearchBadges[index].content)
+      setButton(ButtonOptions.image)
+      setShowImage(true)
+    }
+
+    setConditions(conditionsValues)
+    setEditId(id)
+  }
+
+  async function editBadges() {
+    setTextValidate([''])
+
+    const validate = validateIfAllFieldsIsComplete()
+
+    if (validate) {
+      const valueSave: SaveValues = {}
+
+      valueSave.name = name
+      valueSave.operator = conditions.operator
+      valueSave.simpleStatements = conditions.simpleStatements
+
+      const selectedOption = buttonOptions[button]
+
+      if (selectedOption.type === 'image') valueSave.content = await getUrl()
+      else valueSave.content = selectedOption.value
+
+      valueSave.type = selectedOption.type
+
+      const returnEdit = await editMasterdataMutation({
+        variables: { id: editId, saveData: valueSave },
+      })
+
+      if (returnEdit) {
+        refetch()
+        alert('Badge editada com sucesso')
+        setModalEdit(false)
+      } else {
+        alert('Erro ao editar badge')
+      }
+    }
+
+    setEditId('')
+  }
+
+  function clearValue() {
+    setName('')
+
+    setHtml('')
+    setButton(buttonOptions.image)
+    setText('')
+    chooseFile('')
+
+    setConditions({
+      simpleStatements: [],
+      operator: '',
+    })
+  }
+
   return (
     <Context.Provider
       value={{

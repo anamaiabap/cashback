@@ -3,7 +3,7 @@ import React, { useContext } from 'react'
 import { useIntl } from 'react-intl'
 import { Input } from 'vtex.styleguide'
 
-import ContextAdd from '../Context/contextAdd'
+import Context from '../Context/context'
 import { input } from '../utils/definedMessages'
 
 type InputType = 'name' | 'text'
@@ -12,7 +12,7 @@ interface Props {
   name: InputType
 }
 const InputArea: FC<Props> = ({ name }: Props) => {
-  const provider = useContext(ContextAdd)
+  const provider = useContext(Context)
 
   const intl = useIntl()
 

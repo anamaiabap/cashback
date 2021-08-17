@@ -1,0 +1,3 @@
+mutation deleteMasterdata($saveData: SaveValues, $id: String) {
+  updateMasterdata(idBadges: $id, saveValues: $saveData)
+}
