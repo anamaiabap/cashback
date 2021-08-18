@@ -39,7 +39,7 @@ const Provider: FC = props => {
   const [file, setFile] = useState({ files: null, result: null })
   const [text, setText] = useState('')
   const [conditions, setConditions] = useState({
-    simpleStatements: [{ subject: '', verb: '', object: '' }],
+    simpleStatements: [],
     operator: 'all',
   })
 
@@ -113,9 +113,9 @@ const Provider: FC = props => {
       validation.push(intl.formatMessage(provider.errorSimpleStatement))
     }
 
-    if (validation.length === 0) return true
-
     setTextValidate(validation)
+
+    if (validation.length === 0) return true
 
     return false
   }
@@ -153,7 +153,7 @@ const Provider: FC = props => {
       variables: { saveData: valueSave },
     })
 
-    if (id.data.saveMasterdata.Id != null) {
+    if (id.data.saveMasterdata?.Id != null) {
       setShowAlert(ShowAlertOptions.alertSave)
 
       return true
@@ -308,7 +308,7 @@ const Provider: FC = props => {
   async function clickEdit(index: number, id: string) {
     setModalEdit(true)
 
-    const statementList: Array<{ subject: any; verb: any; object: any }> = []
+    const statementList: any = []
 
     valuesSearchBadges[index].simpleStatements.forEach(
       (elementStatement: any) => {

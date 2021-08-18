@@ -3,6 +3,7 @@ import { useIntl } from 'react-intl'
 
 import { options } from './definedMessages'
 import AutoComplete from './autoComplete'
+import GetSpecificationNameAndValue from './specificationValues'
 
 export function optionsFunctions() {
   const intl = useIntl()
@@ -78,16 +79,12 @@ export function optionsFunctions() {
         {
           label: intl.formatMessage(options.is),
           value: '=',
-          object: (props: any) => (
-            <AutoComplete {...props} name="specificationProperties" />
-          ),
+          object: (props: any) => <GetSpecificationNameAndValue {...props} />,
         },
         {
           label: intl.formatMessage(options.isNot),
           value: '!=',
-          object: (props: any) => (
-            <AutoComplete {...props} name="specificationProperties" />
-          ),
+          object: (props: any) => <GetSpecificationNameAndValue {...props} />,
         },
       ],
     },

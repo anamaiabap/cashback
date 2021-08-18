@@ -22,7 +22,7 @@ const AlertArea: FC = () => {
 
   if (provider.showAlert === ShowAlertOptions.alertError) {
     return (
-      <Alert type="success" onClose={provider.handleCloseAlert}>
+      <Alert type="error" onClose={provider.handleCloseAlert}>
         {intl.formatMessage(alert.error)}
       </Alert>
     )
