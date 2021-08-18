@@ -13,6 +13,21 @@ input SaveValues {
   operator: String
 }
 
+type SimpleStatementsType {
+  error: String
+  object: String
+  subject: String
+  verb: String
+}
+
+type SearchValues {
+  type: String
+  content: String
+  name: String
+  simpleStatements: [SimpleStatementsType]
+  operator: String
+}
+
 type ReturnValueSave {
   Id: String
   DocumentId: String
@@ -29,7 +44,8 @@ type ObjectName {
 }
 
 type Query {
-  getProductsIds: [Int]
+  searchMasterdata: [SearchValues]
+  getProductsIds: [String]
   getProductsNames: [ObjectNameId]
   getSkuNames: [ObjectNameId]
   getBrandsNames: [ObjectNameId]

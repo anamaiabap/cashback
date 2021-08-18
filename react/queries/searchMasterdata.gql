@@ -1,0 +1,14 @@
+query searchMasterdata {
+  searchMasterdata {
+    type
+    content
+    name
+    operator
+    simpleStatements {
+      error
+      object
+      subject
+      verb
+    }
+  }
+}

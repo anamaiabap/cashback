@@ -14,16 +14,12 @@ export function optionsFunctions() {
         {
           label: intl.formatMessage(options.is),
           value: '=',
-          object: (props: any) => (
-            <AutoComplete {...props} name={'categoryId'} />
-          ),
+          object: (props: any) => <AutoComplete {...props} name="categoryId" />,
         },
         {
           label: intl.formatMessage(options.isNot),
           value: '!=',
-          object: (props: any) => (
-            <AutoComplete {...props} name={'categoryId'} />
-          ),
+          object: (props: any) => <AutoComplete {...props} name="categoryId" />,
         },
       ],
     },
@@ -33,12 +29,12 @@ export function optionsFunctions() {
         {
           label: intl.formatMessage(options.is),
           value: '=',
-          object: (props: any) => <AutoComplete {...props} name={'brandId'} />,
+          object: (props: any) => <AutoComplete {...props} name="brandId" />,
         },
         {
           label: intl.formatMessage(options.isNot),
           value: '!=',
-          object: (props: any) => <AutoComplete {...props} name={'brandId'} />,
+          object: (props: any) => <AutoComplete {...props} name="brandId" />,
         },
       ],
     },
@@ -48,16 +44,12 @@ export function optionsFunctions() {
         {
           label: intl.formatMessage(options.is),
           value: '=',
-          object: (props: any) => (
-            <AutoComplete {...props} name={'productId'} />
-          ),
+          object: (props: any) => <AutoComplete {...props} name="productId" />,
         },
         {
           label: intl.formatMessage(options.isNot),
           value: '!=',
-          object: (props: any) => (
-            <AutoComplete {...props} name={'productId'} />
-          ),
+          object: (props: any) => <AutoComplete {...props} name="productId" />,
         },
       ],
     },
@@ -68,14 +60,14 @@ export function optionsFunctions() {
           label: intl.formatMessage(options.is),
           value: '=',
           object: (props: any) => (
-            <AutoComplete {...props} name={'productClusters'} />
+            <AutoComplete {...props} name="productClusters" />
           ),
         },
         {
           label: intl.formatMessage(options.isNot),
           value: '!=',
           object: (props: any) => (
-            <AutoComplete {...props} name={'productClusters'} />
+            <AutoComplete {...props} name="productClusters" />
           ),
         },
       ],
@@ -87,14 +79,14 @@ export function optionsFunctions() {
           label: intl.formatMessage(options.is),
           value: '=',
           object: (props: any) => (
-            <AutoComplete {...props} name={'specificationProperties'} />
+            <AutoComplete {...props} name="specificationProperties" />
           ),
         },
         {
           label: intl.formatMessage(options.isNot),
           value: '!=',
           object: (props: any) => (
-            <AutoComplete {...props} name={'specificationProperties'} />
+            <AutoComplete {...props} name="specificationProperties" />
           ),
         },
       ],
@@ -106,14 +98,14 @@ export function optionsFunctions() {
           label: intl.formatMessage(options.is),
           value: '=',
           object: (props: any) => (
-            <AutoComplete {...props} name={'selectedItemId'} />
+            <AutoComplete {...props} name="selectedItemId" />
           ),
         },
         {
           label: intl.formatMessage(options.isNot),
           value: '!=',
           object: (props: any) => (
-            <AutoComplete {...props} name={'selectedItemId'} />
+            <AutoComplete {...props} name="selectedItemId" />
           ),
         },
       ],

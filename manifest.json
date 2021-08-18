@@ -10,7 +10,11 @@
   },
   "dependencies": {
     "vtex.styleguide": "9.x",
-    "vtex.file-manager-graphql": "0.x"
+    "vtex.file-manager-graphql": "0.x",
+    "vtex.rich-text": "0.x",
+    "vtex.store-image": "0.x",
+    "vtex.condition-layout": "2.x",
+    "vtex.css-handles": "1.x"
   },
   "builders": {
     "react": "3.x",
@@ -19,7 +23,8 @@
     "docs": "0.x",
     "masterdata": "1.x",
     "node": "6.x",
-    "graphql": "1.x"
+    "graphql": "1.x",
+    "store": "0.x"
   },
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema",
   "policies": [
