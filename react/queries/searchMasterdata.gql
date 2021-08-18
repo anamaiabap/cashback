@@ -7,7 +7,11 @@ query searchMasterdata {
     operator
     simpleStatements {
       error
-      object
+      object {
+        name
+        value
+        id
+      }
       subject
       verb
     }

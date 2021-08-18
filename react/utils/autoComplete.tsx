@@ -27,7 +27,7 @@ const AutoComplete: FC<Props> = ({
 }: {
   onChange: any
   name: string
-  value: string
+  value: any
 }) => {
   const [term, setTerm] = useState('')
   const [loading, setLoading] = useState(false)
@@ -56,7 +56,7 @@ const AutoComplete: FC<Props> = ({
   const values = useMemo(() => fields[name], [fields, name])
 
   const nameValue = values.filter((element: any) =>
-    element.value === value ? element : ''
+    element.value === value?.id ? element : ''
   )
 
   const options = useMemo(() => {
@@ -64,7 +64,7 @@ const AutoComplete: FC<Props> = ({
       return {
         onSelect: (e: { label: string; value: string }) => {
           loading
-          onChange(e.value)
+          onChange({ id: e.value })
         },
         value: !term.length
           ? []

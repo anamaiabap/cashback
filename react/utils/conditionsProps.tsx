@@ -64,24 +64,41 @@ function createMarkup(content: any) {
 }
 
 function conditionsFunction(
-  data: Array<{ subject: string; object: string; verb: string }>
+  data: Array<{
+    subject: any
+    object: { id: string; name: string; value: string }
+    verb: string
+  }>
 ) {
   const value: Array<{
     subject: string
-    arguments: { id: string }
+    arguments: { id?: string; name?: string; value?: string }
     toBe: boolean
   }> = []
 
-  data.forEach((element: { subject: string; object: string; verb: string }) => {
-    const rule = {
-      subject: `${element.subject}`,
-      arguments: {
-        id: element.object,
-      },
-      toBe: element.verb === '=',
-    }
+  data.forEach(element => {
+    if (element.object.id) {
+      const rule = {
+        subject: `${element.subject}`,
+        arguments: {
+          id: element.object.id,
+        },
+        toBe: element.verb === '=',
+      }
 
-    value.push(rule)
+      value.push(rule)
+    } else {
+      const rule = {
+        subject: `${element.subject}`,
+        arguments: {
+          name: element.object.name,
+          value: element.object.value,
+        },
+        toBe: element.verb === '=',
+      }
+
+      value.push(rule)
+    }
   })
 
   return value

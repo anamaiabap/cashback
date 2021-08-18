@@ -4,7 +4,11 @@ interface BadgesDataValues {
   name: string
   simpleStatements: Array<{
     subject: string
-    object: string
+    object: {
+      name: string
+      value: string
+      id: string
+    }
     verb: string
   }>
   operator: string
