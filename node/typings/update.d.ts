@@ -1,8 +1,4 @@
-interface SaveValues {
-  saveData: SaveArray
-}
-
-interface SaveArray {
+interface UpdateValues {
   type: string
   content: string
   name: string

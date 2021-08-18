@@ -5,7 +5,7 @@ interface SaveValues {
   simpleStatements?: Array<{
     subject: string
     verb: string
-    object: unknown
+    object: { id: string; name: string; value: string }
   }>
   operator?: string
 }

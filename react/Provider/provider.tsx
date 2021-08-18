@@ -357,8 +357,14 @@ const Provider: FC = props => {
 
       const selectedOption = buttonOptions[button]
 
-      if (selectedOption.type === 'image') valueSave.content = await getUrl()
-      else valueSave.content = selectedOption.value
+      if (
+        selectedOption.type === 'image' &&
+        !(typeof file.result === 'string')
+      ) {
+        valueSave.content = await getUrl()
+      } else {
+        valueSave.content = selectedOption.value
+      }
 
       valueSave.type = selectedOption.type
 
@@ -366,7 +372,7 @@ const Provider: FC = props => {
         variables: { id: editId, saveData: valueSave },
       })
 
-      if (returnEdit) {
+      if (returnEdit?.data?.updateMasterdata) {
         refetch()
         alert('Badge editada com sucesso')
         setModalEdit(false)

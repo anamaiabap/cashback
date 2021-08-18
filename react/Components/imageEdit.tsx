@@ -51,14 +51,18 @@ const ImageEdit: FC = () => {
             </div>
           </div>
         </Dropzone>
-        <Button
-          onClick={(e: SyntheticEvent) => {
-            e.preventDefault()
-            provider.setShowImage(true)
-          }}
-        >
-          {intl.formatMessage(commonModal.cancel)}
-        </Button>
+        {provider.file.result ? (
+          <Button
+            onClick={(e: SyntheticEvent) => {
+              e.preventDefault()
+              provider.setShowImage(true)
+            }}
+          >
+            {intl.formatMessage(commonModal.cancel)}
+          </Button>
+        ) : (
+          ''
+        )}
       </div>
     </>
   )

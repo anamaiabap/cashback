@@ -1,6 +1,6 @@
 export async function updateMasterdata(
   _: unknown,
-  { idBadges, saveValues }: { idBadges: string; saveValues: SaveArray },
+  { idBadges, saveValues }: { idBadges: string; saveValues: UpdateValues },
   ctx: Context
 ) {
   const { name, content, operator, simpleStatements, type } = saveValues
@@ -25,7 +25,7 @@ export async function updateMasterdata(
     throw new Error('É necessário enviar um type')
   }
 
-  if (idBadges === undefined) {
+  if (!idBadges) {
     throw new Error('É necessário enviar um ID')
   }
 
@@ -40,6 +40,7 @@ export async function updateMasterdata(
     .then(() => true)
     .catch((e: any) => {
       ctx.vtex.logger.error(`Erro ao editar Badge através do MasterdataV2 ${e}`)
-      false
+
+      return false
     })
 }
