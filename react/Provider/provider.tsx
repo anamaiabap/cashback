@@ -307,6 +307,7 @@ const Provider: FC = props => {
 
   async function clickEdit(index: number, id: string) {
     setModalEdit(true)
+    setShowAlert(ShowAlertOptions.notShow)
 
     const statementList: any = []
 
@@ -379,9 +380,10 @@ const Provider: FC = props => {
 
   function clearValue() {
     setName('')
+    setShowAlert(ShowAlertOptions.notShow)
 
     setHtml('')
-    setButton(buttonOptions.image)
+    setButton(ButtonOptions.image)
     setText('')
     chooseFile('')
 
