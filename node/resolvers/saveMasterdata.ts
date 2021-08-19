@@ -7,23 +7,23 @@ export async function saveMasterdata(
     saveValues.saveData
 
   if (name.length === 0) {
-    throw new Error('É necessário enviar um name')
+    throw new Error('It is necessary to send a name')
   }
 
   if (content.length === 0) {
-    throw new Error('É necessário enviar um content')
+    throw new Error('It is necessary to send a content')
   }
 
   if (operator.length === 0) {
-    throw new Error('É necessário enviar um operator')
+    throw new Error('It is necessary to send a operator')
   }
 
   if (simpleStatements.length === 0) {
-    throw new Error('É necessário enviar um simpleStatements')
+    throw new Error('It is necessary to send a simpleStatements')
   }
 
   if (type.length === 0) {
-    throw new Error('É necessário enviar um type')
+    throw new Error('It is necessary to send a type')
   }
 
   return ctx.clients.badges.save({

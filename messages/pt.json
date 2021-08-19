@@ -51,5 +51,9 @@
   "badges.modal.delete.question": "Tem certeza que deseja excluir essa badge?",
   "badges.modal.edit.text": "Editar Badge",
   "badges.modal.edit": "Editar",
-  "badges.modal.edit.change.image": "Trocar imagem"
+  "badges.modal.edit.change.image": "Trocar imagem",
+  "badges.provider.sucess.edit": "Badge editada com sucesso",
+  "badges.provider.error.edit": "Erro ao editar badge",
+  "badges.provider.sucess.delete": "Badge removida com sucesso",
+  "badges.provider.error.delete": "Erro ao remover badge"
 }

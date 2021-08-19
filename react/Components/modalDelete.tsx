@@ -26,7 +26,7 @@ const ModalDelete: FC = () => {
             <Button
               variation="tertiary"
               onClick={(e: SyntheticEvent) => {
-                e.preventDefault
+                e.preventDefault()
                 closeModal()
               }}
             >
@@ -37,7 +37,7 @@ const ModalDelete: FC = () => {
             <Button
               variation="primary"
               onClick={(e: SyntheticEvent) => {
-                e.preventDefault
+                e.preventDefault()
                 provider.deleteBadges()
               }}
             >

@@ -6,27 +6,27 @@ export async function updateMasterdata(
   const { name, content, operator, simpleStatements, type } = saveValues
 
   if (name.length === 0) {
-    throw new Error('É necessário enviar um name')
+    throw new Error('It is necessary to send a name')
   }
 
   if (content.length === 0) {
-    throw new Error('É necessário enviar um content')
+    throw new Error('It is necessary to send a content')
   }
 
   if (operator.length === 0) {
-    throw new Error('É necessário enviar um operator')
+    throw new Error('It is necessary to send a operator')
   }
 
   if (simpleStatements.length === 0) {
-    throw new Error('É necessário enviar um simpleStatements')
+    throw new Error('It is necessary to send a simpleStatements')
   }
 
   if (type.length === 0) {
-    throw new Error('É necessário enviar um type')
+    throw new Error('It is necessary to send a type')
   }
 
   if (!idBadges) {
-    throw new Error('É necessário enviar um ID')
+    throw new Error('It is necessary to send a ID')
   }
 
   return ctx.clients.badges
@@ -39,7 +39,7 @@ export async function updateMasterdata(
     })
     .then(() => true)
     .catch((e: any) => {
-      ctx.vtex.logger.error(`Erro ao editar Badge através do MasterdataV2 ${e}`)
+      ctx.vtex.logger.error(`Error to edit Bagde through MasterdataV2${e}`)
 
       return false
     })
