@@ -60,6 +60,10 @@ export const provider = defineMessages({
   errorMoreThanOneTypeOfBadge: {
     id: 'badges.error.more.than.one.type.of.badge',
   },
+  sucessEdit: { id: 'badges.provider.sucess.edit' },
+  errorEdit: { id: 'badges.provider.error.edit' },
+  sucessDelete: { id: 'badges.provider.sucess.delete' },
+  errorDelete: { id: 'badges.provider.error.delete' },
 })
 
 export const options = defineMessages({

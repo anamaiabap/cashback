@@ -1,8 +1,9 @@
 /* eslint-disable vtex/prefer-early-return */
 import type { FC } from 'react'
 import { useIntl } from 'react-intl'
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useState, useContext } from 'react'
 import { useMutation, useQuery } from 'react-apollo'
+import { ToastContext } from 'vtex.styleguide'
 
 import uploadFile from '../queries/uploadFile.gql'
 import saveMasterdata from '../queries/saveMasterdata.gql'
@@ -21,18 +22,13 @@ import {
   htmlButtonOption,
   imageButtonOption,
   textButtonOption,
+  ButtonOptions,
 } from '../utils/buttonOptions'
 import { ShowAlertOptions } from '../utils/showAlertOptions'
 
-const enum ButtonOptions {
-  image = 'image',
-  text = 'text',
-  html = 'html',
-}
-
 const Provider: FC = props => {
   const intl = useIntl()
-
+  const { showToast } = useContext(ToastContext)
   const [button, setButton] = useState(ButtonOptions.image)
   const [name, setName] = useState('')
   const [html, setHtml] = useState('')
@@ -49,8 +45,8 @@ const Provider: FC = props => {
   const [modalEdit, setModalEdit] = useState(false)
   const [showImage, setShowImage] = useState(false)
 
-  const [deleteId, setDeleteId] = useState<any>()
-  const [editId, setEditId] = useState<any>()
+  const [deleteId, setDeleteId] = useState<string>()
+  const [editId, setEditId] = useState<string>()
   const { data, refetch } = useQuery<BadgesData>(searchMasterdata)
   const [deleteMasterdataMutation] = useMutation(deleteMasterdata)
   const [saveMasterdataMutation] = useMutation(saveMasterdata)
@@ -264,23 +260,16 @@ const Provider: FC = props => {
   }, [data])
 
   const listBadgesEdit = useMemo(() => {
-    const list: Array<{
-      id: string
-      name: string
-      type: string
-      index: number
-    }> = []
-
-    valuesSearchBadges.forEach((element: BadgesDataValues, indexOf: number) => {
-      list.push({
-        id: element.id,
-        name: element.name,
-        type: element.type,
-        index: indexOf,
-      })
-    })
-
-    return list
+    return valuesSearchBadges.map(
+      (element: BadgesDataValues, indexOf: number) => {
+        return {
+          id: element.id,
+          name: element.name,
+          type: element.type,
+          index: indexOf,
+        }
+      }
+    )
   }, [valuesSearchBadges])
 
   async function clickDelete(id: string) {
@@ -296,10 +285,11 @@ const Provider: FC = props => {
     })
 
     if (returnDelete) {
-      alert('Badge removida com sucesso')
+      showToast('')
+      showToast(intl.formatMessage(provider.sucessDelete))
       refetch()
     } else {
-      alert('Erro ao remover badge')
+      showToast(intl.formatMessage(provider.errorDelete))
     }
 
     setDeleteId('')
@@ -308,15 +298,13 @@ const Provider: FC = props => {
   async function clickEdit(index: number, id: string) {
     setModalEdit(true)
 
-    const statementList: Array<{ subject: any; verb: any; object: any }> = []
-
-    valuesSearchBadges[index].simpleStatements.forEach(
+    const statementList = valuesSearchBadges[index].simpleStatements.map(
       (elementStatement: any) => {
-        statementList.push({
+        return {
           subject: elementStatement.subject,
           verb: elementStatement.verb,
           object: elementStatement.object || '',
-        })
+        }
       }
     )
 
@@ -326,10 +314,10 @@ const Provider: FC = props => {
     }
 
     setName(valuesSearchBadges[index].name)
-    if (valuesSearchBadges[index].type === 'html') {
+    if (valuesSearchBadges[index].type === ButtonOptions.html) {
       setHtml(valuesSearchBadges[index].content)
       setButton(ButtonOptions.html)
-    } else if (valuesSearchBadges[index].type === 'text') {
+    } else if (valuesSearchBadges[index].type === ButtonOptions.text) {
       setText(valuesSearchBadges[index].content)
       setButton(ButtonOptions.text)
     } else {
@@ -356,8 +344,11 @@ const Provider: FC = props => {
 
       const selectedOption = buttonOptions[button]
 
-      if (selectedOption.type === 'image') valueSave.content = await getUrl()
-      else valueSave.content = selectedOption.value
+      if (selectedOption.type === ButtonOptions.image) {
+        valueSave.content = await getUrl()
+      } else {
+        valueSave.content = selectedOption.value
+      }
 
       valueSave.type = selectedOption.type
 
@@ -367,10 +358,10 @@ const Provider: FC = props => {
 
       if (returnEdit) {
         refetch()
-        alert('Badge editada com sucesso')
+        showToast(intl.formatMessage(provider.sucessEdit))
         setModalEdit(false)
       } else {
-        alert('Erro ao editar badge')
+        showToast(intl.formatMessage(provider.errorEdit))
       }
     }
 

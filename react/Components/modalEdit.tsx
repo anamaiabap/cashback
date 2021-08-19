@@ -5,24 +5,23 @@ import { useIntl } from 'react-intl'
 
 import AlertArea from './alert'
 import ButtonArea from './button'
-import ButtonSaveArea from './buttonSave'
 import ConditionsArea from './conditions'
 import DividerArea from './divider'
-import ImageArea from './file'
 import InputArea from './input'
 import HtmlArea from './textarea'
 import ValidationArea from './validations'
 import { commonModal, modalEdit } from '../utils/definedMessages'
 import ImageEdit from './imageEdit'
 import Context from '../Context/context'
+import { ButtonOptions } from '../utils/buttonOptions'
 
 const ModalEdit: FC = () => {
   const provider = useContext(Context)
 
   const getContent = useCallback(button => {
-    if (button === 'image') return <ImageEdit />
+    if (button === ButtonOptions.image) return <ImageEdit />
 
-    if (button === 'text') return <InputArea name={'text'} />
+    if (button === ButtonOptions.text) return <InputArea name={'text'} />
 
     return <HtmlArea />
   }, [])
