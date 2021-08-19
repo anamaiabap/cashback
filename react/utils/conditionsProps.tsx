@@ -5,7 +5,7 @@ import { Image } from 'vtex.store-image'
 
 import searchMasterdata from '../queries/searchMasterdata.gql'
 
-export const conditionsPropsFunction = (props: any, handles: any) => {
+export const conditionsPropsFunction = (props: any, handles: HandlesType) => {
   const { data } = useQuery<BadgesData>(searchMasterdata)
 
   const conditionsProps = useMemo(() => {
@@ -24,7 +24,7 @@ export const conditionsPropsFunction = (props: any, handles: any) => {
 function conditionsPropsValues(
   data: BadgesDataValues,
   props: any,
-  handles: any
+  handles: HandlesType
 ) {
   const values = {
     conditions: conditionsFunction(data?.simpleStatements),
@@ -36,7 +36,6 @@ function conditionsPropsValues(
       if (data?.type === 'html') classes = handles.badgesHtml
 
       return (
-        // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
         <span className={handles.badgeContainer + classes}>
           {decisionBetweenTextImageHtml(data, props)}
         </span>
