@@ -51,7 +51,7 @@ const ImageEdit: FC = () => {
             </div>
           </div>
         </Dropzone>
-        {provider.file.result ? (
+        {provider.file.result && (
           <Button
             onClick={(e: SyntheticEvent) => {
               e.preventDefault()
@@ -60,8 +60,6 @@ const ImageEdit: FC = () => {
           >
             {intl.formatMessage(commonModal.cancel)}
           </Button>
-        ) : (
-          ''
         )}
       </div>
     </>

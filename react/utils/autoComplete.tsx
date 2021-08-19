@@ -7,7 +7,7 @@ import Context from '../Context/context'
 interface Props {
   onChange: any
   name: string
-  value: string
+  value: { id: string }
 }
 
 // eslint-disable-next-line no-restricted-syntax
@@ -27,7 +27,7 @@ const AutoComplete: FC<Props> = ({
 }: {
   onChange: any
   name: string
-  value: any
+  value: { id: string }
 }) => {
   const [term, setTerm] = useState('')
   const [loading, setLoading] = useState(false)
