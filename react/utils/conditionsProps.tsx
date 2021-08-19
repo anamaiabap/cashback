@@ -30,7 +30,7 @@ function conditionsPropsValues(
     conditions: conditionsFunction(data?.simpleStatements),
     matchType: data?.operator,
     Then: () => {
-      let classes = handles.badgesImage
+      let classes: string = handles.badgesImage
 
       if (data?.type === 'text') classes = handles.badgesText
       if (data?.type === 'html') classes = handles.badgesHtml
