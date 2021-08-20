@@ -23,6 +23,7 @@ const GetSpecificationNameAndValue: FC<Props> = ({
             onChange({
               ...value,
               name: e.target.value,
+              id: 'null',
             })
           }
           placeholder="Nome da especificação"
@@ -39,6 +40,7 @@ const GetSpecificationNameAndValue: FC<Props> = ({
             onChange({
               ...value,
               value: e.target.value,
+              id: 'null',
             })
           }
           placeholder="Valor da especificação"

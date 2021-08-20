@@ -287,11 +287,10 @@ const Provider: FC = props => {
     if (returnDelete) {
       showToast(intl.formatMessage(provider.sucessDelete))
       refetch()
+      setDeleteId('')
     } else {
       showToast(intl.formatMessage(provider.errorDelete))
     }
-
-    setDeleteId('')
   }
 
   async function clickEdit(index: number, id: string) {
@@ -299,11 +298,15 @@ const Provider: FC = props => {
     setShowAlert(ShowAlertOptions.notShow)
 
     const statementList: any = valuesSearchBadges[index].simpleStatements.map(
-      (elementStatement: { subject: string; verb: string; object: any }) => {
+      (elementStatement: {
+        subject: string
+        verb: string
+        object: { id: string; name: string; value: string }
+      }) => {
         return {
           subject: elementStatement.subject,
           verb: elementStatement.verb,
-          object: elementStatement.object || '',
+          object: elementStatement.object || 'null',
         }
       }
     )
@@ -363,12 +366,11 @@ const Provider: FC = props => {
         refetch()
         showToast(intl.formatMessage(provider.sucessEdit))
         setModalEdit(false)
+        setEditId('')
       } else {
         showToast(intl.formatMessage(provider.errorEdit))
       }
     }
-
-    setEditId('')
   }
 
   function clearValue() {
