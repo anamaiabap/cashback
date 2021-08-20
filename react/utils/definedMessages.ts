@@ -57,9 +57,6 @@ export const provider = defineMessages({
   errorText: { id: 'badges.provider.error.text' },
   errorHtml: { id: 'badges.provider.error.html' },
   errorSimpleStatement: { id: 'badges.provider.error.simple.statement' },
-  errorMoreThanOneTypeOfBadge: {
-    id: 'badges.error.more.than.one.type.of.badge',
-  },
   sucessEdit: { id: 'badges.provider.sucess.edit' },
   errorEdit: { id: 'badges.provider.error.edit' },
   sucessDelete: { id: 'badges.provider.sucess.delete' },
