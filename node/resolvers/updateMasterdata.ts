@@ -1,33 +1,11 @@
+import { validation } from '../utils/validation'
+
 export async function updateMasterdata(
   _: unknown,
   { idBadges, saveValues }: { idBadges: string; saveValues: SaveArray },
   ctx: Context
 ) {
-  const { name, content, operator, simpleStatements, type } = saveValues
-
-  if (name.length === 0) {
-    throw new Error('It is necessary to send a name')
-  }
-
-  if (content.length === 0) {
-    throw new Error('It is necessary to send a content')
-  }
-
-  if (operator.length === 0) {
-    throw new Error('It is necessary to send a operator')
-  }
-
-  if (simpleStatements.length === 0) {
-    throw new Error('It is necessary to send a simpleStatements')
-  }
-
-  if (type.length === 0) {
-    throw new Error('It is necessary to send a type')
-  }
-
-  if (idBadges === undefined) {
-    throw new Error('It is necessary to send a ID')
-  }
+  validation(saveValues, true, idBadges)
 
   return ctx.clients.badges
     .update(idBadges, {
@@ -39,7 +17,10 @@ export async function updateMasterdata(
     })
     .then(() => true)
     .catch((e: any) => {
-      ctx.vtex.logger.error(`Error to edit Bagde through MasterdataV2${e}`)
-      false
+      ctx.vtex.logger.error(
+        `Error to edit Bagde through MasterdataV2 ${e.name} ${e.message}`
+      )
+
+      return false
     })
 }
