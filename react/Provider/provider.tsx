@@ -53,127 +53,13 @@ const Provider: FC = props => {
   const [editMasterdataMutation] = useMutation(updateMasterdata)
   const [saveMutation] = useMutation(uploadFile)
 
-  const buttonOptions: {
-    [key in ButtonOptions]: any
-  } = useMemo(() => {
-    return {
-      image: { ...imageButtonOption, value: file.result },
-      text: { ...textButtonOption, value: text },
-      html: { ...htmlButtonOption, value: html },
-    }
-  }, [file, text, html])
-
-  async function getUrl() {
-    if (file.result !== null) {
-      const url = await saveMutation({
-        variables: { file: file.result?.[0] },
-      })
-
-      if (url != null) return url.data.uploadFile.fileUrl
-    } else {
-      return null
-    }
-  }
-
-  const handleCloseAlert = () => {
-    setShowAlert(ShowAlertOptions.notShow)
-  }
-
-  function chooseFile(files: any) {
-    setFile({ ...file, ...{ result: files } })
-  }
-
-  function validateIfAllFieldsIsComplete() {
-    const validation = []
-
-    if (!name) {
-      validation.push(intl.formatMessage(provider.errorName))
-    }
-
-    if (
-      (text && html) ||
-      (text && file.result) ||
-      (html && file.result) ||
-      (file.result && text && html)
-    ) {
-      validation.push(intl.formatMessage(provider.errorMoreThanOneTypeOfBadge))
-    }
-
-    const selectedOption = buttonOptions[button]
-
-    const validationResult = selectedOption.validate(selectedOption.value)
-
-    if (validationResult) validation.push(validationResult)
-
-    if (conditions.simpleStatements.length === 0) {
-      validation.push(intl.formatMessage(provider.errorSimpleStatement))
-    }
-
-    setTextValidate(validation)
-
-    if (validation.length === 0) return true
-
-    return false
-  }
-
-  async function save() {
-    setShowAlert(ShowAlertOptions.notShow)
-    setTextValidate([''])
-    const validate = validateIfAllFieldsIsComplete()
-
-    if (validate) {
-      setTextValidate([''])
-      const valueSave: SaveValues = {}
-
-      valueSave.name = name
-      valueSave.operator = conditions.operator
-      valueSave.simpleStatements = conditions.simpleStatements
-
-      const selectedOption = buttonOptions[button]
-
-      if (selectedOption.type === 'image') valueSave.content = await getUrl()
-      else valueSave.content = selectedOption.value
-
-      valueSave.type = selectedOption.type
-
-      const returnSaving = await saving(valueSave)
-
-      refetch()
-
-      return returnSaving
-    }
-  }
-
-  async function saving(valueSave: SaveValues) {
-    const id = await saveMasterdataMutation({
-      variables: { saveData: valueSave },
-    })
-
-    if (id.data.saveMasterdata?.Id != null) {
-      setShowAlert(ShowAlertOptions.alertSave)
-
-      return true
-    }
-
-    setShowAlert(ShowAlertOptions.alertError)
-
-    return false
-  }
-
-  function setConditionsFunction(statements: []) {
-    setConditions({ ...conditions, ...{ simpleStatements: statements } })
-  }
-
-  function handleToggleOperator(operador: string) {
-    setConditions({ ...conditions, ...{ operator: operador } })
-  }
-
   const { data: dataProductsNames } = useQuery(getProductsName)
   const { data: dataSkuNames } = useQuery(getSkusNames)
   const { data: dataBrandsNames } = useQuery(getBrandsNames)
   const { data: dataCollectionsNames } = useQuery(getCollectionsNames)
   const { data: dataCategoryNames } = useQuery(getCategoryName)
   const { data: dataSpecificationNames } = useQuery(getSpecificationName)
+
   const nameProducts = useMemo(() => {
     if (dataProductsNames === undefined) return
 
@@ -271,6 +157,112 @@ const Provider: FC = props => {
       }
     )
   }, [valuesSearchBadges])
+
+  const buttonOptions: {
+    [key in ButtonOptions]: any
+  } = useMemo(() => {
+    return {
+      image: { ...imageButtonOption, value: file.result },
+      text: { ...textButtonOption, value: text },
+      html: { ...htmlButtonOption, value: html },
+    }
+  }, [file, text, html])
+
+  const handleCloseAlert = () => {
+    setShowAlert(ShowAlertOptions.notShow)
+  }
+
+  function chooseFile(files: any) {
+    setFile({ ...file, ...{ result: files } })
+  }
+
+  function setConditionsFunction(statements: []) {
+    setConditions({ ...conditions, ...{ simpleStatements: statements } })
+  }
+
+  function handleToggleOperator(operador: string) {
+    setConditions({ ...conditions, ...{ operator: operador } })
+  }
+
+  async function getUrl() {
+    if (file.result !== null) {
+      const url = await saveMutation({
+        variables: { file: file.result?.[0] },
+      })
+
+      if (url != null) return url.data.uploadFile.fileUrl
+    } else {
+      return null
+    }
+  }
+
+  function validateIfAllFieldsIsComplete() {
+    const validation = []
+
+    if (!name) {
+      validation.push(intl.formatMessage(provider.errorName))
+    }
+
+    const selectedOption = buttonOptions[button]
+
+    const validationResult = selectedOption.validate(selectedOption.value)
+
+    if (validationResult) validation.push(validationResult)
+
+    if (conditions.simpleStatements.length === 0) {
+      validation.push(intl.formatMessage(provider.errorSimpleStatement))
+    }
+
+    if (validation.length === 0) return true
+
+    setTextValidate(validation)
+
+    return false
+  }
+
+  async function save() {
+    setShowAlert(ShowAlertOptions.notShow)
+    setTextValidate([''])
+    const validate = validateIfAllFieldsIsComplete()
+
+    if (validate) {
+      setTextValidate([''])
+      const valueSave: SaveValues = {}
+
+      valueSave.name = name
+      valueSave.operator = conditions.operator
+      valueSave.simpleStatements = conditions.simpleStatements
+
+      const selectedOption = buttonOptions[button]
+
+      if (selectedOption.type === 'image') valueSave.content = await getUrl()
+      else valueSave.content = selectedOption.value
+
+      valueSave.type = selectedOption.type
+
+      const returnSaving = await saving(valueSave)
+
+      refetch()
+
+      return returnSaving
+    }
+  }
+
+  async function saving(valueSave: SaveValues) {
+    const id = await saveMasterdataMutation({
+      variables: { saveData: valueSave },
+    })
+
+    if (id.data.saveMasterdata.Id != null) {
+      setShowAlert(ShowAlertOptions.alertSave)
+
+      return true
+    }
+
+    setShowAlert(ShowAlertOptions.alertError)
+
+    return false
+  }
 
   async function clickDelete(id: string) {
     setModalDelete(true)

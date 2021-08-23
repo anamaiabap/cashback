@@ -32,7 +32,6 @@
   "badges.provider.error.text": "Preencha o campo 'Insira o texto da badge'",
   "badges.provider.error.html": "Preencha o campo 'Insira o HTML da badge'",
   "badges.provider.error.simple.statement": "Preencha o campo 'Regras de ativação'",
-  "badges.error.more.than.one.type.of.badge": "Só é possível escolher um tipo de badge",
   "badges.options.category": "Categoria",
   "badges.options.brand": "Marca",
   "badges.options.product": "Produto",
