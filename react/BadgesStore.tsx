@@ -7,16 +7,16 @@ import { conditionsPropsFunction } from './utils/conditionsProps'
 const CSS_HANDLES = ['allBadgesContainer', 'badgeContainer', 'badges'] as const
 
 const BadgesStore: StorefrontFunctionComponent = (props: any) => {
-  const cssHandles: any = useCssHandles(CSS_HANDLES)
+  const { handles, withModifiers }: any = useCssHandles(CSS_HANDLES)
 
   const conditionsPropsValues = conditionsPropsFunction(
     props,
-    cssHandles.handles,
-    cssHandles.withModifiers
+    handles,
+    withModifiers
   )
 
   return (
-    <div className={cssHandles.handles.allBadgesContainer}>
+    <div className={handles.allBadgesContainer}>
       {conditionsPropsValues.map((element: any) => {
         return <ConditionLayoutProduct {...element} />
       })}
