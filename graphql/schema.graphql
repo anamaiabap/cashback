@@ -57,7 +57,7 @@ type ObjectName {
 }
 
 type Query {
-  searchMasterdata: [SearchValues]
+  searchMasterdata(where: String): [SearchValues]
   getProductsIds: [String]
   getProductsNames: [ObjectNameId]
   getSkuNames: [ObjectNameId]
