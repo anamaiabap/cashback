@@ -64,7 +64,7 @@ const AutoComplete: FC<Props> = ({
       return {
         onSelect: (e: { label: string; value: string }) => {
           loading
-          onChange({ id: e.value })
+          onChange({ id: e.value, name: 'null', value: 'null' })
         },
         value: !term.length
           ? []
