@@ -13,7 +13,7 @@ export const conditionsPropsFunction = (
   const { data } = useQuery<BadgesData>(searchMasterdata)
 
   const conditionsProps = useMemo(() => {
-    if (data !== undefined) return data?.searchMasterdata
+    if (data !== undefined) return data?.searchMasterdata?.data
 
     return []
   }, [data])

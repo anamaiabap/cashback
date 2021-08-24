@@ -1,10 +1,17 @@
+const PAGE_DEFAULT = 1
+const PAGE_SIZE_DEFAULT = 5
+
 export async function searchMasterdata(
   _: unknown,
-  where: { where: string },
+  {
+    page = PAGE_DEFAULT,
+    pageSize = PAGE_SIZE_DEFAULT,
+    where,
+  }: { page?: number; pageSize?: number; where: { where: string } },
   ctx: Context
 ) {
-  return ctx.clients.badges.search(
-    { page: 1, pageSize: 1000 },
+  return ctx.clients.badges.searchRaw(
+    { page, pageSize },
     ['id', 'name', 'content', 'operator', 'simpleStatements', 'type'],
     undefined,
     where.where

@@ -49,6 +49,8 @@ export const html = defineMessages({
 export const edit = defineMessages({
   name: { id: 'badges.edit.name' },
   style: { id: 'badges.edit.style' },
+  textShowRows: { id: 'badges.edit.text.show.rows' },
+  textOf: { id: 'badges.edit.text.of' },
 })
 
 export const provider = defineMessages({

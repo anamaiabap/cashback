@@ -56,6 +56,9 @@ interface ContextType {
   setShowImage: (showImage: boolean) => void
   clearValue: () => void
   save: () => void
+  paginations: Pagination
+  setPaginationFunction: (pagination: any) => void
+  sizeOfAllBadgesIndexed: number
 }
 const Context = React.createContext<ContextType>({
   button: 'image',
@@ -96,6 +99,14 @@ const Context = React.createContext<ContextType>({
   setShowImage: () => {},
   clearValue: () => {},
   save: () => {},
+  paginations: {
+    currentPage: 0,
+    currentItemFrom: 0,
+    currentItemTo: 0,
+    tableLength: 0,
+  },
+  setPaginationFunction: () => {},
+  sizeOfAllBadgesIndexed: 0,
 })
 
 export default Context
