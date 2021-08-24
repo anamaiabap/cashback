@@ -1,15 +1,14 @@
+const PAGE_DEFAULT = 1
+const PAGE_SIZE_DEFAULT = 5
+
 export async function searchMasterdata(
   _: unknown,
-  { page, pageSize }: { page: number; pageSize: number },
+  {
+    page = PAGE_DEFAULT,
+    pageSize = PAGE_SIZE_DEFAULT,
+  }: { page?: number; pageSize?: number },
   ctx: Context
 ) {
-  if (!page) page = 1
-  if (!pageSize) {
-    const tamTotal = ctx.clients.badges.searchRaw({ page: 1, pageSize: 1 }, [])
-
-    pageSize = (await tamTotal).pagination.total
-  }
-
   return ctx.clients.badges.searchRaw({ page, pageSize }, [
     'id',
     'name',

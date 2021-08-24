@@ -46,5 +46,6 @@
       }
     }
   },
-  "required": ["content", "name", "operator", "type", "simpleStatements"]
+  "required": ["content", "name", "operator", "type", "simpleStatements"],
+  "v-indexed": ["content", "name", "operator", "type", "simpleStatements"]
 }

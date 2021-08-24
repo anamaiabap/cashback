@@ -102,9 +102,9 @@ const EditBadges: FC = () => {
               e.preventDefault()
               handleRowsChange(e, value)
             },
-            textShowRows: 'Quantidade por página',
-            textOf: 'de',
-            totalItems: provider.lengthAllItems,
+            textShowRows: intl.formatMessage(edit.textShowRows),
+            textOf: intl.formatMessage(edit.textOf),
+            totalItems: provider.sizeOfAllBadgesIndexed,
             rowsOptions: [5, 10, 15, 25],
           }}
         />

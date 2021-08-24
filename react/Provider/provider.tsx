@@ -46,7 +46,7 @@ const Provider: FC = props => {
     tableLength: 5,
   })
 
-  const [lengthAllItems, setLengthAllItems] = useState(0)
+  const [sizeOfAllBadgesIndexed, setSizeOfAllBadgesIndexed] = useState(0)
   const [showAlert, setShowAlert] = useState(ShowAlertOptions.notShow)
   const [textValidate, setTextValidate] = useState<string[]>([''])
   const [modalDelete, setModalDelete] = useState(false)
@@ -151,7 +151,7 @@ const Provider: FC = props => {
 
   const valuesSearchBadges = useMemo(() => {
     if (data !== undefined) {
-      setLengthAllItems(data?.searchMasterdata?.pagination.total)
+      setSizeOfAllBadgesIndexed(data?.searchMasterdata?.pagination.total)
 
       return data?.searchMasterdata?.data
     }
@@ -453,7 +453,7 @@ const Provider: FC = props => {
         save,
         paginations,
         setPaginationFunction,
-        lengthAllItems,
+        sizeOfAllBadgesIndexed,
       }}
     >
       {props.children}
