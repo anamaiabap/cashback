@@ -2,7 +2,7 @@
 import type { FC } from 'react'
 import { useIntl } from 'react-intl'
 import React, { useMemo, useState, useContext } from 'react'
-import { useMutation, useQuery } from 'react-apollo'
+import { useLazyQuery, useMutation, useQuery } from 'react-apollo'
 import { ToastContext } from 'vtex.styleguide'
 
 import uploadFile from '../queries/uploadFile.gql'
@@ -39,6 +39,14 @@ const Provider: FC = props => {
     operator: 'all',
   })
 
+  const [paginations, setPagination] = useState<Pagination>({
+    currentPage: 1,
+    currentItemFrom: 1,
+    currentItemTo: 5,
+    tableLength: 5,
+  })
+
+  const [lengthAllItems, setLengthAllItems] = useState(0)
   const [showAlert, setShowAlert] = useState(ShowAlertOptions.notShow)
   const [textValidate, setTextValidate] = useState<string[]>([''])
   const [modalDelete, setModalDelete] = useState(false)
@@ -47,7 +55,9 @@ const Provider: FC = props => {
 
   const [deleteId, setDeleteId] = useState<string>()
   const [editId, setEditId] = useState<string>()
-  const { data, refetch } = useQuery<BadgesData>(searchMasterdata)
+  const [searchMasterdataLazy, { data, refetch }] =
+    useLazyQuery<BadgesData>(searchMasterdata)
+
   const [deleteMasterdataMutation] = useMutation(deleteMasterdata)
   const [saveMasterdataMutation] = useMutation(saveMasterdata)
   const [editMasterdataMutation] = useMutation(updateMasterdata)
@@ -140,10 +150,23 @@ const Provider: FC = props => {
   }, [dataSpecificationNames])
 
   const valuesSearchBadges = useMemo(() => {
-    if (data !== undefined) return data?.searchMasterdata
+    if (data !== undefined) {
+      setLengthAllItems(data?.searchMasterdata?.pagination.total)
+
+      return data?.searchMasterdata?.data
+    }
 
     return []
   }, [data])
+
+  useMemo(() => {
+    searchMasterdataLazy({
+      variables: {
+        page: paginations.currentPage,
+        pageSize: paginations.tableLength,
+      },
+    })
+  }, [paginations])
 
   const listBadgesEdit = useMemo(() => {
     return valuesSearchBadges.map(
@@ -182,6 +205,10 @@ const Provider: FC = props => {
 
   function handleToggleOperator(operador: string) {
     setConditions({ ...conditions, ...{ operator: operador } })
+  }
+
+  function setPaginationFunction(pagination: []) {
+    setPagination({ ...paginations, ...pagination })
   }
 
   async function getUrl() {
@@ -424,6 +451,9 @@ const Provider: FC = props => {
         setShowImage,
         clearValue,
         save,
+        paginations,
+        setPaginationFunction,
+        lengthAllItems,
       }}
     >
       {props.children}

@@ -1,4 +1,4 @@
-import type { FC } from 'react'
+import type { FC, SyntheticEvent } from 'react'
 import React, { useContext } from 'react'
 import { useIntl } from 'react-intl'
 import { Table } from 'vtex.styleguide'
@@ -38,6 +38,44 @@ const EditBadges: FC = () => {
     },
   ]
 
+  function handleNextClick() {
+    const newPage = provider.paginations.currentPage + 1
+    const itemFrom = provider.paginations.currentItemTo + 1
+    const itemTo = provider.paginations.tableLength * newPage
+
+    goToPage(newPage, itemFrom, itemTo)
+  }
+
+  function handlePrevClick() {
+    if (provider.paginations.currentPage === 0) return
+    const newPage = provider.paginations.currentPage - 1
+    const itemFrom =
+      provider.paginations.currentItemFrom - provider.paginations.tableLength
+
+    const itemTo = provider.paginations.currentItemFrom - 1
+
+    goToPage(newPage, itemFrom, itemTo)
+  }
+
+  function goToPage(
+    currentPage: number,
+    currentItemFrom: number,
+    currentItemTo: number
+  ) {
+    provider.setPaginationFunction({
+      currentPage,
+      currentItemFrom,
+      currentItemTo,
+    })
+  }
+
+  function handleRowsChange(e: any, value: string) {
+    provider.setPaginationFunction({
+      tableLength: parseInt(value, 10),
+      currentItemTo: parseInt(value, 10),
+    })
+  }
+
   if (provider.modalDelete) return <ModalDelete></ModalDelete>
   if (provider.modalEdit) return <ModalEdit></ModalEdit>
 
@@ -49,6 +87,26 @@ const EditBadges: FC = () => {
           schema={defaultSchema}
           items={provider.listBadgesEdit}
           lineActions={lineActions}
+          pagination={{
+            onNextClick: (e: SyntheticEvent) => {
+              e.preventDefault()
+              handleNextClick()
+            },
+            onPrevClick: (e: SyntheticEvent) => {
+              e.preventDefault()
+              handlePrevClick()
+            },
+            currentItemFrom: provider.paginations.currentItemFrom,
+            currentItemTo: provider.paginations.currentItemTo,
+            onRowsChange: (e: SyntheticEvent, value: string) => {
+              e.preventDefault()
+              handleRowsChange(e, value)
+            },
+            textShowRows: 'Quantidade por página',
+            textOf: 'de',
+            totalItems: provider.lengthAllItems,
+            rowsOptions: [5, 10, 15, 25],
+          }}
         />
       </div>
     </>
