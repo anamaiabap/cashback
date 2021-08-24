@@ -13,9 +13,7 @@ const CSS_HANDLES = [
 ] as const
 
 const BadgesStore: StorefrontFunctionComponent = (props: any) => {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  const { handles } = useCssHandles(CSS_HANDLES)
+  const handles = useCssHandles(CSS_HANDLES)
   const conditionsPropsValues = conditionsPropsFunction(props, handles)
 
   return (

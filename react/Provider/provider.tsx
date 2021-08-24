@@ -35,7 +35,7 @@ const Provider: FC = props => {
   const [file, setFile] = useState({ files: null, result: null })
   const [text, setText] = useState('')
   const [conditions, setConditions] = useState({
-    simpleStatements: [{ subject: '', verb: '', object: '' }],
+    simpleStatements: [],
     operator: 'all',
   })
 
@@ -277,7 +277,6 @@ const Provider: FC = props => {
     })
 
     if (returnDelete) {
-      showToast('')
       showToast(intl.formatMessage(provider.sucessDelete))
       refetch()
       setDeleteId('')
@@ -288,9 +287,14 @@ const Provider: FC = props => {
 
   async function clickEdit(index: number, id: string) {
     setModalEdit(true)
+    setShowAlert(ShowAlertOptions.notShow)
 
-    const statementList = valuesSearchBadges[index].simpleStatements.map(
-      (elementStatement: any) => {
+    const statementList: any = valuesSearchBadges[index].simpleStatements.map(
+      (elementStatement: {
+        subject: string
+        verb: string
+        object: { id: string; name: string; value: string }
+      }) => {
         return {
           subject: elementStatement.subject,
           verb: elementStatement.verb,
@@ -335,7 +339,10 @@ const Provider: FC = props => {
 
       const selectedOption = buttonOptions[button]
 
-      if (selectedOption.type === ButtonOptions.image) {
+      if (
+        selectedOption.type === ButtonOptions.image &&
+        !(typeof file.result === 'string')
+      ) {
         valueSave.content = await getUrl()
       } else {
         valueSave.content = selectedOption.value
@@ -347,7 +354,7 @@ const Provider: FC = props => {
         variables: { id: editId, saveData: valueSave },
       })
 
-      if (returnEdit) {
+      if (returnEdit?.data?.updateMasterdata) {
         refetch()
         showToast(intl.formatMessage(provider.sucessEdit))
         setModalEdit(false)
@@ -360,9 +367,10 @@ const Provider: FC = props => {
 
   function clearValue() {
     setName('')
+    setShowAlert(ShowAlertOptions.notShow)
 
     setHtml('')
-    setButton(buttonOptions.image)
+    setButton(ButtonOptions.image)
     setText('')
     chooseFile('')
 

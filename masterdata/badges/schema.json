@@ -3,10 +3,16 @@
   "title": "Badges",
   "type": "object",
   "properties": {
+    "content": {
+      "type": "string"
+    },
     "name": {
       "type": "string"
     },
     "operator": {
+      "type": "string"
+    },
+    "type": {
       "type": "string"
     },
     "simpleStatements": {
@@ -15,7 +21,19 @@
         "type": "object",
         "properties": {
           "object": {
-            "type": "string"
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": []
           },
           "subject": {
             "type": "string"
@@ -26,13 +44,7 @@
         },
         "required": ["object", "subject", "verb"]
       }
-    },
-    "type": {
-      "type": "string"
-    },
-    "content": {
-      "type": "string"
     }
   },
-  "required": ["name", "operator", "simpleStatements", "type", "content"]
+  "required": ["content", "name", "operator", "type", "simpleStatements"]
 }

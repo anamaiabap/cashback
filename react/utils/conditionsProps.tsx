@@ -5,7 +5,7 @@ import { Image } from 'vtex.store-image'
 
 import searchMasterdata from '../queries/searchMasterdata.gql'
 
-export const conditionsPropsFunction = (props: any, handles: any) => {
+export const conditionsPropsFunction = (props: any, handles: HandlesType) => {
   const { data } = useQuery<BadgesData>(searchMasterdata)
 
   const conditionsProps = useMemo(() => {
@@ -24,19 +24,18 @@ export const conditionsPropsFunction = (props: any, handles: any) => {
 function conditionsPropsValues(
   data: BadgesDataValues,
   props: any,
-  handles: any
+  handles: HandlesType
 ) {
   const values = {
     conditions: conditionsFunction(data?.simpleStatements),
     matchType: data?.operator,
     Then: () => {
-      let classes = handles.badgesImage
+      let classes: string = handles.badgesImage
 
       if (data?.type === 'text') classes = handles.badgesText
       if (data?.type === 'html') classes = handles.badgesHtml
 
       return (
-        // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
         <span className={handles.badgeContainer + classes}>
           {decisionBetweenTextImageHtml(data, props)}
         </span>
@@ -64,24 +63,41 @@ function createMarkup(content: any) {
 }
 
 function conditionsFunction(
-  data: Array<{ subject: string; object: string; verb: string }>
+  data: Array<{
+    subject: any
+    object: { id: string; name: string; value: string }
+    verb: string
+  }>
 ) {
   const value: Array<{
     subject: string
-    arguments: { id: string }
+    arguments: { id?: string; name?: string; value?: string }
     toBe: boolean
   }> = []
 
-  data.forEach((element: { subject: string; object: string; verb: string }) => {
-    const rule = {
-      subject: `${element.subject}`,
-      arguments: {
-        id: element.object,
-      },
-      toBe: element.verb === '=',
-    }
+  data.forEach(element => {
+    if (element.object.id) {
+      const rule = {
+        subject: `${element.subject}`,
+        arguments: {
+          id: element.object.id,
+        },
+        toBe: element.verb === '=',
+      }
 
-    value.push(rule)
+      value.push(rule)
+    } else {
+      const rule = {
+        subject: `${element.subject}`,
+        arguments: {
+          name: element.object.name,
+          value: element.object.value,
+        },
+        toBe: element.verb === '=',
+      }
+
+      value.push(rule)
+    }
   })
 
   return value

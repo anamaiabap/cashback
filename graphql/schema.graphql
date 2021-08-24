@@ -1,8 +1,14 @@
 input SimpleStatements {
   error: String
-  object: String
+  object: ObjectSimpleStatement
   subject: String
   verb: String
+}
+
+input ObjectSimpleStatement {
+  name: String
+  value: String
+  id: String
 }
 
 input SaveValues {
@@ -15,9 +21,15 @@ input SaveValues {
 
 type SimpleStatementsType {
   error: String
-  object: String
+  object: ObjectSimpleStatementType
   subject: String
   verb: String
+}
+
+type ObjectSimpleStatementType {
+  name: String
+  value: String
+  id: String
 }
 
 type SearchValues {

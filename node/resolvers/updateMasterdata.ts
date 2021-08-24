@@ -2,7 +2,7 @@ import { validation } from '../utils/validation'
 
 export async function updateMasterdata(
   _: unknown,
-  { idBadges, saveValues }: { idBadges: string; saveValues: SaveArray },
+  { idBadges, saveValues }: { idBadges: string; saveValues: UpdateValues },
   ctx: Context
 ) {
   validation(saveValues, true, idBadges)
