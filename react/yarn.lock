@@ -1907,9 +1907,9 @@ validate-npm-package-license@^3.0.1:
   version "2.2.0"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.condition-layout@2.2.0/public/@types/vtex.condition-layout#fc6beed8234f062f3426f7be574312ade2a68d80"
 
-"vtex.css-handles@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.css-handles@0.4.2/public/@types/vtex.css-handles":
-  version "0.4.2"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.css-handles@0.4.2/public/@types/vtex.css-handles#62ee61d1bb9efdc919e5cf4bb44fabcf9050d255"
+"vtex.css-handles@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.css-handles@1.x/public/@types/vtex.css-handles":
+  version "1.0.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.css-handles@1.x/public/@types/vtex.css-handles#336b23ef3a9bcb2b809529ba736783acd405d081"
 
 "vtex.file-manager-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.file-manager-graphql@0.3.0/public/@types/vtex.file-manager-graphql":
   version "0.3.0"

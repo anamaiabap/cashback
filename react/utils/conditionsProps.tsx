@@ -5,7 +5,11 @@ import { Image } from 'vtex.store-image'
 
 import searchMasterdata from '../queries/searchMasterdata.gql'
 
-export const conditionsPropsFunction = (props: any, handles: HandlesType) => {
+export const conditionsPropsFunction = (
+  props: any,
+  handles: HandlesType,
+  withModifiers: any
+) => {
   const { data } = useQuery<BadgesData>(searchMasterdata)
 
   const conditionsProps = useMemo(() => {
@@ -15,7 +19,7 @@ export const conditionsPropsFunction = (props: any, handles: HandlesType) => {
   }, [data])
 
   const conditionsMap = conditionsProps.map((element: BadgesDataValues) => {
-    return conditionsPropsValues(element, props, handles)
+    return conditionsPropsValues(element, props, handles, withModifiers)
   })
 
   return conditionsMap
@@ -24,19 +28,19 @@ export const conditionsPropsFunction = (props: any, handles: HandlesType) => {
 function conditionsPropsValues(
   data: BadgesDataValues,
   props: any,
-  handles: HandlesType
+  handles: HandlesType,
+  withModifiers: any
 ) {
   const values = {
     conditions: conditionsFunction(data?.simpleStatements),
     matchType: data?.operator,
     Then: () => {
-      let classes: string = handles.badgesImage
+      const classes = withModifiers('badges', data?.type)
 
-      if (data?.type === 'text') classes = handles.badgesText
-      if (data?.type === 'html') classes = handles.badgesHtml
+      const allClasses = `${handles.badgeContainer} ${classes}`
 
       return (
-        <span className={handles.badgeContainer + classes}>
+        <span className={allClasses}>
           {decisionBetweenTextImageHtml(data, props)}
         </span>
       )

@@ -4,17 +4,16 @@ import { useCssHandles } from 'vtex.css-handles'
 
 import { conditionsPropsFunction } from './utils/conditionsProps'
 
-const CSS_HANDLES = [
-  'allBadgesContainer',
-  'badgeContainer',
-  'badgesText',
-  'badgesHtml',
-  'badgesImage',
-] as const
+const CSS_HANDLES = ['allBadgesContainer', 'badgeContainer', 'badges'] as const
 
 const BadgesStore: StorefrontFunctionComponent = (props: any) => {
-  const handles = useCssHandles(CSS_HANDLES)
-  const conditionsPropsValues = conditionsPropsFunction(props, handles)
+  const { handles, withModifiers } = useCssHandles(CSS_HANDLES)
+
+  const conditionsPropsValues = conditionsPropsFunction(
+    props,
+    handles,
+    withModifiers
+  )
 
   return (
     <div className={handles.allBadgesContainer}>

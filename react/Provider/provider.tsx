@@ -235,8 +235,11 @@ const Provider: FC = props => {
 
       const selectedOption = buttonOptions[button]
 
-      if (selectedOption.type === 'image') valueSave.content = await getUrl()
-      else valueSave.content = selectedOption.value
+      if (selectedOption.type === ButtonOptions.image) {
+        valueSave.content = await getUrl()
+      } else {
+        valueSave.content = selectedOption.value
+      }
 
       valueSave.type = selectedOption.type
 
