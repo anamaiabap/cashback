@@ -21,3 +21,9 @@ export const htmlButtonOption: ButtonOption = {
       ? 'Preencha o campo "Insira o HTML da badge"'
       : '',
 }
+
+export const enum ButtonOptions {
+  image = 'image',
+  text = 'text',
+  html = 'html',
+}

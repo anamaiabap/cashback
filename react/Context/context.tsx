@@ -1,4 +1,3 @@
-import type { SetStateAction } from 'react'
 import React from 'react'
 
 import { ShowAlertOptions } from '../utils/showAlertOptions'
@@ -14,7 +13,6 @@ interface ContextType {
   file: any
   text: string
   setText: (text: string) => void
-  save: () => void
   conditions: {
     simpleStatements: Array<{
       subject: string
@@ -34,6 +32,30 @@ interface ContextType {
   nameCollections: Name[] | undefined
   nameCategory: Name[] | undefined
   nameSpecification: Name[] | undefined
+  setConditions: (conditions: {
+    simpleStatements: any
+    operator: string
+  }) => void
+  validateIfAllFieldsIsComplete: () => boolean
+  valuesSearchBadges: BadgesDataValues[]
+  listBadgesEdit: Array<{
+    id: string
+    name: string
+    type: string
+    index: number
+  }>
+  deleteBadges: () => void
+  modalDelete: boolean
+  setModalDelete: (modalDelete: boolean) => void
+  clickDelete: (id: string) => void
+  editBadges: () => void
+  clickEdit: (index: number, id: string) => void
+  setModalEdit: (modalEdit: boolean) => void
+  modalEdit: boolean
+  showImage: boolean
+  setShowImage: (showImage: boolean) => void
+  clearValue: () => void
+  save: () => void
 }
 const Context = React.createContext<ContextType>({
   button: 'image',
@@ -46,7 +68,6 @@ const Context = React.createContext<ContextType>({
   file: '',
   text: '',
   setText: () => {},
-  save: () => {},
   conditions: { simpleStatements: [], operator: '' },
   setConditionsFunction: () => {},
   handleToggleOperator: () => {},
@@ -59,6 +80,22 @@ const Context = React.createContext<ContextType>({
   nameCollections: [{ label: '', value: '' }],
   nameCategory: [{ label: '', value: '' }],
   nameSpecification: [{ label: '', value: '' }],
+  setConditions: () => {},
+  validateIfAllFieldsIsComplete: () => false,
+  valuesSearchBadges: [],
+  listBadgesEdit: [],
+  deleteBadges: () => {},
+  modalDelete: false,
+  setModalDelete: () => {},
+  clickDelete: () => {},
+  editBadges: () => {},
+  clickEdit: () => {},
+  setModalEdit: () => {},
+  modalEdit: false,
+  showImage: false,
+  setShowImage: () => {},
+  clearValue: () => {},
+  save: () => {},
 })
 
 export default Context

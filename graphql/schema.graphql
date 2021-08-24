@@ -26,6 +26,7 @@ type SearchValues {
   name: String
   simpleStatements: [SimpleStatementsType]
   operator: String
+  id: String
 }
 
 type ReturnValueSave {
@@ -56,4 +57,6 @@ type Query {
 
 type Mutation {
   saveMasterdata(saveData: SaveValues): ReturnValueSave
+  updateMasterdata(idBadges: String, saveValues: SaveValues): Boolean
+  deleteMasterdata(id: String): Boolean
 }

@@ -57,6 +57,10 @@ export const provider = defineMessages({
   errorText: { id: 'badges.provider.error.text' },
   errorHtml: { id: 'badges.provider.error.html' },
   errorSimpleStatement: { id: 'badges.provider.error.simple.statement' },
+  sucessEdit: { id: 'badges.provider.sucess.edit' },
+  errorEdit: { id: 'badges.provider.error.edit' },
+  sucessDelete: { id: 'badges.provider.sucess.delete' },
+  errorDelete: { id: 'badges.provider.error.delete' },
 })
 
 export const options = defineMessages({
@@ -74,4 +78,37 @@ export const badgessArea = defineMessages({
   title: { id: 'badges.badges.area.title' },
   labelTab1: { id: 'badges.badges.area.tab.1.label' },
   labelTab2: { id: 'badges.badges.area.tab.2.label' },
+})
+
+export const commonModal = defineMessages({
+  save: {
+    id: 'badges.modal.save',
+  },
+  cancel: {
+    id: 'badges.modal.cancel',
+  },
+  delete: {
+    id: 'badges.modal.delete',
+  },
+  edit: {
+    id: 'badges.modal.edit',
+  },
+})
+
+export const modalDelete = defineMessages({
+  deleteText: {
+    id: 'badges.modal.delete.text',
+  },
+  deleteQuestion: {
+    id: 'badges.modal.delete.question',
+  },
+})
+
+export const modalEdit = defineMessages({
+  editText: {
+    id: 'badges.modal.edit.text',
+  },
+  changeImage: {
+    id: 'badges.modal.edit.change.image',
+  },
 })
