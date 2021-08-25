@@ -27,6 +27,8 @@
   "badges.html.label": "Insira o HTML da badge",
   "badges.edit.name": "Nome",
   "badges.edit.style": "Tipo da Badge",
+  "badges.edit.text.show.rows": "Quantidade por página",
+  "badges.edit.text.of": "de",
   "badges.provider.error.name": "Preencha o campo 'Nome da badge'",
   "badges.provider.error.image": "Adicione uma imagem no campo 'Tipo de badge'",
   "badges.provider.error.text": "Preencha o campo 'Insira o texto da badge'",

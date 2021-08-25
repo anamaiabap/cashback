@@ -1,19 +1,26 @@
-query searchMasterdata {
-  searchMasterdata {
-    id
-    type
-    content
-    name
-    operator
-    simpleStatements {
-      error
-      object {
-        name
-        value
-        id
+query searchMasterdata($page: Int, $pageSize: Int) {
+  searchMasterdata(page: $page, pageSize: $pageSize) {
+    data {
+      id
+      type
+      content
+      name
+      operator
+      simpleStatements {
+        error
+        object {
+          name
+          value
+          id
+        }
+        subject
+        verb
       }
-      subject
-      verb
+    }
+    pagination {
+      page
+      pageSize
+      total
     }
   }
 }

@@ -15,6 +15,15 @@ interface BadgesDataValues {
   id: string
 }
 
+interface PaginationValues {
+  page: number
+  pageSize: number
+  total: number
+}
+
 interface BadgesData {
-  searchMasterdata: BadgesDataValues[]
+  searchMasterdata: {
+    data: BadgesDataValues[]
+    pagination: PaginationValues
+  }
 }

@@ -32,13 +32,24 @@ type ObjectSimpleStatementType {
   id: String
 }
 
-type SearchValues {
+type SchemaValues {
   type: String
   content: String
   name: String
   simpleStatements: [SimpleStatementsType]
   operator: String
   id: String
+}
+
+type PaginationValues {
+  page: Int
+  pageSize: Int
+  total: Int
+}
+
+type SearchValues {
+  data: [SchemaValues]
+  pagination: PaginationValues
 }
 
 type ReturnValueSave {
@@ -57,7 +68,7 @@ type ObjectName {
 }
 
 type Query {
-  searchMasterdata: [SearchValues]
+  searchMasterdata(page: Int, pageSize: Int): SearchValues
   getProductsIds: [String]
   getProductsNames: [ObjectNameId]
   getSkuNames: [ObjectNameId]
