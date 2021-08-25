@@ -1,5 +1,5 @@
 const PAGE_DEFAULT = 1
-const PAGE_SIZE_DEFAULT = 15
+const PAGE_SIZE_DEFAULT = 5
 const WHERE_DEFAULT = ''
 
 export async function searchMasterdata(
