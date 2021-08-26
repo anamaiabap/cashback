@@ -22,11 +22,9 @@ export const conditionsPropsFunction = (
     where += `OR (simpleStatements.subject=productClusters AND simpleStatements.object.id=${element.id}) `
   })
 
-  product.specificationGroups[1].specifications.forEach(
-    (element: { name: string; values: string[] }) => {
-      where += `OR (simpleStatements.subject=specificationProperties AND simpleStatements.object.name=${element.name} AND simpleStatements.object.value=${element.values[0]} ) `
-    }
-  )
+  product.properties.forEach((element: { name: string; values: string[] }) => {
+    where += `OR (simpleStatements.subject=specificationProperties AND simpleStatements.object.name=${element.name} AND simpleStatements.object.value=${element.values[0]}) `
+  })
 
   const { data } = useQuery<BadgesData>(searchMasterdata, {
     variables: { where },
