@@ -68,7 +68,7 @@ type ObjectName {
 }
 
 type Query {
-  searchMasterdata(page: Int, pageSize: Int): SearchValues
+  searchMasterdata(page: Int, pageSize: Int, where: String): SearchValues
   getProductsIds: [String]
   getProductsNames: [ObjectNameId]
   getSkuNames: [ObjectNameId]

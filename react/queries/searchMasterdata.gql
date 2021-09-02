@@ -1,5 +1,5 @@
-query searchMasterdata($page: Int, $pageSize: Int) {
-  searchMasterdata(page: $page, pageSize: $pageSize) {
+query searchMasterdata($page: Int, $pageSize: Int, $where: String) {
+  searchMasterdata(page: $page, pageSize: $pageSize, where: $where) {
     data {
       id
       type

@@ -10,7 +10,25 @@ export const conditionsPropsFunction = (
   handles: HandlesType,
   withModifiers: any
 ) => {
-  const { data } = useQuery<BadgesData>(searchMasterdata)
+  const { product } = props.productQuery
+
+  let where =
+    `(simpleStatements.subject=brandId AND simpleStatements.object.id=${product.brandId}) OR ` +
+    `(simpleStatements.subject=categoryId AND simpleStatements.object.id=${product.categoryId}) OR ` +
+    `(simpleStatements.subject=selectedItemId AND simpleStatements.object.id=${props.query.skuId}) OR ` +
+    `(simpleStatements.subject=productId AND simpleStatements.object.id=${product.productId}) `
+
+  product.productClusters.forEach((element: { id: string }) => {
+    where += `OR (simpleStatements.subject=productClusters AND simpleStatements.object.id=${element.id}) `
+  })
+
+  product.properties.forEach((element: { name: string; values: string[] }) => {
+    where += `OR (simpleStatements.subject=specificationProperties AND simpleStatements.object.name=${element.name} AND simpleStatements.object.value=${element.values[0]}) `
+  })
+
+  const { data } = useQuery<BadgesData>(searchMasterdata, {
+    variables: { where },
+  })
 
   const conditionsProps = useMemo(() => {
     if (data !== undefined) return data?.searchMasterdata?.data
@@ -80,7 +98,7 @@ function conditionsFunction(
   }> = []
 
   data.forEach(element => {
-    if (element.object.id) {
+    if (element.object.id !== null && element.object.id !== 'null') {
       const rule = {
         subject: `${element.subject}`,
         arguments: {
