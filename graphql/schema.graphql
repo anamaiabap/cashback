@@ -69,6 +69,7 @@ type ObjectName {
 
 type Query {
   searchMasterdata(page: Int, pageSize: Int, where: String): SearchValues
+    @cacheControl(maxAge: MEDIUM, scope: PUBLIC)
   getProductsIds: [String]
   getProductsNames: [ObjectNameId]
   getSkuNames: [ObjectNameId]
