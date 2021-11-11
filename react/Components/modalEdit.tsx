@@ -1,30 +1,18 @@
 import type { FC, SyntheticEvent } from 'react'
-import React, { useCallback, useContext } from 'react'
+import React, { useContext } from 'react'
 import { Button, Modal } from 'vtex.styleguide'
 import { useIntl } from 'react-intl'
 
 import AlertArea from './alert'
-import ButtonArea from './button'
 import ConditionsArea from './conditions'
 import DividerArea from './divider'
 import InputArea from './input'
-import HtmlArea from './textarea'
 import ValidationArea from './validations'
 import { commonModal, modalEdit } from '../utils/definedMessages'
-import ImageEdit from './imageEdit'
 import Context from '../Context/context'
-import { ButtonOptions } from '../utils/buttonOptions'
 
 const ModalEdit: FC = () => {
   const provider = useContext(Context)
-
-  const getContent = useCallback(button => {
-    if (button === ButtonOptions.image) return <ImageEdit />
-
-    if (button === ButtonOptions.text) return <InputArea name={'text'} />
-
-    return <HtmlArea />
-  }, [])
 
   const intl = useIntl()
 
@@ -56,7 +44,7 @@ const ModalEdit: FC = () => {
               variation="primary"
               onClick={(e: SyntheticEvent) => {
                 e.preventDefault
-                provider.editBadges()
+                provider.editCashback()
               }}
             >
               {intl.formatMessage(commonModal.edit)}
@@ -71,8 +59,7 @@ const ModalEdit: FC = () => {
     >
       <DividerArea />
       <InputArea name={'name'} />
-      <ButtonArea />
-      {getContent(provider.button)}
+      <InputArea name={'cashback'} />
       <ConditionsArea />
       <ValidationArea />
       <AlertArea />

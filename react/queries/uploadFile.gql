@@ -1,5 +1,0 @@
-mutation UploadFile($file: Upload!) {
-  uploadFile(file: $file) {
-    fileUrl
-  }
-}

@@ -1,32 +1,24 @@
-export function validation(
-  saveValues: SaveArray,
-  edit: boolean,
-  idBadges?: string
-) {
-  const { name, content, operator, simpleStatements, type } = saveValues
+export function validation(saveValues: SaveArray, edit: boolean, id?: string) {
+  const { name, cashback, value, rule } = saveValues
 
   if (name.length === 0) {
     throw new Error('It is necessary to send a name')
   }
 
-  if (content.length === 0) {
-    throw new Error('It is necessary to send a content')
+  if (cashback.length === 0) {
+    throw new Error('It is necessary to send a cashback')
   }
 
-  if (operator.length === 0) {
-    throw new Error('It is necessary to send a operator')
+  if (value.length === 0) {
+    throw new Error('It is necessary to send a value')
   }
 
-  if (simpleStatements.length === 0) {
-    throw new Error('It is necessary to send a simpleStatements')
-  }
-
-  if (type.length === 0) {
-    throw new Error('It is necessary to send a type')
+  if (rule.length === 0) {
+    throw new Error('It is necessary to send a rule')
   }
 
   if (edit) {
-    if (!idBadges) {
+    if (!id) {
       throw new Error('It is necessary to send a ID')
     }
   }

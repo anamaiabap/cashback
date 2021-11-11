@@ -1,26 +1,9 @@
-query searchMasterdata($page: Int, $pageSize: Int, $where: String) {
-  searchMasterdata(page: $page, pageSize: $pageSize, where: $where) {
-    data {
-      id
-      type
-      content
-      name
-      operator
-      simpleStatements {
-        error
-        object {
-          name
-          value
-          id
-        }
-        subject
-        verb
-      }
-    }
-    pagination {
-      page
-      pageSize
-      total
-    }
+query searchMasterdata {
+  searchMasterdata {
+    id
+    cashback
+    value
+    rule
+    name
   }
 }

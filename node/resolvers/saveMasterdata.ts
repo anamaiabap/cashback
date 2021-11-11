@@ -7,11 +7,12 @@ export async function saveMasterdata(
 ) {
   validation(saveValues.saveData, false)
 
-  return ctx.clients.badges.save({
-    content: saveValues.saveData.content,
-    name: saveValues.saveData.name,
-    operator: saveValues.saveData.operator,
-    simpleStatements: saveValues.saveData.simpleStatements,
-    type: saveValues.saveData.type,
-  })
+  const {
+    clients: { cashback },
+    vtex: { workspace },
+  } = ctx
+
+  const value = await cashback.createCashback(workspace, saveValues)
+
+  return value
 }

@@ -3,9 +3,8 @@ interface SaveValues {
 }
 
 interface SaveArray {
-  type: string
-  content: string
+  rule: string
   name: string
-  simpleStatements: []
-  operator: string
+  cashback: string
+  value: string
 }

@@ -1,7 +1,6 @@
 interface UpdateValues {
-  type: string
-  content: string
+  rule: string
   name: string
-  simpleStatements: []
-  operator: string
+  cashback: string
+  value: string
 }

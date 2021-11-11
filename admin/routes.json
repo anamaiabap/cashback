@@ -1,6 +1,6 @@
 {
-  "admin.app.badges": {
-    "component": "BadgesArea",
-    "path": "/admin/app/badges"
+  "admin.app.cashback": {
+    "component": "CashbackArea",
+    "path": "/admin/app/cashback"
   }
 }

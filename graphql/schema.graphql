@@ -1,55 +1,16 @@
-input SimpleStatements {
-  error: String
-  object: ObjectSimpleStatement
-  subject: String
-  verb: String
-}
-
-input ObjectSimpleStatement {
-  name: String
-  value: String
-  id: String
-}
-
 input SaveValues {
-  type: String
-  content: String
+  rule: String
   name: String
-  simpleStatements: [SimpleStatements]
-  operator: String
-}
-
-type SimpleStatementsType {
-  error: String
-  object: ObjectSimpleStatementType
-  subject: String
-  verb: String
-}
-
-type ObjectSimpleStatementType {
-  name: String
+  cashback: String
   value: String
-  id: String
 }
 
 type SchemaValues {
-  type: String
-  content: String
+  value: String
+  rule: String
   name: String
-  simpleStatements: [SimpleStatementsType]
-  operator: String
+  cashback: String
   id: String
-}
-
-type PaginationValues {
-  page: Int
-  pageSize: Int
-  total: Int
-}
-
-type SearchValues {
-  data: [SchemaValues]
-  pagination: PaginationValues
 }
 
 type ReturnValueSave {
@@ -58,29 +19,12 @@ type ReturnValueSave {
   Href: String
 }
 
-type ObjectNameId {
-  id: String
-  name: String
-}
-
-type ObjectName {
-  name: String
-}
-
 type Query {
-  searchMasterdata(page: Int, pageSize: Int, where: String): SearchValues
-    @cacheControl(maxAge: MEDIUM, scope: PUBLIC)
-  getProductsIds: [String]
-  getProductsNames: [ObjectNameId]
-  getSkuNames: [ObjectNameId]
-  getBrandsNames: [ObjectNameId]
-  getCollectionsNames: [ObjectNameId]
-  getCategoryName: [ObjectNameId]
-  getSpecificationName: [ObjectName]
+  searchMasterdata: [SchemaValues]
 }
 
 type Mutation {
   saveMasterdata(saveData: SaveValues): ReturnValueSave
-  updateMasterdata(idBadges: String, saveValues: SaveValues): Boolean
+  updateMasterdata(id: String, saveValues: SaveValues): Boolean
   deleteMasterdata(id: String): Boolean
 }

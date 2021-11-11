@@ -1,6 +1,0 @@
-query getSkusNames {
-  getSkuNames {
-    id
-    name
-  }
-}

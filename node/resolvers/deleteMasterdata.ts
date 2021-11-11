@@ -3,11 +3,12 @@ export async function deleteMasterdata(
   idBadge: { id: string },
   ctx: Context
 ) {
-  return ctx.clients.badges
-    .delete(idBadge.id)
-    .then(() => true)
-    .catch((e: any) => {
-      ctx.vtex.logger.error(`Error to delete Bagde through MasterdataV2 ${e}`)
-      false
-    })
+  const {
+    clients: { cashback },
+    vtex: { workspace },
+  } = ctx
+
+  const value = await cashback.deleteCashback(workspace, idBadge.id)
+
+  return value
 }

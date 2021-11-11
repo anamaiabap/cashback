@@ -1,29 +1,7 @@
-interface BadgesDataValues {
-  type: string
-  content: string
+interface DataValues {
   name: string
-  simpleStatements: Array<{
-    subject: string
-    object: {
-      name: string
-      value: string
-      id: string
-    }
-    verb: string
-  }>
-  operator: string
+  cashback: string
+  value: string
+  rule: string
   id: string
-}
-
-interface PaginationValues {
-  page: number
-  pageSize: number
-  total: number
-}
-
-interface BadgesData {
-  searchMasterdata: {
-    data: BadgesDataValues[]
-    pagination: PaginationValues
-  }
 }

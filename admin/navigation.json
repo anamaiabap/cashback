@@ -1,6 +1,6 @@
 {
   "section": "other",
-  "titleId": "badges.navigation.label",
+  "titleId": "cashback.navigation.label",
   "icon": "extensions-ic",
-  "path": "/admin/badges"
+  "path": "/admin/cashback"
 }

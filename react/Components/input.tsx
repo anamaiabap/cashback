@@ -6,7 +6,7 @@ import { Input } from 'vtex.styleguide'
 import Context from '../Context/context'
 import { input } from '../utils/definedMessages'
 
-type InputType = 'name' | 'text'
+type InputType = 'name' | 'cashback'
 
 interface Props {
   name: InputType
@@ -20,8 +20,8 @@ const InputArea: FC<Props> = ({ name }: Props) => {
     provider.setName(event.target.value ?? '')
   }
 
-  const updateValueText = (event: React.ChangeEvent<HTMLInputElement>) => {
-    provider.setText(event.target.value ?? '')
+  const updateValueCashback = (event: React.ChangeEvent<HTMLInputElement>) => {
+    provider.setCashback(event.target.value ?? '')
   }
 
   if (name === 'name') {
@@ -41,11 +41,12 @@ const InputArea: FC<Props> = ({ name }: Props) => {
     <div className="mt5">
       <Input
         name={'text'}
-        placeholder={intl.formatMessage(input.textPlaceholder)}
+        placeholder={intl.formatMessage(input.cashbackPlaceholder)}
         size="large"
-        label={intl.formatMessage(input.textLabel)}
-        value={provider.text}
-        onChange={updateValueText}
+        label={intl.formatMessage(input.cashbackLabel)}
+        value={provider.cashback}
+        type="number"
+        onChange={updateValueCashback}
       />
     </div>
   )

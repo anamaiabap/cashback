@@ -1,6 +1,0 @@
-query getCategoryName {
-  getCategoryName {
-    id
-    name
-  }
-}

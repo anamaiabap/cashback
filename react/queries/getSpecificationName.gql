@@ -1,5 +1,0 @@
-query getSpecificationName {
-  getSpecificationName {
-    name
-  }
-}

@@ -38,7 +38,7 @@ const ModalDelete: FC = () => {
               variation="primary"
               onClick={(e: SyntheticEvent) => {
                 e.preventDefault()
-                provider.deleteBadges()
+                provider.deleteCashback()
               }}
             >
               {intl.formatMessage(commonModal.delete)}

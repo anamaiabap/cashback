@@ -2,51 +2,26 @@
 import type { FC } from 'react'
 import { useIntl } from 'react-intl'
 import React, { useMemo, useState, useContext } from 'react'
-import { useLazyQuery, useMutation, useQuery } from 'react-apollo'
+import { useMutation, useQuery } from 'react-apollo'
 import { ToastContext } from 'vtex.styleguide'
 
-import uploadFile from '../queries/uploadFile.gql'
 import saveMasterdata from '../queries/saveMasterdata.gql'
-import getProductsName from '../queries/getProductsName.gql'
-import getSkusNames from '../queries/getSkusNames.gql'
-import getBrandsNames from '../queries/getBrandsNames.gql'
-import getCollectionsNames from '../queries/getCollectionsNames.gql'
-import getCategoryName from '../queries/getCategoryName.gql'
-import getSpecificationName from '../queries/getSpecificationName.gql'
 import searchMasterdata from '../queries/searchMasterdata.gql'
 import deleteMasterdata from '../queries/deleteMasterdata.gql'
 import updateMasterdata from '../queries/updateMasterdata.gql'
 import Context from '../Context/context'
 import { provider } from '../utils/definedMessages'
-import {
-  htmlButtonOption,
-  imageButtonOption,
-  textButtonOption,
-  ButtonOptions,
-} from '../utils/buttonOptions'
 import { ShowAlertOptions } from '../utils/showAlertOptions'
 
 const Provider: FC = props => {
   const intl = useIntl()
   const { showToast } = useContext(ToastContext)
-  const [button, setButton] = useState(ButtonOptions.image)
   const [name, setName] = useState('')
-  const [html, setHtml] = useState('')
-  const [file, setFile] = useState({ files: null, result: null })
-  const [text, setText] = useState('')
-  const [conditions, setConditions] = useState({
-    simpleStatements: [],
-    operator: 'all',
-  })
+  const [cashback, setCashback] = useState('')
 
-  const [paginations, setPagination] = useState<Pagination>({
-    currentPage: 1,
-    currentItemFrom: 1,
-    currentItemTo: 5,
-    tableLength: 5,
-  })
+  const [rule, setRule] = useState('')
+  const [value, setValue] = useState('')
 
-  const [sizeOfAllBadgesIndexed, setSizeOfAllBadgesIndexed] = useState(0)
   const [showAlert, setShowAlert] = useState(ShowAlertOptions.notShow)
   const [textValidate, setTextValidate] = useState<string[]>([''])
   const [modalDelete, setModalDelete] = useState(false)
@@ -55,172 +30,33 @@ const Provider: FC = props => {
 
   const [deleteId, setDeleteId] = useState<string>()
   const [editId, setEditId] = useState<string>()
-  const [searchMasterdataLazy, { data, refetch }] =
-    useLazyQuery<BadgesData>(searchMasterdata)
+  const { data, refetch } = useQuery(searchMasterdata)
 
   const [deleteMasterdataMutation] = useMutation(deleteMasterdata)
   const [saveMasterdataMutation] = useMutation(saveMasterdata)
   const [editMasterdataMutation] = useMutation(updateMasterdata)
-  const [saveMutation] = useMutation(uploadFile)
 
-  const { data: dataProductsNames } = useQuery(getProductsName)
-  const { data: dataSkuNames } = useQuery(getSkusNames)
-  const { data: dataBrandsNames } = useQuery(getBrandsNames)
-  const { data: dataCollectionsNames } = useQuery(getCollectionsNames)
-  const { data: dataCategoryNames } = useQuery(getCategoryName)
-  const { data: dataSpecificationNames } = useQuery(getSpecificationName)
-
-  const nameProducts = useMemo(() => {
-    if (dataProductsNames === undefined) return
-
-    const namesAndIds: Array<{ label: string; value: string }> = []
-
-    dataProductsNames.getProductsNames.forEach(
-      (element: { name: string; id: string }) => {
-        namesAndIds.push({ label: element.name, value: element.id })
-      }
-    )
-
-    return namesAndIds
-  }, [dataProductsNames])
-
-  const nameSku = useMemo(() => {
-    if (dataSkuNames === undefined) return
-    const namesAndIds: Array<{ label: string; value: string }> = []
-
-    dataSkuNames.getSkuNames.forEach(
-      (element: { name: string; id: string }) => {
-        namesAndIds.push({ label: element.name, value: element.id })
-      }
-    )
-
-    return namesAndIds
-  }, [dataSkuNames])
-
-  const nameBrands = useMemo(() => {
-    if (dataBrandsNames === undefined) return
-    const namesAndIds: Array<{ label: string; value: string }> = []
-
-    dataBrandsNames.getBrandsNames.forEach(
-      (element: { name: string; id: string }) => {
-        namesAndIds.push({ label: element.name, value: element.id })
-      }
-    )
-
-    return namesAndIds
-  }, [dataBrandsNames])
-
-  const nameCollections = useMemo(() => {
-    if (dataCollectionsNames === undefined) return
-    const namesAndIds: Array<{ label: string; value: string }> = []
-
-    dataCollectionsNames.getCollectionsNames.forEach(
-      (element: { name: string; id: string }) => {
-        namesAndIds.push({ label: element.name, value: element.id })
-      }
-    )
-
-    return namesAndIds
-  }, [dataCollectionsNames])
-
-  const nameCategory = useMemo(() => {
-    if (dataCategoryNames === undefined) return
-    const namesAndIds: Array<{ label: string; value: string }> = []
-
-    dataCategoryNames.getCategoryName.forEach(
-      (element: { name: string; id: string }) => {
-        namesAndIds.push({ label: element.name, value: element.id })
-      }
-    )
-
-    return namesAndIds
-  }, [dataCategoryNames])
-
-  const nameSpecification = useMemo(() => {
-    if (dataSpecificationNames === undefined) return
-    const namesAndIds: Array<{ label: string; value: string }> = []
-
-    dataSpecificationNames.getSpecificationName.forEach(
-      (element: { name: string }) => {
-        namesAndIds.push({ label: element.name, value: element.name })
-      }
-    )
-
-    return namesAndIds
-  }, [dataSpecificationNames])
-
-  const valuesSearchBadges = useMemo(() => {
+  const valuesSearch = useMemo(() => {
     if (data !== undefined) {
-      setSizeOfAllBadgesIndexed(data?.searchMasterdata?.pagination.total)
-
-      return data?.searchMasterdata?.data
+      return data?.searchMasterdata
     }
 
     return []
   }, [data])
 
-  useMemo(() => {
-    searchMasterdataLazy({
-      variables: {
-        page: paginations.currentPage,
-        pageSize: paginations.tableLength,
-      },
-    })
-  }, [paginations])
-
-  const listBadgesEdit = useMemo(() => {
-    return valuesSearchBadges.map(
-      (element: BadgesDataValues, indexOf: number) => {
-        return {
-          id: element.id,
-          name: element.name,
-          type: element.type,
-          index: indexOf,
-        }
+  const listEdit = useMemo(() => {
+    return valuesSearch.map((element: DataValues, indexOf: number) => {
+      return {
+        id: element.id,
+        name: element.name,
+        cashback: element.cashback,
+        index: indexOf,
       }
-    )
-  }, [valuesSearchBadges])
-
-  const buttonOptions: {
-    [key in ButtonOptions]: any
-  } = useMemo(() => {
-    return {
-      image: { ...imageButtonOption, value: file.result },
-      text: { ...textButtonOption, value: text },
-      html: { ...htmlButtonOption, value: html },
-    }
-  }, [file, text, html])
+    })
+  }, [valuesSearch])
 
   const handleCloseAlert = () => {
     setShowAlert(ShowAlertOptions.notShow)
-  }
-
-  function chooseFile(files: any) {
-    setFile({ ...file, ...{ result: files } })
-  }
-
-  function setConditionsFunction(statements: []) {
-    setConditions({ ...conditions, ...{ simpleStatements: statements } })
-  }
-
-  function handleToggleOperator(operador: string) {
-    setConditions({ ...conditions, ...{ operator: operador } })
-  }
-
-  function setPaginationFunction(pagination: []) {
-    setPagination({ ...paginations, ...pagination })
-  }
-
-  async function getUrl() {
-    if (file.result !== null) {
-      const url = await saveMutation({
-        variables: { file: file.result?.[0] },
-      })
-
-      if (url != null) return url.data.uploadFile.fileUrl
-    } else {
-      return null
-    }
   }
 
   function validateIfAllFieldsIsComplete() {
@@ -230,14 +66,16 @@ const Provider: FC = props => {
       validation.push(intl.formatMessage(provider.errorName))
     }
 
-    const selectedOption = buttonOptions[button]
+    if (!cashback) {
+      validation.push(intl.formatMessage(provider.errorCashback))
+    }
 
-    const validationResult = selectedOption.validate(selectedOption.value)
+    if (!rule) {
+      validation.push(intl.formatMessage(provider.errorRule))
+    }
 
-    if (validationResult) validation.push(validationResult)
-
-    if (conditions.simpleStatements.length === 0) {
-      validation.push(intl.formatMessage(provider.errorSimpleStatement))
+    if (!value) {
+      validation.push(intl.formatMessage(provider.errorValue))
     }
 
     if (validation.length === 0) return true
@@ -257,18 +95,9 @@ const Provider: FC = props => {
       const valueSave: SaveValues = {}
 
       valueSave.name = name
-      valueSave.operator = conditions.operator
-      valueSave.simpleStatements = conditions.simpleStatements
-
-      const selectedOption = buttonOptions[button]
-
-      if (selectedOption.type === ButtonOptions.image) {
-        valueSave.content = await getUrl()
-      } else {
-        valueSave.content = selectedOption.value
-      }
-
-      valueSave.type = selectedOption.type
+      valueSave.rule = rule
+      valueSave.cashback = cashback
+      valueSave.value = value
 
       const returnSaving = await saving(valueSave)
 
@@ -299,7 +128,7 @@ const Provider: FC = props => {
     setDeleteId(id)
   }
 
-  async function deleteBadges() {
+  async function deleteCashback() {
     setModalDelete(false)
 
     const returnDelete = await deleteMasterdataMutation({
@@ -319,43 +148,15 @@ const Provider: FC = props => {
     setModalEdit(true)
     setShowAlert(ShowAlertOptions.notShow)
 
-    const statementList: any = valuesSearchBadges[index].simpleStatements.map(
-      (elementStatement: {
-        subject: string
-        verb: string
-        object: { id: string; name: string; value: string }
-      }) => {
-        return {
-          subject: elementStatement.subject,
-          verb: elementStatement.verb,
-          object: elementStatement.object || 'null',
-        }
-      }
-    )
+    setName(valuesSearch[index].name)
+    setRule(valuesSearch[index].rule)
+    setCashback(valuesSearch[index].cashback)
+    setValue(valuesSearch[index].value)
 
-    const conditionsValues = {
-      simpleStatements: statementList,
-      operator: valuesSearchBadges[index].operator,
-    }
-
-    setName(valuesSearchBadges[index].name)
-    if (valuesSearchBadges[index].type === ButtonOptions.html) {
-      setHtml(valuesSearchBadges[index].content)
-      setButton(ButtonOptions.html)
-    } else if (valuesSearchBadges[index].type === ButtonOptions.text) {
-      setText(valuesSearchBadges[index].content)
-      setButton(ButtonOptions.text)
-    } else {
-      chooseFile(valuesSearchBadges[index].content)
-      setButton(ButtonOptions.image)
-      setShowImage(true)
-    }
-
-    setConditions(conditionsValues)
     setEditId(id)
   }
 
-  async function editBadges() {
+  async function editCashback() {
     setTextValidate([''])
 
     const validate = validateIfAllFieldsIsComplete()
@@ -364,21 +165,9 @@ const Provider: FC = props => {
       const valueSave: SaveValues = {}
 
       valueSave.name = name
-      valueSave.operator = conditions.operator
-      valueSave.simpleStatements = conditions.simpleStatements
-
-      const selectedOption = buttonOptions[button]
-
-      if (
-        selectedOption.type === ButtonOptions.image &&
-        !(typeof file.result === 'string')
-      ) {
-        valueSave.content = await getUrl()
-      } else {
-        valueSave.content = selectedOption.value
-      }
-
-      valueSave.type = selectedOption.type
+      valueSave.rule = rule
+      valueSave.cashback = cashback
+      valueSave.value = value
 
       const returnEdit = await editMasterdataMutation({
         variables: { id: editId, saveData: valueSave },
@@ -392,6 +181,8 @@ const Provider: FC = props => {
       } else {
         showToast(intl.formatMessage(provider.errorEdit))
       }
+
+      clearValue()
     }
   }
 
@@ -399,51 +190,28 @@ const Provider: FC = props => {
     setName('')
     setShowAlert(ShowAlertOptions.notShow)
 
-    setHtml('')
-    setButton(ButtonOptions.image)
-    setText('')
-    chooseFile('')
-
-    setConditions({
-      simpleStatements: [],
-      operator: '',
-    })
+    setCashback('')
+    setValue('')
+    setRule('')
   }
 
   return (
     <Context.Provider
       value={{
-        button,
-        setButton,
         name,
         setName,
-        html,
-        setHtml,
-        chooseFile,
-        file,
-        text,
-        setText,
-        conditions,
-        setConditionsFunction,
-        handleToggleOperator,
+        cashback,
+        setCashback,
         textValidate,
         showAlert,
         handleCloseAlert,
-        nameProducts,
-        nameSku,
-        nameBrands,
-        nameCollections,
-        nameCategory,
-        nameSpecification,
-        setConditions,
-        validateIfAllFieldsIsComplete,
-        valuesSearchBadges,
-        listBadgesEdit,
-        deleteBadges,
+        valuesSearch,
+        listEdit,
+        deleteCashback,
         modalDelete,
         setModalDelete,
         clickDelete,
-        editBadges,
+        editCashback,
         clickEdit,
         setModalEdit,
         modalEdit,
@@ -451,9 +219,10 @@ const Provider: FC = props => {
         setShowImage,
         clearValue,
         save,
-        paginations,
-        setPaginationFunction,
-        sizeOfAllBadgesIndexed,
+        rule,
+        setRule,
+        value,
+        setValue,
       }}
     >
       {props.children}
