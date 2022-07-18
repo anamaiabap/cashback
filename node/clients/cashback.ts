@@ -14,30 +14,26 @@ export class Cashback extends JanusClient {
     })
   }
 
-  public async getCashback(workspace: string) {
+  public async getCashback(account: string) {
     const value = await this.http.get(
-      `https://${workspace}.vtexcommercestable.com.br/api/dataentities/CA/search?_fields=id,name,rule,cashback,value`
+      `https://${account}.vtexcommercestable.com.br/api/dataentities/CA/search?_fields=id,name,rule,cashback,value`
     )
 
     return value
   }
 
-  public async updateCashback(
-    workspace: string,
-    data: UpdateValues,
-    id: string
-  ) {
+  public async updateCashback(account: string, data: UpdateValues, id: string) {
     await this.http.patch(
-      `https://${workspace}.vtexcommercestable.com.br/api/dataentities/CA/documents/${id}`,
+      `https://${account}.vtexcommercestable.com.br/api/dataentities/CA/documents/${id}`,
       data
     )
 
     return true
   }
 
-  public async createCashback(workspace: string, data: SaveValues) {
+  public async createCashback(account: string, data: SaveValues) {
     const value = await this.http.post(
-      `https://${workspace}.vtexcommercestable.com.br/api/dataentities/CA/documents/`,
+      `https://${account}.vtexcommercestable.com.br/api/dataentities/CA/documents/`,
       data.saveData
     )
 

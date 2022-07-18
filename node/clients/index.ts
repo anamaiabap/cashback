@@ -2,11 +2,21 @@ import type { ClientsConfig } from '@vtex/api'
 import { IOClients, LRUCache } from '@vtex/api'
 
 import { Cashback } from './cashback'
+import { CashbackRoute } from './cashbackRoute'
+import { Orders } from './orders'
 
 // Extend the default IOClients implementation with our own custom clients.
 export class Clients extends IOClients {
   public get cashback() {
     return this.getOrSet('cashback', Cashback)
+  }
+
+  public get orders() {
+    return this.getOrSet('orders', Orders)
+  }
+
+  public get cashbackRoute() {
+    return this.getOrSet('cashback', CashbackRoute)
   }
 }
 

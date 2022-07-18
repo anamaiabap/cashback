@@ -1,10 +1,10 @@
 export async function searchMasterdata(_: unknown, __: unknown, ctx: Context) {
   const {
     clients: { cashback },
-    vtex: { workspace },
+    vtex: { account },
   } = ctx
 
-  const value = await cashback.getCashback(workspace)
+  const value = await cashback.getCashback(account)
 
   return value
 }

@@ -9,10 +9,10 @@ export async function updateMasterdata(
 
   const {
     clients: { cashback },
-    vtex: { workspace },
+    vtex: { account },
   } = ctx
 
-  const value = await cashback.updateCashback(workspace, saveValues, id)
+  const value = await cashback.updateCashback(account, saveValues, id)
 
   return value
 }

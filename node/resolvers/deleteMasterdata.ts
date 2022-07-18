@@ -5,10 +5,10 @@ export async function deleteMasterdata(
 ) {
   const {
     clients: { cashback },
-    vtex: { workspace },
+    vtex: { account },
   } = ctx
 
-  const value = await cashback.deleteCashback(workspace, idBadge.id)
+  const value = await cashback.deleteCashback(account, idBadge.id)
 
   return value
 }

@@ -57,6 +57,48 @@
     },
     {
       "name": "ADMIN_DS"
+    },
+    {
+      "name": "masterdata-entity-read-write",
+      "attrs": {
+        "entity": "CA"
+      }
+    },
+    {
+      "name": "masterdata-entity-read-write",
+      "attrs": {
+        "entity": "CB"
+      }
+    },
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "portal.vtexcommercestable.com.br",
+        "path": "/api/dataentities/CA/*"
+      }
+    },
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "portal.vtexcommercestable.com.br",
+        "path": "/api/dataentities/CB/*"
+      }
+    },
+    {
+      "name": "OMSViewer"
+    },
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "portal.vtexcommercestable.com.br",
+        "path": "/api/oms/pvt/orders/*"
+      }
+    },
+    {
+      "name": "colossus-fire-event"
+    },
+    {
+      "name": "colossus-write-logs"
     }
   ]
 }
